@@ -1,0 +1,1279 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Wealth View</title>
+     <link rel="stylesheet" type="text/css" href="/static/css/reset.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/text.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/grid.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/css/nav.css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" href="/static/css/ie6.css" media="screen" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="/static/css/ie.css" media="screen" /><![endif]-->
+    <!-- BEGIN: load jquery -->
+    <script src="/static/js/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui/jquery.ui.core.min.js"></script>
+    <script src="/static/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery-ui/jquery.effects.core.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery-ui/jquery.effects.slide.min.js" type="text/javascript"></script>
+    <!-- END: load jquery -->
+    <!-- BEGIN: load jqplot -->
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.jqplot.min.css" />
+    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="/static/js/jqPlot/excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/jquery.jqplot.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.barRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.pieRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.highlighter.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+    <!-- END: load jqplot -->
+    <script src="/static/js/setup.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            setupDashboardChart('chart1');
+            setupLeftMenu();
+			setSidebarHeight();
+
+
+        });
+    </script>
+	<script>
+	function checkIfOther(){
+
+        a = document.getElementById("dropDown1");        
+
+        if(a.value == "open")           
+
+            document.getElementById("open").setAttribute("style","display:inline");
+
+        else
+
+            document.getElementById("open").setAttribute("style","display:none");
+if(a.value == "high")           
+
+            document.getElementById("high").setAttribute("style","display:inline");
+
+        else
+
+            document.getElementById("high").setAttribute("style","display:none");
+if(a.value == "low")           
+
+            document.getElementById("low").setAttribute("style","display:inline");
+
+        else
+
+            document.getElementById("low").setAttribute("style","display:none");
+if(a.value == "close")           
+
+            document.getElementById("close").setAttribute("style","display:inline");
+
+        else
+
+            document.getElementById("close").setAttribute("style","display:none");
+
+        }
+	</script>
+</head>
+<body>
+    <div class="container_12" style="width: 1359px !important;">
+        <div class="grid_12 header-repeat">
+            <div id="branding">
+                <div class="floatleft">
+                    <h2 style="color: white">Stock broking meets technology</h2></div>
+                <div class="floatright">
+                    <div class="floatleft">
+                        <img src="img/img-profile.jpg" alt="Profile Pic" /></div>
+                    <div class="floatleft marginleft10">
+                        <ul class="inline-ul floatleft">
+                            <li>Hello Admin</li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                        <br />
+                        <span class="small grey">Last Login: 3 hours ago</span>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="grid_12">
+            <ul class="nav main">
+                <li class="ic-dashboard"><a href="dashboard.html"><span>Dashboard</span></a> </li>
+                <li class="ic-form-style"><a href="javascript:"><span>Screener</span></a>
+                    <ul>
+                        <li><a href="form-controls.html">Forms</a> </li>
+                        <li><a href="buttons.html">Buttons</a> </li>
+                    </ul>
+                </li>
+               		 <ul>
+                        
+                    </ul>
+                </li>
+                <li class="ic-notifications"><a href="notifications.html"><span>Notifications</span></a></li>
+
+            </ul>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="grid_2">
+            <div class="box sidemenu">
+                <div class="block" id="section-menu">
+                    <ul class="section menu">
+                        <li><a class="menuitem">Screaner</a>
+                            <ul class="submenu">
+                                <li><a href="/screener/fundamentalData/AAPL/">Fundamental</a> </li>
+                                <li><a href="/screener/technicalData/AAPL/">Technical</a> </li>
+                                <li><a>All</a> </li>
+                              </ul>
+                        </li>
+                        <li><a>Product</a>
+                            <ul class="submenu">
+                                <li><a>Equities</a> </li>
+                                <li><a href="/indices/nift100Indices/RAIN.NS/2017/1/1/2018/5/5/">Indices</a> </li>
+                                <li><a>Mutual Funds</a> </li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid_10">
+            <div class="box round first">
+              
+                <div class="block" style="background: #E6F0F3;padding-top: 7px;">
+                    <h2 class="sub_title FL" style="margin-left: 460px;background: 0000;">Fundamental</h2>
+				</div>
+				<div>
+					<table width="100%" cellspacing="1" cellpadding="1">
+					<tbody>
+						<tr>
+							<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">P/E</span></td>
+							<td class="filters-cells" width="10%"><select id="fs_fa_pe" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_pe" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_pe_selected_filter&amp;ft=2&amp;o=industry">
+							<option selected="selected" value="">Any</option>
+							<option value="low">Low (&lt;15)</option>
+							<option value="profitable">Profitable (&gt;0)</option>
+							<option value="high">High (&gt;50)</option>
+							<option value="u5">Under 5</option>
+							<option value="u10">Under 10</option>
+							<option value="u15">Under 15</option>
+							<option value="u20">Under 20</option>
+							<option value="u25">Under 25</option>
+							<option value="u30">Under 30</option>
+							<option value="u35">Under 35</option>
+							<option value="u40">Under 40</option>
+							<option value="u45">Under 45</option>
+							<option value="u50">Under 50</option>
+							<option value="o5">Over 5</option>
+							<option value="o10">Over 10</option>
+							<option value="o15">Over 15</option>
+							<option value="o20">Over 20</option>
+							<option value="o25">Over 25</option>
+							<option value="o30">Over 30</option>
+							<option value="o35">Over 35</option>
+							<option value="o40">Over 40</option>
+							<option value="o45">Over 45</option>
+							<option value="o50">Over 50</option>
+							<option value="range">Custom (Elite only)</option>
+							</select></td>
+							<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Forward Price-to-Earnings Ratio] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A measure of the price-to-earnings ratio using forecasted earnings for the P/E calculation. Value for next fiscal year.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Forward P/E</span></td>
+							<td class="filters-cells" width="10%"><select id="fs_fa_fpe" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_fpe" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_fpe_selected_filter&amp;ft=2&amp;o=industry">
+							<option selected="selected" value="">Any</option>
+							<option value="low">Low (&lt;15)</option>
+							<option value="profitable">Profitable (&gt;0)</option>
+							<option value="high">High (&gt;50)</option>
+							<option value="u5">Under 5</option>
+							<option value="u10">Under 10</option>
+							<option value="u15">Under 15</option>
+							<option value="u20">Under 20</option>
+							<option value="u25">Under 25</option>
+							<option value="u30">Under 30</option>
+							<option value="u35">Under 35</option>
+							<option value="u40">Under 40</option>
+							<option value="u45">Under 45</option>
+							<option value="u50">Under 50</option>
+							<option value="o5">Over 5</option>
+							<option value="o10">Over 10</option>
+							<option value="o15">Over 15</option>
+							<option value="o20">Over 20</option>
+							<option value="o25">Over 25</option>
+							<option value="o30">Over 30</option>
+							<option value="o35">Over 35</option>
+							<option value="o40">Over 40</option>
+							<option value="o45">Over 45</option>
+							<option value="o50">Over 50</option>
+							<option value="range">Custom (Elite only)</option>
+							</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Price-to-Earnings-to-Growth] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A ratio used to determine a stock's value while taking into account earnings growth.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">PEG</span></td>
+						<td class="filters-cells" width="10%"><select id="fs_fa_peg" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_peg" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_peg_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="low">Low (&lt;1)</option>
+						<option value="high">High (&gt;2)</option>
+						<option value="u1">Under 1</option>
+						<option value="u2">Under 2</option>
+						<option value="u3">Under 3</option>
+						<option value="o1">Over 1</option>
+						<option value="o2">Over 2</option>
+						<option value="o3">Over 3</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">P/S</span></td>
+						<td class="filters-cells" width="10%"><select id="fs_fa_ps" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_ps" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_ps_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="low">Low (&lt;1)</option>
+						<option value="high">High (&gt;10)</option>
+						<option value="u1">Under 1</option>
+						<option value="u2">Under 2</option>
+						<option value="u3">Under 3</option>
+						<option value="u4">Under 4</option>
+						<option value="u5">Under 5</option>
+						<option value="u6">Under 6</option>
+						<option value="u7">Under 7</option>
+						<option value="u8">Under 8</option>
+						<option value="u9">Under 9</option>
+						<option value="u10">Under 10</option>
+						<option value="o1">Over 1</option>
+						<option value="o2">Over 2</option>
+						<option value="o3">Over 3</option>
+						<option value="o4">Over 4</option>
+						<option value="o5">Over 5</option>
+						<option value="o6">Over 6</option>
+						<option value="o7">Over 7</option>
+						<option value="o8">Over 8</option>
+						<option value="o9">Over 9</option>
+						<option value="o10">Over 10</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Price-to-Book Ratio] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A ratio used to compare a stock's market value to its book value. It is calculated by dividing the current closing price of the stock by the latest quarter's book value per share.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">P/B</span></td>
+						<td class="filters-cells" width="10%"><select id="fs_fa_pb" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_pb" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_pb_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="low">Low (&lt;1)</option>
+						<option value="high">High (&gt;5)</option>
+						<option value="u1">Under 1</option>
+						<option value="u2">Under 2</option>
+						<option value="u3">Under 3</option>
+						<option value="u4">Under 4</option>
+						<option value="u5">Under 5</option>
+						<option value="u6">Under 6</option>
+						<option value="u7">Under 7</option>
+						<option value="u8">Under 8</option>
+						<option value="u9">Under 9</option>
+						<option value="u10">Under 10</option>
+						<option value="o1">Over 1</option>
+						<option value="o2">Over 2</option>
+						<option value="o3">Over 3</option>
+						<option value="o4">Over 4</option>
+						<option value="o5">Over 5</option>
+						<option value="o6">Over 6</option>
+						<option value="o7">Over 7</option>
+						<option value="o8">Over 8</option>
+						<option value="o9">Over 9</option>
+						<option value="o10">Over 10</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					</tr>
+					<tr>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Price/Cash</span></td>
+						<td class="filters-cells" width="10%"><select id="fs_fa_pc" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_pc" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_pc_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="low">Low (&lt;3)</option>
+						<option value="high">High (&gt;50)</option>
+						<option value="u1">Under 1</option>
+						<option value="u2">Under 2</option>
+						<option value="u3">Under 3</option>
+						<option value="u4">Under 4</option>
+						<option value="u5">Under 5</option>
+						<option value="u6">Under 6</option>
+						<option value="u7">Under 7</option>
+						<option value="u8">Under 8</option>
+						<option value="u9">Under 9</option>
+						<option value="u10">Under 10</option>
+						<option value="o1">Over 1</option>
+						<option value="o2">Over 2</option>
+						<option value="o3">Over 3</option>
+						<option value="o4">Over 4</option>
+						<option value="o5">Over 5</option>
+						<option value="o6">Over 6</option>
+						<option value="o7">Over 7</option>
+						<option value="o8">Over 8</option>
+						<option value="o9">Over 9</option>
+						<option value="o10">Over 10</option>
+						<option value="o20">Over 20</option>
+						<option value="o30">Over 30</option>
+						<option value="o40">Over 40</option>
+						<option value="o50">Over 50</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Price to Free Cash Flow (ttm)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A valuation metric that compares a company's market price to its level of annual free cash flow.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Price/Free Cash Flow</span></td>
+						<td class="filters-cells" width="10%"><select id="fs_fa_pfcf" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_pfcf" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_pfcf_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="low">Low (&lt;15)</option>
+						<option value="high">High (&gt;50)</option>
+						<option value="u5">Under 5</option>
+						<option value="u10">Under 10</option>
+						<option value="u15">Under 15</option>
+						<option value="u20">Under 20</option>
+						<option value="u25">Under 25</option>
+						<option value="u30">Under 30</option>
+						<option value="u35">Under 35</option>
+						<option value="u40">Under 40</option>
+						<option value="u45">Under 45</option>
+						<option value="u50">Under 50</option>
+						<option value="u60">Under 60</option>
+						<option value="u70">Under 70</option>
+						<option value="u80">Under 80</option>
+						<option value="u90">Under 90</option>
+						<option value="u100">Under 100</option>
+						<option value="o5">Over 5</option>
+						<option value="o10">Over 10</option>
+						<option value="o15">Over 15</option>
+						<option value="o20">Over 20</option>
+						<option value="o25">Over 25</option>
+						<option value="o30">Over 30</option>
+						<option value="o35">Over 35</option>
+						<option value="o40">Over 40</option>
+						<option value="o45">Over 45</option>
+						<option value="o50">Over 50</option>
+						<option value="o60">Over 60</option>
+						<option value="o70">Over 70</option>
+						<option value="o80">Over 80</option>
+						<option value="o90">Over 90</option>
+						<option value="o100">Over 100</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Earnings Per Share, Growth This Year] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;EPS is the portion of a company's profit allocated to each outstanding share of common stock. EPS serves as an indicator of a company's profitability.&lt;br&gt;&lt;br&gt;Value for current fiscal year.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">EPS growth
+					this year</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_epsyoy" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_epsyoy" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_epsyoy_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (0-10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">EPS growth
+					next year</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_epsyoy1" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_epsyoy1" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_epsyoy1_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (0-10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Earnings Per Share, Growth Past 5 Years] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;EPS is the portion of a company's profit allocated to each outstanding share of common stock. EPS serves as an indicator of a company's profitability.&lt;br&gt;&lt;br&gt;Annual growth over past 5 years.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">EPS growth
+					past 5 years</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_eps5years" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_eps5years" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_eps5years_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (0-10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					</tr>
+					<tr>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">EPS growth
+					next 5 years</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_estltgrowth" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_estltgrowth" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_estltgrowth_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (&lt;10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Sales Growth Past 5 Years] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;Annual growth over past 5 years.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Sales growth
+					past 5 years</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_sales5years" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_sales5years" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_sales5years_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (0-10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Earnings Per Share, Growth Quarter Over Quarter] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;EPS is the portion of a company's profit allocated to each outstanding share of common stock. EPS serves as an indicator of a company's profitability.&lt;br&gt;&lt;br&gt;Quarter over quarter growth.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">EPS growth
+					qtr over qtr</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_epsqoq" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_epsqoq" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_epsqoq_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (0-10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Sales growth
+					qtr over qtr</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_salesqoq" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_salesqoq" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_salesqoq_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="poslow">Positive Low (0-10%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u5">Under 5%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u30">Under 30%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Return on Assets (ttm)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;An indicator of how profitable a company is relative to its total assets. ROA gives an idea as to how efficient management is at using its assets to generate earnings. Calculated by dividing a company's annual earnings by its total assets, ROA is displayed as a percentage.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Return on Assets</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_roa" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_roa" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_roa_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="verypos">Very Positive (&gt;15%)</option>
+						<option value="veryneg">Very Negative (&lt;-15%)</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-45">Under -45%</option>
+						<option value="u-40">Under -40%</option>
+						<option value="u-35">Under -35%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-25">Under -25%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-15">Under -15%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-5">Under -5%</option>
+						<option value="o5">Over +5%</option>
+						<option value="o10">Over +10%</option>
+						<option value="o15">Over +15%</option>
+						<option value="o20">Over +20%</option>
+						<option value="o25">Over +25%</option>
+						<option value="o30">Over +30%</option>
+						<option value="o35">Over +35%</option>
+						<option value="o40">Over +40%</option>
+						<option value="o45">Over +45%</option>
+						<option value="o50">Over +50%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					</tr>
+					<tr>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Return on Equity</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_roe" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_roe" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_roe_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="verypos">Very Positive (&gt;30%)</option>
+						<option value="veryneg">Very Negative (&lt;-15%)</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-45">Under -45%</option>
+						<option value="u-40">Under -40%</option>
+						<option value="u-35">Under -35%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-25">Under -25%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-15">Under -15%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-5">Under -5%</option>
+						<option value="o5">Over +5%</option>
+						<option value="o10">Over +10%</option>
+						<option value="o15">Over +15%</option>
+						<option value="o20">Over +20%</option>
+						<option value="o25">Over +25%</option>
+						<option value="o30">Over +30%</option>
+						<option value="o35">Over +35%</option>
+						<option value="o40">Over +40%</option>
+						<option value="o45">Over +45%</option>
+						<option value="o50">Over +50%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Return on Investment (ttm)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;Performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments. To calculate ROI, the benefit (return) of an investment is divided by the cost of the investment: (Gain from Investment - Cost of Investment) / Cost of Investment.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Return on Investment</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_roi" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_roi" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_roi_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="verypos">Very Positive (&gt;25%)</option>
+						<option value="veryneg">Very Negative (&lt;-10%)</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-45">Under -45%</option>
+						<option value="u-40">Under -40%</option>
+						<option value="u-35">Under -35%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-25">Under -25%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-15">Under -15%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-5">Under -5%</option>
+						<option value="o5">Over +5%</option>
+						<option value="o10">Over +10%</option>
+						<option value="o15">Over +15%</option>
+						<option value="o20">Over +20%</option>
+						<option value="o25">Over +25%</option>
+						<option value="o30">Over +30%</option>
+						<option value="o35">Over +35%</option>
+						<option value="o40">Over +40%</option>
+						<option value="o45">Over +45%</option>
+						<option value="o50">Over +50%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Current Ratio (mrq)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A liquidity ratio that measures a company's ability to pay short-term obligations. Calculated as Current Assets / Current Liabilities.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Current Ratio</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_curratio" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_curratio" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_curratio_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="high">High (&gt;3)</option>
+						<option value="low">Low (&lt;1)</option>
+						<option value="u1">Under 1</option>
+						<option value="u0.5">Under 0.5</option>
+						<option value="o0.5">Over 0.5</option>
+						<option value="o1">Over 1</option>
+						<option value="o1.5">Over 1.5</option>
+						<option value="o2">Over 2</option>
+						<option value="o3">Over 3</option>
+						<option value="o4">Over 4</option>
+						<option value="o5">Over 5</option>
+						<option value="o10">Over 10</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Quick Ratio</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_quickratio" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_quickratio" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_quickratio_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="high">High (&gt;3)</option>
+						<option value="low">Low (&lt;0.5)</option>
+						<option value="u1">Under 1</option>
+						<option value="u0.5">Under 0.5</option>
+						<option value="o0.5">Over 0.5</option>
+						<option value="o1">Over 1</option>
+						<option value="o1.5">Over 1.5</option>
+						<option value="o2">Over 2</option>
+						<option value="o3">Over 3</option>
+						<option value="o4">Over 4</option>
+						<option value="o5">Over 5</option>
+						<option value="o10">Over 10</option>
+						<option value="frange">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Long Term Debt to Equity (mrq)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A measure of a company's financial leverage calculated by dividing its long term debt by stockholders' equity. It indicates what proportion of equity and debt the company is using to finance its assets.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">LT Debt/Equity</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_ltdebteq" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_ltdebteq" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_ltdebteq_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="high">High (&gt;0.5)</option>
+						<option value="low">Low (&lt;0.1)</option>
+						<option value="u1">Under 1</option>
+						<option value="u0.9">Under 0.9</option>
+						<option value="u0.8">Under 0.8</option>
+						<option value="u0.7">Under 0.7</option>
+						<option value="u0.6">Under 0.6</option>
+						<option value="u0.5">Under 0.5</option>
+						<option value="u0.4">Under 0.4</option>
+						<option value="u0.3">Under 0.3</option>
+						<option value="u0.2">Under 0.2</option>
+						<option value="u0.1">Under 0.1</option>
+						<option value="o0.1">Over 0.1</option>
+						<option value="o0.2">Over 0.2</option>
+						<option value="o0.3">Over 0.3</option>
+						<option value="o0.4">Over 0.4</option>
+						<option value="o0.5">Over 0.5</option>
+						<option value="o0.6">Over 0.6</option>
+						<option value="o0.7">Over 0.7</option>
+						<option value="o0.8">Over 0.8</option>
+						<option value="o0.9">Over 0.9</option>
+						<option value="o1">Over 1</option>
+						<option value="frange">Custom (Elite only)</option>
+						</select>
+					</td>
+					</tr>
+					<tr>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Debt/Equity</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_debteq" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_debteq" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_debteq_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="high">High (&gt;0.5)</option>
+						<option value="low">Low (&lt;0.1)</option>
+						<option value="u1">Under 1</option>
+						<option value="u0.9">Under 0.9</option>
+						<option value="u0.8">Under 0.8</option>
+						<option value="u0.7">Under 0.7</option>
+						<option value="u0.6">Under 0.6</option>
+						<option value="u0.5">Under 0.5</option>
+						<option value="u0.4">Under 0.4</option>
+						<option value="u0.3">Under 0.3</option>
+						<option value="u0.2">Under 0.2</option>
+						<option value="u0.1">Under 0.1</option>
+						<option value="o0.1">Over 0.1</option>
+						<option value="o0.2">Over 0.2</option>
+						<option value="o0.3">Over 0.3</option>
+						<option value="o0.4">Over 0.4</option>
+						<option value="o0.5">Over 0.5</option>
+						<option value="o0.6">Over 0.6</option>
+						<option value="o0.7">Over 0.7</option>
+						<option value="o0.8">Over 0.8</option>
+						<option value="o0.9">Over 0.9</option>
+						<option value="o1">Over 1</option>
+						<option value="frange">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Gross Margin (ttm)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A company's total sales revenue minus its cost of goods sold, divided by the total sales revenue, expressed as a percentage. The gross margin represents the percent of total sales revenue that the company retains after incurring the direct costs associated with producing the goods and services sold by a company. The higher the percentage, the more the company retains on each dollar of sales to service its other costs and obligations.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Gross Margin</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_grossmargin" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_grossmargin" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_grossmargin_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="high">High (&gt;50%)</option>
+						<option value="u90">Under 90%</option>
+						<option value="u80">Under 80%</option>
+						<option value="u70">Under 70%</option>
+						<option value="u60">Under 60%</option>
+						<option value="u50">Under 50%</option>
+						<option value="u45">Under 45%</option>
+						<option value="u40">Under 40%</option>
+						<option value="u35">Under 35%</option>
+						<option value="u30">Under 30%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u5">Under 5%</option>
+						<option value="u0">Under 0%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-70">Under -70%</option>
+						<option value="u-100">Under -100%</option>
+						<option value="o0">Over 0%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="o35">Over 35%</option>
+						<option value="o40">Over 40%</option>
+						<option value="o45">Over 45%</option>
+						<option value="o50">Over 50%</option>
+						<option value="o60">Over 60%</option>
+						<option value="o70">Over 70%</option>
+						<option value="o80">Over 80%</option>
+						<option value="o90">Over 90%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Operating Margin (ttm)] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;Operating margin is a measurement of what proportion of a company's revenue is left over after paying for variable costs of production such as wages, raw materials, etc. A healthy operating margin is required for a company to be able to pay for its fixed costs, such as interest on debt. Calculated as Operating Income / Net Sales.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Operating Margin</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_opermargin" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_opermargin" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_opermargin_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="veryneg">Very Negative (&lt;-20%)</option>
+						<option value="high">High (&gt;25%)</option>
+						<option value="u90">Under 90%</option>
+						<option value="u80">Under 80%</option>
+						<option value="u70">Under 70%</option>
+						<option value="u60">Under 60%</option>
+						<option value="u50">Under 50%</option>
+						<option value="u45">Under 45%</option>
+						<option value="u40">Under 40%</option>
+						<option value="u35">Under 35%</option>
+						<option value="u30">Under 30%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u5">Under 5%</option>
+						<option value="u0">Under 0%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-70">Under -70%</option>
+						<option value="u-100">Under -100%</option>
+						<option value="o0">Over 0%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="o35">Over 35%</option>
+						<option value="o40">Over 40%</option>
+						<option value="o45">Over 45%</option>
+						<option value="o50">Over 50%</option>
+						<option value="o60">Over 60%</option>
+						<option value="o70">Over 70%</option>
+						<option value="o80">Over 80%</option>
+						<option value="o90">Over 90%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Net Profit Margin</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_netmargin" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_netmargin" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_netmargin_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="veryneg">Very Negative (&lt;-20%)</option>
+						<option value="high">High (&gt;20%)</option>
+						<option value="u90">Under 90%</option>
+						<option value="u80">Under 80%</option>
+						<option value="u70">Under 70%</option>
+						<option value="u60">Under 60%</option>
+						<option value="u50">Under 50%</option>
+						<option value="u45">Under 45%</option>
+						<option value="u40">Under 40%</option>
+						<option value="u35">Under 35%</option>
+						<option value="u30">Under 30%</option>
+						<option value="u25">Under 25%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u15">Under 15%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u5">Under 5%</option>
+						<option value="u0">Under 0%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-70">Under -70%</option>
+						<option value="u-100">Under -100%</option>
+						<option value="o0">Over 0%</option>
+						<option value="o5">Over 5%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o15">Over 15%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o25">Over 25%</option>
+						<option value="o30">Over 30%</option>
+						<option value="o35">Over 35%</option>
+						<option value="o40">Over 40%</option>
+						<option value="o45">Over 45%</option>
+						<option value="o50">Over 50%</option>
+						<option value="o60">Over 60%</option>
+						<option value="o70">Over 70%</option>
+						<option value="o80">Over 80%</option>
+						<option value="o90">Over 90%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Payout Ratio] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;The percentage of earnings paid to shareholders in dividends.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Payout Ratio</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_fa_payoutratio" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="fa_payoutratio" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_payoutratio_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="none">None (0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="low">Low (&lt;20%)</option>
+						<option value="high">High (&gt;50%)</option>
+						<option value="o0">Over 0%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o30">Over 30%</option>
+						<option value="o40">Over 40%</option>
+						<option value="o50">Over 50%</option>
+						<option value="o60">Over 60%</option>
+						<option value="o70">Over 70%</option>
+						<option value="o80">Over 80%</option>
+						<option value="o90">Over 90%</option>
+						<option value="o100">Over 100%</option>
+						<option value="u10">Under 10%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u30">Under 30%</option>
+						<option value="u40">Under 40%</option>
+						<option value="u50">Under 50%</option>
+						<option value="u60">Under 60%</option>
+						<option value="u70">Under 70%</option>
+						<option value="u80">Under 80%</option>
+						<option value="u90">Under 90%</option>
+						<option value="u100">Under 100%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					</tr>
+					<tr>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Insider
+					Ownership</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_sh_insiderown" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="sh_insiderown" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=sh_insiderown_selected_filter&amp;ft=2&amp;o=industry">
+					<option selected="selected" value="">Any</option>
+					<option value="low">Low (&lt;5%)</option>
+					<option value="high">High (&gt;30%)</option>
+					<option value="veryhigh">Very High (&gt;50%)</option>
+					<option value="o10">Over 10%</option>
+					<option value="o20">Over 20%</option>
+					<option value="o30">Over 30%</option>
+					<option value="o40">Over 40%</option>
+					<option value="o50">Over 50%</option>
+					<option value="o60">Over 60%</option>
+					<option value="o70">Over 70%</option>
+					<option value="o80">Over 80%</option>
+					<option value="o90">Over 90%</option>
+					<option value="range">Custom (Elite only)</option>
+					</select></td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Insider
+					Transactions</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_sh_insidertrans" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="sh_insidertrans" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=sh_insidertrans_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="veryneg">Very Negative (&lt;20%)</option>
+						<option value="neg">Negative (&lt;0%)</option>
+						<option value="pos">Positive (&gt;0%)</option>
+						<option value="verypos">Very Positive (&gt;20%)</option>
+						<option value="u-90">Under -90%</option>
+						<option value="u-80">Under -80%</option>
+						<option value="u-70">Under -70%</option>
+						<option value="u-60">Under -60%</option>
+						<option value="u-50">Under -50%</option>
+						<option value="u-45">Under -45%</option>
+						<option value="u-40">Under -40%</option>
+						<option value="u-35">Under -35%</option>
+						<option value="u-30">Under -30%</option>
+						<option value="u-25">Under -25%</option>
+						<option value="u-20">Under -20%</option>
+						<option value="u-15">Under -15%</option>
+						<option value="u-10">Under -10%</option>
+						<option value="u-5">Under -5%</option>
+						<option value="o5">Over +5%</option>
+						<option value="o10">Over +10%</option>
+						<option value="o15">Over +15%</option>
+						<option value="o20">Over +20%</option>
+						<option value="o25">Over +25%</option>
+						<option value="o30">Over +30%</option>
+						<option value="o35">Over +35%</option>
+						<option value="o40">Over +40%</option>
+						<option value="o45">Over +45%</option>
+						<option value="o50">Over +50%</option>
+						<option value="o60">Over +60%</option>
+						<option value="o70">Over +70%</option>
+						<option value="o80">Over +80%</option>
+						<option value="o90">Over +90%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Institutional Ownership] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;Level to which a company is owned by financial institutions.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Institutional
+					Ownership</span></td>
+					<td class="filters-cells" width="10%"><select id="fs_sh_instown" class="screener-combo-text" onchange="ScreenerSelectOnChange(this)" data-filter="sh_instown" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=sh_instown_selected_filter&amp;ft=2&amp;o=industry">
+						<option selected="selected" value="">Any</option>
+						<option value="low">Low (&lt;5%)</option>
+						<option value="high">High (&gt;90%)</option>
+						<option value="u90">Under 90%</option>
+						<option value="u80">Under 80%</option>
+						<option value="u70">Under 70%</option>
+						<option value="u60">Under 60%</option>
+						<option value="u50">Under 50%</option>
+						<option value="u40">Under 40%</option>
+						<option value="u30">Under 30%</option>
+						<option value="u20">Under 20%</option>
+						<option value="u10">Under 10%</option>
+						<option value="o10">Over 10%</option>
+						<option value="o20">Over 20%</option>
+						<option value="o30">Over 30%</option>
+						<option value="o40">Over 40%</option>
+						<option value="o50">Over 50%</option>
+						<option value="o60">Over 60%</option>
+						<option value="o70">Over 70%</option>
+						<option value="o80">Over 80%</option>
+						<option value="o90">Over 90%</option>
+						<option value="range">Custom (Elite only)</option>
+						</select>
+					</td>
+					
+		</tr>
+	</tbody>
+</table>
+			</div>
+			<div class="block" style="background: #E6F0F3;padding-top: 7px;">
+                    <h2 class="sub_title FL" style="margin-left: 460px;background: 0000;">All Company info</h2>
+			</div>
+				<div>
+				
+						<div id="screener-content">
+						<table border="0" width="100%" cellspacing="0" cellpadding="0">
+						<tbody>
+						<tr>
+							<td width="100%"></td>
+						</tr>
+						<tr>
+											<td>
+											<table border="0" width="100%" cellspacing="1" cellpadding="3">
+											<tbody>
+											<tr><strong>
+											<td>No.</td>
+											<td><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
+											<td>Company</td>
+											<td>Sector</td>
+											<td>Industry</td>
+											<td>Country</td>
+											<td>Market Cap</td>
+											<td>P/E</td>
+											<td>Price</td>
+											<td>Change</td>
+											<td>Volume</td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">1</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">A</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">Agilent Technologies, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">Healthcare</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">Medical Laboratories &amp; Research</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">20.54B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">28.40</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=A'&gt;&lt;br&gt; &lt;b&gt;Agilent Technologies, Inc.&lt;/b&gt;&lt;br&gt; Medical Laboratories &amp; Research | USA | 20.54B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">63.59</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">2.66%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">5,211,271</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">2</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">AA</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">Alcoa Corporation</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">Basic Materials</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">Aluminum</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">9.43B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">58.97</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AA'&gt;&lt;br&gt; &lt;b&gt;Alcoa Corporation&lt;/b&gt;&lt;br&gt; Aluminum | USA | 9.43B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">50.71</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">1.04%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">2,887,631</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">3</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">AABA</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">Altaba Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">Asset Management</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">62.78B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">2.84</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AABA'&gt;&lt;br&gt; &lt;b&gt;Altaba Inc.&lt;/b&gt;&lt;br&gt; Asset Management | USA | 62.78B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">76.50</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">-0.68%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">1,956,394</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">4</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">AAC</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">AAC Holdings, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">Healthcare</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">Specialized Health Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">274.01M</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAC'&gt;&lt;br&gt; &lt;b&gt;AAC Holdings, Inc.&lt;/b&gt;&lt;br&gt; Specialized Health Services | USA | 274.01M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">11.74</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">1.38%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">77,349</a></td>
+											</tr>
+											<tr class="table-dark-row-cp-h" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">5</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">AADR</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">AdvisorShares Dorsey Wright ADR ETF</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">Exchange Traded Fund</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AADR'&gt;&lt;br&gt; &lt;b&gt;AdvisorShares Dorsey Wright ADR ETF&lt;/b&gt;&lt;br&gt; Exchange Traded Fund | USA | -] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">59.26</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">-0.46%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">10,346</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">6</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">AAL</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">American Airlines Group Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">Major Airlines</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">20.61B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">7.83</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAL'&gt;&lt;br&gt; &lt;b&gt;American Airlines Group Inc.&lt;/b&gt;&lt;br&gt; Major Airlines | USA | 20.61B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">43.63</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">-0.98%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">5,334,099</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">7</a></td>
+											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">AAMC</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">Altisource Asset Management Corporation</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">Asset Management</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">102.22M</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAMC'&gt;&lt;br&gt; &lt;b&gt;Altisource Asset Management Corporation&lt;/b&gt;&lt;br&gt; Asset Management | USA | 102.22M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">63.10</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">-1.02%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">513</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">8</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAME'&gt;&lt;br&gt; &lt;b&gt;Atlantic American Corporation&lt;/b&gt;&lt;br&gt; Life Insurance | USA | 57.94M] offsetx=[100] offsety=[0] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">AAME</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">Atlantic American Corporation</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">Life Insurance</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">57.94M</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">15.03</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAME'&gt;&lt;br&gt; &lt;b&gt;Atlantic American Corporation&lt;/b&gt;&lt;br&gt; Life Insurance | USA | 57.94M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">2.75</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">0.00%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">1,947</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">9</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAN'&gt;&lt;br&gt; &lt;b&gt;Aaron's, Inc.&lt;/b&gt;&lt;br&gt; Rental &amp; Leasing Services | USA | 2.87B] offsetx=[100] offsety=[0] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">AAN</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">Aaron's, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">Rental &amp; Leasing Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">2.87B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">19.10</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAN'&gt;&lt;br&gt; &lt;b&gt;Aaron's, Inc.&lt;/b&gt;&lt;br&gt; Rental &amp; Leasing Services | USA | 2.87B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">41.00</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">1.03%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">535,567</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">10</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAOI'&gt;&lt;br&gt; &lt;b&gt;Applied Optoelectronics, Inc.&lt;/b&gt;&lt;br&gt; Semiconductor - Integrated Circuits | USA | 668.05M] offsetx=[100] offsety=[0] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">AAOI</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">Applied Optoelectronics, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">Technology</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">Semiconductor - Integrated Circuits</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">668.05M</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">13.40</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAOI'&gt;&lt;br&gt; &lt;b&gt;Applied Optoelectronics, Inc.&lt;/b&gt;&lt;br&gt; Semiconductor - Integrated Circuits | USA | 668.05M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">33.74</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">1.26%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">607,502</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">11</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAON'&gt;&lt;br&gt; &lt;b&gt;AAON, Inc.&lt;/b&gt;&lt;br&gt; General Building Materials | USA | 1.66B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">AAON</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">AAON, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">Industrial Goods</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">General Building Materials</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">1.66B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">37.32</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAON'&gt;&lt;br&gt; &lt;b&gt;AAON, Inc.&lt;/b&gt;&lt;br&gt; General Building Materials | USA | 1.66B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">31.05</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">4.19%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">281,980</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">12</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAP'&gt;&lt;br&gt; &lt;b&gt;Advance Auto Parts, Inc.&lt;/b&gt;&lt;br&gt; Auto Parts Stores | USA | 8.85B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">AAP</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">Advance Auto Parts, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">Auto Parts Stores</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">8.85B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">26.76</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAP'&gt;&lt;br&gt; &lt;b&gt;Advance Auto Parts, Inc.&lt;/b&gt;&lt;br&gt; Auto Parts Stores | USA | 8.85B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">119.79</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">0.64%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">1,054,851</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">13</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAPL'&gt;&lt;br&gt; &lt;b&gt;Apple Inc.&lt;/b&gt;&lt;br&gt; Electronic Equipment | USA | 942.60B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">AAPL</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">Apple Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">Consumer Goods</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">Electronic Equipment</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">942.60B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">17.23</a></td>
+											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">186.99</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">-0.63%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">17,294,028</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">14</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAT'&gt;&lt;br&gt; &lt;b&gt;American Assets Trust, Inc.&lt;/b&gt;&lt;br&gt; REIT - Retail | USA | 1.62B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">AAT</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">American Assets Trust, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">REIT - Retail</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">1.62B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">76.80</a></td>
+											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">34.56</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">0.03%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">301,458</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">15</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAU'&gt;&lt;br&gt; &lt;b&gt;Almaden Minerals Ltd.&lt;/b&gt;&lt;br&gt; Gold | Canada | 78.30M] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">AAU</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Almaden Minerals Ltd.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Basic Materials</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Gold</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Canada</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">78.30M</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">0.75</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">1.04%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">204,129</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">16</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAV'&gt;&lt;br&gt; &lt;b&gt;Advantage Oil &amp; Gas Ltd.&lt;/b&gt;&lt;br&gt; Oil &amp; Gas Drilling &amp; Exploration | Canada | 631.80M] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">AAV</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Advantage Oil &amp; Gas Ltd.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Basic Materials</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Oil &amp; Gas Drilling &amp; Exploration</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Canada</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">631.80M</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">12.07</a></td>
+											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">3.15</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">1.61%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">218,726</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">17</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAWW'&gt;&lt;br&gt; &lt;b&gt;Atlas Air Worldwide Holdings, Inc.&lt;/b&gt;&lt;br&gt; Air Services, Other | USA | 1.78B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">AAWW</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">Atlas Air Worldwide Holdings, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">Air Services, Other</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">1.78B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">17.61</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAWW'&gt;&lt;br&gt; &lt;b&gt;Atlas Air Worldwide Holdings, Inc.&lt;/b&gt;&lt;br&gt; Air Services, Other | USA | 1.78B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">69.25</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">-0.22%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">198,145</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">18</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXJ'&gt;&lt;br&gt; &lt;b&gt;iShares MSCI All Country Asia ex Jpn ETF&lt;/b&gt;&lt;br&gt; Exchange Traded Fund | USA | -] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">AAXJ</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">iShares MSCI All Country Asia ex Jpn ETF</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">Exchange Traded Fund</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXJ'&gt;&lt;br&gt; &lt;b&gt;iShares MSCI All Country Asia ex Jpn ETF&lt;/b&gt;&lt;br&gt; Exchange Traded Fund | USA | -] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">76.40</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">-1.25%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">791,641</a></td>
+											</tr>
+											<tr class="table-dark-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">19</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXN'&gt;&lt;br&gt; &lt;b&gt;Axon Enterprise, Inc.&lt;/b&gt;&lt;br&gt; Aerospace/Defense Products &amp; Services | USA | 3.03B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">AAXN</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">Axon Enterprise, Inc.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">Industrial Goods</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">Aerospace/Defense Products &amp; Services</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">3.03B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">143.16</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXN'&gt;&lt;br&gt; &lt;b&gt;Axon Enterprise, Inc.&lt;/b&gt;&lt;br&gt; Aerospace/Defense Products &amp; Services | USA | 3.03B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">57.12</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">5.14%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">5,517,711</a></td>
+											</tr>
+											<tr class="table-light-row-cp" valign="top">
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">20</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AB'&gt;&lt;br&gt; &lt;b&gt;AllianceBernstein Holding L.P.&lt;/b&gt;&lt;br&gt; Asset Management | USA | 2.66B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">AB</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">AllianceBernstein Holding L.P.</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">Asset Management</a></td>
+											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">2.66B</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">10.63</a></td>
+											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AB'&gt;&lt;br&gt; &lt;b&gt;AllianceBernstein Holding L.P.&lt;/b&gt;&lt;br&gt; Asset Management | USA | 2.66B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">27.70</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">1.47%</a></td>
+											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">354,726</a></td>
+											</tr>
+											</tbody>
+											</table>
+											</td>
+							</tr>
+							<tr>
+								<td>
+								<table class="body-table" style="height: 5px;" border="0" width="910" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+								<tbody>
+									<tr>
+											<td align="left"></td>
+											<td align="right"></td>
+									</tr>
+								</tbody>
+								</table>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
+
+
+				
+			</div>
+				
+				
+				
+		</div>
+    </div>
+</body>
+</html>
