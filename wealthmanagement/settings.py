@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 	'mutualfunds',
    'screener',
    'batchprocessing',
+   'charts',
+   'homepage',
 ]
 
 MIDDLEWARE = [
@@ -130,4 +132,5 @@ STATICFILES_DIRS = [
     '/static/css',
     '/static/js',
     '/static/data',
+    '/static/font',
 ]

@@ -974,279 +974,35 @@ if(a.value == "close")
 											<td>
 											<table border="0" width="100%" cellspacing="1" cellpadding="3">
 											<tbody>
-											<tr><strong>
-											<td>No.</td>
-											<td><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
-											<td>Company</td>
-											<td>Sector</td>
-											<td>Industry</td>
-											<td>Country</td>
-											<td>Market Cap</td>
-											<td>P/E</td>
-											<td>Price</td>
-											<td>Change</td>
-											<td>Volume</td>
+											<tr style=" border: 1px solid black;"><strong>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">No.</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px"><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Company</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Industry</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Country</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Market Cap</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Trailing P/E</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Forward P/E</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Price</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Change</td>
+											<td style="padding-left: 16px;border: 1px solid black; width:10px">Volume</td>
+											{% for fd in fundamentaldata %}   
 											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">1</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">A</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">Agilent Technologies, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">Healthcare</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">Medical Laboratories &amp; Research</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">20.54B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">28.40</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=A'&gt;&lt;br&gt; &lt;b&gt;Agilent Technologies, Inc.&lt;/b&gt;&lt;br&gt; Medical Laboratories &amp; Research | USA | 20.54B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">63.59</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">2.66%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=A&amp;ty=c&amp;p=d&amp;b=1">5,211,271</a></td>
+											<tr style="border: 1px solid black;">
+											<td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter }}</td>
+											<td style="padding-left: 16px;border: 1px solid black;"><a  href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a></td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Company_Name}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">INDIA</td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Market_Cap}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Trailing_P_E}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Forward_P_E}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
+											<td style="padding-left: 16px;border: 1px solid black;">5,211,271</td>
 											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">2</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">AA</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">Alcoa Corporation</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">Basic Materials</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">Aluminum</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">9.43B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">58.97</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AA'&gt;&lt;br&gt; &lt;b&gt;Alcoa Corporation&lt;/b&gt;&lt;br&gt; Aluminum | USA | 9.43B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">50.71</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">1.04%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AA&amp;ty=c&amp;p=d&amp;b=1">2,887,631</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">3</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">AABA</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">Altaba Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">Asset Management</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">62.78B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">2.84</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AABA'&gt;&lt;br&gt; &lt;b&gt;Altaba Inc.&lt;/b&gt;&lt;br&gt; Asset Management | USA | 62.78B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">76.50</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">-0.68%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AABA&amp;ty=c&amp;p=d&amp;b=1">1,956,394</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">4</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">AAC</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">AAC Holdings, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">Healthcare</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">Specialized Health Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">274.01M</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAC'&gt;&lt;br&gt; &lt;b&gt;AAC Holdings, Inc.&lt;/b&gt;&lt;br&gt; Specialized Health Services | USA | 274.01M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">11.74</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">1.38%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAC&amp;ty=c&amp;p=d&amp;b=1">77,349</a></td>
-											</tr>
-											<tr class="table-dark-row-cp-h" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">5</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">AADR</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">AdvisorShares Dorsey Wright ADR ETF</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">Exchange Traded Fund</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AADR'&gt;&lt;br&gt; &lt;b&gt;AdvisorShares Dorsey Wright ADR ETF&lt;/b&gt;&lt;br&gt; Exchange Traded Fund | USA | -] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">59.26</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">-0.46%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AADR&amp;ty=c&amp;p=d&amp;b=1">10,346</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">6</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">AAL</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">American Airlines Group Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">Major Airlines</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">20.61B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">7.83</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAL'&gt;&lt;br&gt; &lt;b&gt;American Airlines Group Inc.&lt;/b&gt;&lt;br&gt; Major Airlines | USA | 20.61B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">43.63</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">-0.98%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAL&amp;ty=c&amp;p=d&amp;b=1">5,334,099</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">7</a></td>
-											<td class="screener-body-table-nw" title="" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">AAMC</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">Altisource Asset Management Corporation</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">Asset Management</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">102.22M</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAMC'&gt;&lt;br&gt; &lt;b&gt;Altisource Asset Management Corporation&lt;/b&gt;&lt;br&gt; Asset Management | USA | 102.22M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">63.10</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">-1.02%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAMC&amp;ty=c&amp;p=d&amp;b=1">513</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">8</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAME'&gt;&lt;br&gt; &lt;b&gt;Atlantic American Corporation&lt;/b&gt;&lt;br&gt; Life Insurance | USA | 57.94M] offsetx=[100] offsety=[0] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">AAME</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">Atlantic American Corporation</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">Life Insurance</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">57.94M</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">15.03</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAME'&gt;&lt;br&gt; &lt;b&gt;Atlantic American Corporation&lt;/b&gt;&lt;br&gt; Life Insurance | USA | 57.94M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">2.75</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">0.00%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAME&amp;ty=c&amp;p=d&amp;b=1">1,947</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">9</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAN'&gt;&lt;br&gt; &lt;b&gt;Aaron's, Inc.&lt;/b&gt;&lt;br&gt; Rental &amp; Leasing Services | USA | 2.87B] offsetx=[100] offsety=[0] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">AAN</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">Aaron's, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">Rental &amp; Leasing Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">2.87B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">19.10</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAN'&gt;&lt;br&gt; &lt;b&gt;Aaron's, Inc.&lt;/b&gt;&lt;br&gt; Rental &amp; Leasing Services | USA | 2.87B] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">41.00</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">1.03%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAN&amp;ty=c&amp;p=d&amp;b=1">535,567</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">10</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAOI'&gt;&lt;br&gt; &lt;b&gt;Applied Optoelectronics, Inc.&lt;/b&gt;&lt;br&gt; Semiconductor - Integrated Circuits | USA | 668.05M] offsetx=[100] offsety=[0] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">AAOI</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">Applied Optoelectronics, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">Technology</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">Semiconductor - Integrated Circuits</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">668.05M</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">13.40</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAOI'&gt;&lt;br&gt; &lt;b&gt;Applied Optoelectronics, Inc.&lt;/b&gt;&lt;br&gt; Semiconductor - Integrated Circuits | USA | 668.05M] offsetx=[-323] offsety=[0] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">33.74</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">1.26%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAOI&amp;ty=c&amp;p=d&amp;b=1">607,502</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">11</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAON'&gt;&lt;br&gt; &lt;b&gt;AAON, Inc.&lt;/b&gt;&lt;br&gt; General Building Materials | USA | 1.66B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">AAON</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">AAON, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">Industrial Goods</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">General Building Materials</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">1.66B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">37.32</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAON'&gt;&lt;br&gt; &lt;b&gt;AAON, Inc.&lt;/b&gt;&lt;br&gt; General Building Materials | USA | 1.66B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">31.05</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">4.19%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAON&amp;ty=c&amp;p=d&amp;b=1">281,980</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">12</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAP'&gt;&lt;br&gt; &lt;b&gt;Advance Auto Parts, Inc.&lt;/b&gt;&lt;br&gt; Auto Parts Stores | USA | 8.85B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">AAP</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">Advance Auto Parts, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">Auto Parts Stores</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">8.85B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">26.76</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAP'&gt;&lt;br&gt; &lt;b&gt;Advance Auto Parts, Inc.&lt;/b&gt;&lt;br&gt; Auto Parts Stores | USA | 8.85B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">119.79</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">0.64%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAP&amp;ty=c&amp;p=d&amp;b=1">1,054,851</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">13</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAPL'&gt;&lt;br&gt; &lt;b&gt;Apple Inc.&lt;/b&gt;&lt;br&gt; Electronic Equipment | USA | 942.60B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">AAPL</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">Apple Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">Consumer Goods</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">Electronic Equipment</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">942.60B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">17.23</a></td>
-											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">186.99</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">-0.63%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAPL&amp;ty=c&amp;p=d&amp;b=1">17,294,028</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">14</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAT'&gt;&lt;br&gt; &lt;b&gt;American Assets Trust, Inc.&lt;/b&gt;&lt;br&gt; REIT - Retail | USA | 1.62B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">AAT</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">American Assets Trust, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">REIT - Retail</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">1.62B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">76.80</a></td>
-											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">34.56</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">0.03%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAT&amp;ty=c&amp;p=d&amp;b=1">301,458</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">15</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAU'&gt;&lt;br&gt; &lt;b&gt;Almaden Minerals Ltd.&lt;/b&gt;&lt;br&gt; Gold | Canada | 78.30M] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">AAU</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Almaden Minerals Ltd.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Basic Materials</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Gold</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">Canada</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">78.30M</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">0.75</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">1.04%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAU&amp;ty=c&amp;p=d&amp;b=1">204,129</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">16</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAV'&gt;&lt;br&gt; &lt;b&gt;Advantage Oil &amp; Gas Ltd.&lt;/b&gt;&lt;br&gt; Oil &amp; Gas Drilling &amp; Exploration | Canada | 631.80M] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">AAV</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Advantage Oil &amp; Gas Ltd.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Basic Materials</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Oil &amp; Gas Drilling &amp; Exploration</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">Canada</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">631.80M</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">12.07</a></td>
-											<td class="screener-body-table-nw" title="" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">3.15</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">1.61%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAV&amp;ty=c&amp;p=d&amp;b=1">218,726</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">17</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAWW'&gt;&lt;br&gt; &lt;b&gt;Atlas Air Worldwide Holdings, Inc.&lt;/b&gt;&lt;br&gt; Air Services, Other | USA | 1.78B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">AAWW</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">Atlas Air Worldwide Holdings, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">Air Services, Other</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">1.78B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">17.61</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAWW'&gt;&lt;br&gt; &lt;b&gt;Atlas Air Worldwide Holdings, Inc.&lt;/b&gt;&lt;br&gt; Air Services, Other | USA | 1.78B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">69.25</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">-0.22%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAWW&amp;ty=c&amp;p=d&amp;b=1">198,145</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">18</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXJ'&gt;&lt;br&gt; &lt;b&gt;iShares MSCI All Country Asia ex Jpn ETF&lt;/b&gt;&lt;br&gt; Exchange Traded Fund | USA | -] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">AAXJ</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">iShares MSCI All Country Asia ex Jpn ETF</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">Exchange Traded Fund</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">-</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXJ'&gt;&lt;br&gt; &lt;b&gt;iShares MSCI All Country Asia ex Jpn ETF&lt;/b&gt;&lt;br&gt; Exchange Traded Fund | USA | -] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">76.40</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">-1.25%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXJ&amp;ty=c&amp;p=d&amp;b=1">791,641</a></td>
-											</tr>
-											<tr class="table-dark-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">19</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXN'&gt;&lt;br&gt; &lt;b&gt;Axon Enterprise, Inc.&lt;/b&gt;&lt;br&gt; Aerospace/Defense Products &amp; Services | USA | 3.03B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">AAXN</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">Axon Enterprise, Inc.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">Industrial Goods</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">Aerospace/Defense Products &amp; Services</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">3.03B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">143.16</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AAXN'&gt;&lt;br&gt; &lt;b&gt;Axon Enterprise, Inc.&lt;/b&gt;&lt;br&gt; Aerospace/Defense Products &amp; Services | USA | 3.03B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">57.12</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">5.14%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AAXN&amp;ty=c&amp;p=d&amp;b=1">5,517,711</a></td>
-											</tr>
-											<tr class="table-light-row-cp" valign="top">
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">20</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AB'&gt;&lt;br&gt; &lt;b&gt;AllianceBernstein Holding L.P.&lt;/b&gt;&lt;br&gt; Asset Management | USA | 2.66B] offsetx=[100] offsety=[-220] delay=[0]" align="left" height="10"><a class="screener-link-primary" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">AB</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">AllianceBernstein Holding L.P.</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">Financial</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">Asset Management</a></td>
-											<td class="screener-body-table-nw" align="left" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">USA</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">2.66B</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">10.63</a></td>
-											<td class="screener-body-table-nw" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; padding: 0px; text-decoration: none; white-space: nowrap;" title="cssbody=[tabchrtbdy] cssheader=[tabchrthdr] body=[&lt;img src='chart.ashx?s=m&amp;ty=c&amp;t=AB'&gt;&lt;br&gt; &lt;b&gt;AllianceBernstein Holding L.P.&lt;/b&gt;&lt;br&gt; Asset Management | USA | 2.66B] offsetx=[-323] offsety=[-220] delay=[0]" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">27.70</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">1.47%</a></td>
-											<td class="screener-body-table-nw" align="right" height="10"><a class="screener-link" href="https://finviz.com/quote.ashx?t=AB&amp;ty=c&amp;p=d&amp;b=1">354,726</a></td>
-											</tr>
+											{% endfor %}
+											
 											</tbody>
 											</table>
 											</td>

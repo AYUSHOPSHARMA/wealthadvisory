@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Wealth View</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<!--[if lt IE 9]> <script src="/static/js/html5shiv.js"></script> 
+	<script src="/static/js/respond.min.js"></script> <![endif]--> 		
+        <!-- Place favicon.ico in the root directory -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/static/css/normalize.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/css/owl.carousel.css">
+        <link rel="stylesheet" href="/static/css/responsive.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+
+    </head>
+<style>
+
+svg {
+  font: 10px sans-serif;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Wire+One);
+
+body {
+  font-family: "Wire One";
+  margin: auto;
+  position: relative;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+}
+ 
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+ 
+.node {
+    border: solid 1px white;
+    line-height: 0.95;
+    overflow: hidden;
+    position: absolute;
+    border-radius: 6px;
+    background-image: -webkit-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:    -moz-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:     -ms-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:      -o-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:         linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0)); 
+    text-shadow: -1px -1px 2px hsla(0,0%,100%,0.25),
+        -1px -1px 2px hsla(0,0%,100%,0.25),
+        -1px 1px 2px hsla(0,0%,100%,0.25),
+        1px -1px 2px hsla(0,0%,100%,0.25),
+        -1px 0px 2px hsla(0,0%,100%,0.25),
+        1px 0px 2px hsla(0,0%,100%,0.25);
+}
+
+.node div {
+   padding: 6px 4%;
+}
+
+
+</style>
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<body onload="javascript:loadMap()">
+<header class="main_menu_sec navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-12">
+				<div class="lft_hd">
+					<!--<a href="index.html"><img src="img/logo.png" alt=""/></a>-->
+				</div>
+			</div>			
+			<div class="col-lg-9 col-md-9 col-sm-12">
+				<div class="rgt_hd">					
+					<div class="main_menu">
+						<nav id="nav_menu">
+							<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							</button>	
+						<div id="navbar">
+							<ul>
+								<li><a class="page-scroll" href="index.html">Home</a></li> 
+							<li><a href="#">Screener <i class="fa fa-angle-down"></i></a>
+							<ul>
+								<li><a class="page-scroll" href="/screener/fundamentalData/AAPL/">Fundamental Data</a></li>
+								<li><a class="page-scroll" href="/screener/technicalData/AAPL/">Technical Data</a></li>
+								<li><a class="page-scroll" href="#lts_sec">All</a></li>
+							</ul>
+							</li> 						
+
+							<li><a href="#">Static Page<i class="fa fa-angle-down"></i></a>
+							<ul>
+								<li><a class="page-scroll" href="/homepage/summary/">Summary</a></li>
+								<li><a class="page-scroll" href="/homepage/actualvstargetallocation/">Actualvstargetallocation</a></li>
+								<li><a class="page-scroll" href="/homepage/allocations/">Allocations</a></li>
+							</ul>
+							</li> 
+							
+								<li><a class="page-scroll" href="/charts/maps/">Map</a></li>
+								<li><a class="page-scroll" href="/charts/graphs/">Graph</a></li>
+								<li><a class="page-scroll" href="indices/nift100Indices/RAIN.NS/2017/1/1/2018/5/5/">Indices</a></li>
+								<li><a class="page-scroll" href="#protfolio_sec">Mutual Funds</a></li>
+								<li><a class="page-scroll" href="#ctn_sec">Contact Us</a></li>
+							</ul>
+						</div>		
+						</nav>			
+					</div>					
+						
+				</div>
+			</div>	
+		</div>	
+	</div>	
+</header>
+<!-- End Header Section -->
+</body>
+<script>
+
+function loadMap(){
+alert('LoadMap' +url)
+ d3.json(url, callback);
+}
+var margin = {
+    top: 150,
+    right: 20,
+    bottom: 60,
+    left: 100
+},
+width = 1000 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
+
+var color = d3.scale.category20c();
+
+var treemap = d3.layout.treemap()
+    .size([width, height])
+    .sticky(true)
+    .value(function (d) {
+    return 500000;
+});
+
+var div = d3.select("body").append("div")
+    .style("position", "relative")
+    .style("width", (width + margin.left + margin.right) + "px")
+    .style("height", (height + margin.top + margin.bottom) + "px")
+    .style("left", margin.left + "px")
+    .style("top", margin.top + "px");
+
+var url = "http://127.0.0.1:7000/charts/mapsdata/";
+
+var headerHeight = 20;
+var headerColor = "#555555";
+
+var dispatcher = d3.dispatch('jsonLoad');
+
+d3.select('#loadData').on('click', function() {
+    d3.json(url, callback);
+});
+
+// optional dispatcher
+dispatcher.on('jsonLoad', function(data) {
+    // triggered afer json is loaded (just if you want to do additional stuff here.)
+    console.log(data);
+});
+
+var callback = function (error, root) {
+        alert('callback'+treemap.nodes)
+        dispatcher.jsonLoad(root); // can trigger an event that new data are here
+        var node = div.datum(root).selectAll(".node")
+            .data(treemap.nodes)
+            .enter().append("div")
+            .attr("class", "node").attr("id", function (d) {
+            return d.children ? "parent-"+d.name : "child-"+d.parent.name;
+        })
+            .call(headerposition)
+            .style("background", function (d) {
+            return d.children ? color(d.name) : null;
+        })
+            .text(function (d) {
+            return d.children ? null : d.name;
+        });
+
+        d3.selectAll("input").on("change", function change() {
+            var value = this.value === "count" ? function () {
+                    return 1;
+                } : function (d) {
+                    return d.size;
+                };
+
+            node.data(treemap.value(value).nodes)
+                .transition()
+                .duration(1500)
+                .call(position);
+        });
+      d3.selectAll("div")  
+    };
+
+function position() {
+    this.style("left", function (d) {
+        return d.x + "px";
+    })
+        .style("top", function (d) {
+        return d.y + "px";
+    })
+        .style("width", function (d) {
+        return Math.max(0, d.dx - 1) + "px";
+    })
+        .style("height", function (d) {
+        return Math.max(0, d.dy - 1) + "px";
+    });
+}
+
+function headerposition() {
+    this.style("left", function (d) {
+        return d.x + "px";
+    })
+        .style("top", function (d) {
+         z=d.y
+         w=d.y
+         z=z-26
+         d.y=w
+        return z + "px";
+    })
+        .style("width", function (d) {
+        return Math.max(0, d.dx - 1) + "px";
+    })
+        .style("height", function (d) {
+        return Math.max(0, d.dy - 1) + "px";
+    });
+}
+
+</script>
+</html>

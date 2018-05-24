@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import screener.fundamentalData as fd
 import json
+from batchprocessing.models import nifty_500_companies_fundamental_data
 # Create your views here.
 keyStatistics = [
     "Market Cap ",
@@ -248,5 +249,6 @@ def getStaticVr(request):
     return render(request,"blockbuilder.html")
 
 def fundamentalDataHome(request):
-    return render(request,"Screener.html")
+    result=nifty_500_companies_fundamental_data.objects[0:20]
+    return render(request,"Screener.html",{"fundamentaldata":result,"limit":20})
     

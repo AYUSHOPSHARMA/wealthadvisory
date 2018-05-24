@@ -27,3 +27,24 @@ class nifty_500_companies(Document):
 		Symbol = StringField(max_length=100,required=True)
 		Series = StringField(max_length=100,required=True)
 		ISIN_Code = StringField(max_length=100,required=False)
+        
+class nifty_200_companies(Document):
+		Company_Name = StringField(max_length=100,required=False)
+		Industry = StringField(max_length=100,required=True)
+		Symbol = StringField(max_length=100,required=True)
+		Series = StringField(max_length=100,required=True)
+		ISIN_Code = StringField(max_length=100,required=False)
+
+class nifty_100_companies(Document):
+		Company_Name = StringField(max_length=100,required=False)
+		Industry = StringField(max_length=100,required=True)
+		Symbol = StringField(max_length=100,required=True)
+		Series = StringField(max_length=100,required=True)
+		ISIN_Code = StringField(max_length=100,required=False)
+        
+class nifty_50_companies(Document):
+		Company_Name = StringField(max_length=100,required=False)
+		Industry = StringField(max_length=100,required=True)
+		Symbol = StringField(max_length=100,required=True)
+		Series = StringField(max_length=100,required=True)
+		ISIN_Code = StringField(max_length=100,required=False)

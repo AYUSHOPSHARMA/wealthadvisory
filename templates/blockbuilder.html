@@ -1,35 +1,49 @@
-{% block head %}
+<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <style>
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
   </style>
+  
+
 </head>
-{% endblock head %}
 
 <body>
-    <div onload="javascript:loadVr()"></div>
    <a-scene>
-    <!-- <a-box position="-1 0.5 -3" rotation="0 45 0" color="#d8534a"></a-box>-->
+
      <a-light color="#da47da" position="0 0 0" type="ambient"></a-light>
       <a-entity light="type: point; color: #EEE; intensity: 0.5" position="0 3 0"></a-entity>
-     <a-entity position="0 0 0" rotation="0 0 0">
-    	 <a-entity camera look-controls wasd-controls></a-entity>
+     <a-entity position="8 2 8" rotation="0 0 0">
+    	 <a-entity camera look-controls wasd-controls>
+
+			<a-entity cursor="fuse: true; fuseTimeout: 500"
+
+            position="0 0 -2"
+
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.027"
+
+            material="color: black; shader: flat"
+
+  			</a-entity>
+
+    	</a-entity>
      </a-entity>
     	
       <!-- Sky -->
       <a-sky color="#137c85"></a-sky>
   </a-scene>
+  
   <script>
     // fake data
-    function loadVr() {
-    alert('Loading Vr..');
-    
-    var data = [ 10, 20, 30, 15, 25, 35, 40,
-                45, 50, 70, 100, 120, 130,
-               12, 18, 22, 29, 33, 44, 59, 200]
+    var data = [ 10, 20, 30, 40, 50, 60, 70 ,80, 90]
+
+	
+    var company = [ 'Dell', 'HP', 'Lenovo', 'Samsung', 'SAP', 'Oracle', 'Microsoft', 'Apple', 'Google', 'Amazon']
+
+
     
     var hscale = d3.scale.linear()
       .domain([0, d3.max(data)])
@@ -40,6 +54,7 @@
     var box = scene.selectAll("a-box.bar")
       .data(data)
     box.enter().append("a-box").classed("bar", true)
+    $( ".bar" ).append( "<a-text> </a-text>" );
     box.attr({
       position: function(d,i) {
         var radius = 10;
@@ -58,11 +73,36 @@
       height: function(d,i) {
         return hscale(d)
       }
+	 
    })
    
-   }
- 
+   .on("click", function(d,i) {
+
+      d3.select(this).select("a-text")
+
+      .attr({
+
+	        	'color':'hsla(240, 100%, 25%, 0.6)',
+
+	        	'align':'center',
+
+	        	'position':'0 '+ (hscale(d)/2+.5) + ' 0',
+
+	        	'scale':'1 1 1',
+
+	        	'value': company[i]+', '+d
+
+      })
+
+    })
+
+
   </script>
   
   
 </body>
+
+
+
+
+ 
