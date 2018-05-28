@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from batchprocessing.models import nifty_500_companies_fundamental_data
+from batchprocessing.models import nifty_200_companies_fundamental_data
+from batchprocessing.models import nifty_100_companies_fundamental_data
+from batchprocessing.models import nifty_50_companies_fundamental_data
+import datetime
 
 class FundamentalData:
     
@@ -197,24 +201,19 @@ class FundamentalData:
         print("#################VALUE SET##################")
               
               
-    def saveFundamentalData(self,fundamental_data_querySet,typeDb):
-        print(fundamental_data_querySet)
-        updateFlag= True
-        if fundamental_data_querySet.count() >0:
-            fundamental_data_obj=fundamental_data_querySet.get(Ticker=self.Ticker)
-            print(fundamental_data_obj.Ticker !=self.Ticker)
-        else:
-            print("################### OBJECT IS NONE ###################")
-            updateFlag = False
-            if(typeDb=="Top500"):
-               companies_fundamental_data_obj=nifty_500_companies_fundamental_data()
-            elif(typeDb=="Top200"):
-                companies_fundamental_data_obj=nifty_200_companies_fundamental_data()
-            elif(typeDb=="Top100"):
-                companies_fundamental_data_obj=nifty_100_companies_fundamental_data()
-            elif(typeDb=="Top50"):
+    def saveFundamentalData(self,typeDb):
+        print("################### OBJECT IS NONE ###################")
+        now = datetime.datetime.now()
+        if(typeDb=="nifty500"):
+            companies_fundamental_data_obj=nifty_500_companies_fundamental_data()
+        elif(typeDb=="nifty200"):
+            companies_fundamental_data_obj=nifty_200_companies_fundamental_data()
+        elif(typeDb=="nifty100"):
+             companies_fundamental_data_obj=nifty_100_companies_fundamental_data()
+        elif(typeDb=="nifty50"):
                 companies_fundamental_data_obj=nifty_50_companies_fundamental_data()
-            companies_fundamental_data_obj.Ticker=self.Ticker
+        companies_fundamental_data_obj.Date = now
+        companies_fundamental_data_obj.Ticker=self.Ticker
         companies_fundamental_data_obj.Industry=self.Industry
         companies_fundamental_data_obj.Company_Name=self.CompanyName
         companies_fundamental_data_obj.Market_Cap=self.Market_Cap
@@ -276,10 +275,7 @@ class FundamentalData:
         companies_fundamental_data_obj.Last_Split_Factor_new_per_old=self.Last_Split_Factor_new_per_old
         companies_fundamental_data_obj.Last_Split_Date=self.Last_Split_Date
         print("################ SEVING VALUE###############")
-        if updateFlag == False:
-            print("################ SAVING #########################")
-            companies_fundamental_data_obj.save()
-        else:
-            print("################ UPDATING #########################")
+        print("################ SAVING #########################")
+        companies_fundamental_data_obj.save()
             ##companies_fundamental_data_obj.update()
         print("################ VALUE SAVED#########################")

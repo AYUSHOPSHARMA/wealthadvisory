@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% csrf_token %}
+		<div class="row">
+			<div class="title_sec">
+				<h1>Portfolio Optimization</h1>
+			</div>		
+			<div>
+				<div class="sngl_blg">
+					<div style="background: #E6F0F3;padding-top: 7px;">
+						<h2 style="margin-left: 460px;background: 0000;">Portfolio 1</h2>
+					</div>
+					<div>
+						<table width="100%" cellspacing="1" cellpadding="1">
+							<tbody>
+							<tr>
+								<div id="resultheatmap"> </div>
+							</tr>
+							
+							</tbody>
+						</table>
+					</div>
+				</div>	
+				
+				<div class="sngl_blg">
+				<ul class="pagination">
+                                                    <li><a href="#">1</a></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li><a href="#">4</a></li>
+                                                    <li><a href="#">5</a></li>
+                                    </ul>
+					<div style="background: #E6F0F3;padding-top: 7px;">
+						<h2 style="margin-left: 460px;background: 0000;">All Company info</h2>
+					</div>
+					<div>
+						<div>
+
+							<div id="screener-content">
+								<table border="0" width="100%" cellspacing="0" cellpadding="0">
+									<tbody>
+									<tr>
+										<td width="100%"></td>
+									</tr>
+									<tr>
+										<td>
+											<table border="0" width="100%" cellspacing="1" cellpadding="3">
+												<tbody>
+												<tr style=" border: 1px solid black;"><strong>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">No.</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px"><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Company</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Industry</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Country</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Market Cap</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Trailing P/E</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Forward P/E</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Beta</td>
+																										<td style="padding-left: 16px;border: 1px solid black; width:10px">52 Weeek Change</td>
+													<td style="padding-left: 16px;border: 1px solid black; width:10px">Avg. Volume 3 Month</td>
+													{% for fd in fundamentaldata %}
+												</tr>
+												<tr style="border: 1px solid black;">
+													<td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter }}</td>
+													<td style="padding-left: 16px;border: 1px solid black;"><a  href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a></td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Company_Name}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">INDIA</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Market_Cap}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Trailing_P_E}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Forward_P_E}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Beta}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Week_52_Change}}</td>
+													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Avg_Vol_3_month}}</td>
+												</tr>
+												{% endfor %}
+
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									<tr>
+        								<td>
+        								<table class="body-table" style="height: 5px;" border="0" width="910" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+        								<tbody>
+        											<tr> <ul class="pagination">
+            											{% for i in "x"|rjust:pagecount %}
+                                                    <li><a href="#">{{i}}</a></li>
+                                              {% endfor %}  
+                                                  </ul>
+                                            </tr>
+        									</tr>
+        								</tbody>
+        								</table>
+        								</td>
+        							</tr>
+									</tbody>
+								</table>
+						</div>
+					</div>
+				</div>				
+
+				<div class="sngl_blg">						
+
+				</div>
+			</div>				
+
+		</div>
+<!-- start Blog Section -->
+
+
+<!-- End located map  Section -->
+<!-- start footer Section -->
+		 <footer id="ft_sec" style="background-color:#224B59">
+			 <div class="container" style="background-color:#f5f5f5;padding-top: 30px;">
+				 <div class="row">
+					 <div class="col-lg-12" style="background-color:#f5f5f5">
+						 <div class="ft">
+							 <ul>
+								 <li><a href=""><i class="fa fa-facebook"></i></a></li>
+								 <li><a href=""><i class="fa fa-twitter"></i></a></li>
+								 <li><a href=""><i class="fa fa-dribbble"></i></a></li>
+								 <li><a href=""><i class="fa fa-rss"></i></a></li>
+								 <li><a href=""><i class="fa fa-flickr"></i></a></li>
+								 <li><a href=""><i class="fa fa-pinterest"></i></a></li>
+								 <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+								 <li><a href=""><i class="fa fa-skype"></i></a></li>
+								 <li><a href=""><i class="fa fa-google"></i></a></li>
+							 </ul>
+						 </div>
+						 <ul class="copy_right">
+							 <li>@WealthView</li>
+
+						 </ul>
+					 </div>
+				 </div>
+			 </div>
+		 </footer>
+<!-- End footer Section -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="/static/js/vendor/jquery-1.11.2.min.js"></script>
+
+<script src="/static/js/isotope.pkgd.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery-ui.js"></script>
+<script src="/static/js/appear.js"></script>
+<script src="/static/js/jquery.counterup.min.js"></script>
+<script src="/static/js/waypoints.min.js"></script>
+<script src="/static/js/owl.carousel.min.js"></script>
+<script src="/static/js/showHide.js"></script>
+<script src="/static/js/jquery.nicescroll.min.js"></script>
+<script src="/static/js/jquery.easing.min.js"></script>
+<script src="/static/js/scrolling-nav.js"></script>
+<script src="/static/js/plugins.js"></script>
+<!-- Google Map js -->
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+		<script>
+		function checkSelected(data,ob){
+	   alert(data)
+	    if( data.id="Trailing_P_E")
+    	    ob.Trailing_P_E = data.value;
+	    alert(ob.Trailing_P_E);
+	    $.get( "/screener/fundamentalDataHome?Trailing_P_E="+data.value, function( data ) {
+        alert( "Load was performed."+data );
+    });}
+    
+    $( document ).ready(function() {
+       $.get( "/screener/portfolioOptimization/", function( data ) {
+          $( "#resultheatmap" ).html( data );
+          alert( "data"+data );
+});
+    });
+			
+		</script>
+<script src="/static/js/main.js"></script>
+
+<script src="showHide.js" type="text/javascript"></script>
+
+{% endblock %}

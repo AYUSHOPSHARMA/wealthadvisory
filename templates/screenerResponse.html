@@ -1,112 +1,5 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Wealth View</title>
-     <link rel="stylesheet" type="text/css" href="/static/css/reset.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/static/css/text.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/static/css/grid.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/static/css/nav.css" media="screen" />
-    <!--[if IE 6]><link rel="stylesheet" type="text/css" href="/static/css/ie6.css" media="screen" /><![endif]-->
-    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="/static/css/ie.css" media="screen" /><![endif]-->
-    <!-- BEGIN: load jquery -->
-    <link rel="stylesheet"  type="text/css" href="/static/css/bootstrap.min.css" media="screen" >
-    <!-- Latest compiled JavaScript -->
-    <script src="/static/js/bootstrap.min.js"  type="text/javascript"></script>
-    <script src="/static/js/jquery-1.6.4.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/static/js/jquery-ui/jquery.ui.core.min.js"></script>
-    <script src="/static/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
-    <script src="/static/js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
-    <script src="/static/js/jquery-ui/jquery.effects.core.min.js" type="text/javascript"></script>
-    <script src="/static/js/jquery-ui/jquery.effects.slide.min.js" type="text/javascript"></script>
-    <!-- END: load jquery -->
-    <!-- BEGIN: load jqplot -->
-    <link rel="stylesheet" type="text/css" href="/static/css/jquery.jqplot.min.css" />
-    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="/static/js/jqPlot/excanvas.min.js"></script><![endif]-->
-    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/jquery.jqplot.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.barRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.pieRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.highlighter.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/static/js/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
-    <!-- END: load jqplot -->
-    <script src="/static/js/setup.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<script src="/static/js/fundamentalScreen.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            setupDashboardChart('chart1');
-            setupLeftMenu();
-			setSidebarHeight();
-
-
-        });
-    </script>
-	<script>
-	
-	function screenerSelectOnChange(data,selectedJson){
-	alert(data.value)
-    	$.get( "/screener/fundamentalDataHomeResponse/"+data.value+"/", function( data ) {
-      $( "#result" ).html( data );
-      alert( "Load was performed."+data );
-    });
-	
-	}
-	
-	function checkSelected(data,ob){
-	  
-	    if( data.id="Trailing_P_E")
-    	    ob.Trailing_P_E = data.value;
-	    alert(ob.Trailing_P_E);
-	    $.get( "/screener/fundamentalDataHomeResponse/Trailing_P_E="+ob.Trailing_P_E+"/", function( data ) {
-        alert( "Load was performed."+data );
-    });
-      
-        	  
-	}
-	
-	function checkIfOther(){
-
-        a = document.getElementById("dropDown1");        
-
-        if(a.value == "open")           
-
-            document.getElementById("open").setAttribute("style","display:inline");
-
-        else
-
-            document.getElementById("open").setAttribute("style","display:none");
-if(a.value == "high")           
-
-            document.getElementById("high").setAttribute("style","display:inline");
-
-        else
-
-            document.getElementById("high").setAttribute("style","display:none");
-if(a.value == "low")           
-
-            document.getElementById("low").setAttribute("style","display:inline");
-
-        else
-
-            document.getElementById("low").setAttribute("style","display:none");
-if(a.value == "close")           
-
-            document.getElementById("close").setAttribute("style","display:inline");
-
-        else
-
-            document.getElementById("close").setAttribute("style","display:none");
-
-        }
-	</script>
-</head>
-<body ng-app="myApp">
-<div id="result">
-    <div class="container_12" style="width: 1359px !important;">
-        <div class="grid_12 header-repeat">
+  <div class="container_12" style="width: 1359px !important;">
+ <div class="grid_12 header-repeat">
             <div id="branding">
                 <div class="floatleft">
                     <h2 style="color: white">Stock broking meets technology</h2></div>
@@ -170,7 +63,7 @@ if(a.value == "close")
                 </div>
             </div>
         </div>
-        <div class="grid_10" ng-controller="w3TestDirective">
+        <div class="grid_10">
             <div class="box round first">
               
                 <div class="block" style="background: #E6F0F3;padding-top: 7px;">
@@ -180,36 +73,34 @@ if(a.value == "close")
 					<table width="100%" cellspacing="1" cellpadding="1">
 					<tbody>
 						<tr>
-							<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">Trailing P/E</span></td>
-        							<td class="filters-cells" width="10%">
-            							<select id="Trailing_P_E" class="screener-combo-text" ng-change="ScreenerSelectOnChangePE(myValue)" ng-model="myValue"" >
-                    							<option  value="Any">Any</option>
-                    							<option value="low" >Low (&lt;15)</option>
-                    							<option value="profitable">Profitable (&gt;0)</option>
-                    							<option value="high">High (&gt;50)</option>
-                    							<option value="u5">Under 5</option>
-                    							<option value="u10">Under 10</option>
-                    							<option value="u15">Under 15</option>
-                    							<option value="u20">Under 20</option>
-                    							<option value="u25">Under 25</option>
-                    							<option value="u30">Under 30</option>
-                    							<option value="u35">Under 35</option>
-                    							<option value="u40">Under 40</option>
-                    							<option value="u45">Under 45</option>
-                    							<option value="u50">Under 50</option>
-                    							<option value="o5">Over 5</option>
-                    							<option value="o10">Over 10</option>
-                    							<option value="o15">Over 15</option>
-                    							<option value="o20">Over 20</option>
-                    							<option value="o25">Over 25</option>
-                    							<option value="o30">Over 30</option>
-                    							<option value="o35">Over 35</option>
-                    							<option value="o40">Over 40</option>
-                    							<option value="o45">Over 45</option>
-                    							<option value="o50">Over 50</option>
-                    							<option value="range">Custom (Elite only)</option>
-            							</select>
-        							</td>
+							<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" title="">P/E</span></td>
+							<td class="filters-cells" width="10%"><select id="fs_fa_pe" class="screener-combo-text" onchange="screenerSelectOnChange(this)" data-filter="fa_pe" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_pe_selected_filter&amp;ft=2&amp;o=industry">
+							<option selected="selected" value="">Any</option>
+							<option value="low">Low (&lt;15)</option>
+							<option value="profitable">Profitable (&gt;0)</option>
+							<option value="high">High (&gt;50)</option>
+							<option value="u5">Under 5</option>
+							<option value="u10">Under 10</option>
+							<option value="u15">Under 15</option>
+							<option value="u20">Under 20</option>
+							<option value="u25">Under 25</option>
+							<option value="u30">Under 30</option>
+							<option value="u35">Under 35</option>
+							<option value="u40">Under 40</option>
+							<option value="u45">Under 45</option>
+							<option value="u50">Under 50</option>
+							<option value="o5">Over 5</option>
+							<option value="o10">Over 10</option>
+							<option value="o15">Over 15</option>
+							<option value="o20">Over 20</option>
+							<option value="o25">Over 25</option>
+							<option value="o30">Over 30</option>
+							<option value="o35">Over 35</option>
+							<option value="o40">Over 40</option>
+							<option value="o45">Over 45</option>
+							<option value="o50">Over 50</option>
+							<option value="range">Custom (Elite only)</option>
+							</select></td>
 							<td class="filters-cells" align="center" width="10%"><span class="screener-combo-title" style="font-family: Verdana, Arial, Tahoma; font-size: 11px; color: #000000; text-decoration: none; cursor: pointer;" title="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Forward Price-to-Earnings Ratio] body=[&lt;table width=300&gt;&lt;tr&gt;&lt;td class='tooltip_tab'&gt;A measure of the price-to-earnings ratio using forecasted earnings for the P/E calculation. Value for next fiscal year.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;] delay=[500]">Forward P/E</span></td>
 							<td class="filters-cells" width="10%"><select id="fs_fa_fpe" class="screener-combo-text" onchange="screenerSelectOnChange(this)" data-filter="fa_fpe" data-url="v=111&amp;ft=2&amp;o=industry" data-url-selected="v=111&amp;f=fa_fpe_selected_filter&amp;ft=2&amp;o=industry">
 							<option selected="selected" value="">Any</option>
@@ -1047,6 +938,19 @@ if(a.value == "close")
 							</tr>
 							<tr>
 								<td>
+								<table class="body-table" style="height: 5px;" border="0" width="910" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+								<tbody>
+											<tr> <ul class="pagination">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                          </ul>
+                                    </tr>
+									</tr>
+								</tbody>
+								</table>
 								</td>
 							</tr>
 						</tbody>	
@@ -1056,11 +960,5 @@ if(a.value == "close")
 
 				
 			</div>
-				
-				
-				
 		</div>
-    </div>
 </div>
-</body>
-</html>

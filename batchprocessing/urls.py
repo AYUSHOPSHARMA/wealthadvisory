@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from batchprocessing import views
+from batchprocessing import views,indices
 
 urlpatterns = [
-        path('uploadCompany/', views.uploadCompany),
+        path('uploadCompany/<str:companyType>/', views.uploadCompany),
+         path('uploadIndices/<str:companyType>/', indices.uploadIndices),
        ]

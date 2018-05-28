@@ -1,7 +1,11 @@
 from django.shortcuts import render
 import screener.fundamentalData as fd
-import json
+import screener.screenerBean as sb
 from batchprocessing.models import nifty_500_companies_fundamental_data
+from batchprocessing.models import nifty_200_companies_fundamental_data
+from batchprocessing.models import nifty_100_companies_fundamental_data
+from batchprocessing.models import nifty_50_companies_fundamental_data
+import json
 # Create your views here.
 keyStatistics = [
     "Market Cap ",
@@ -249,6 +253,65 @@ def getStaticVr(request):
     return render(request,"blockbuilder.html")
 
 def fundamentalDataHome(request):
-    result=nifty_500_companies_fundamental_data.objects[0:20]
-    return render(request,"Screener.html",{"fundamentaldata":result,"limit":20})
+    pe = request.GET.get('TrailingP_E')
+    screenerdatabean=sb.ScreenerData(request,"nifty500")
+    print(screenerdatabean.Trailing_P_E)
+    print("Value111###############################")
+    print(pe)
+    if pe is not None:
+        print("Inside if#########")
+        screenerdatabean.setTrailing_P_E(pe)
+    print("Value###############################")
+    print(pe)
+    totalresult=100
+    result=nifty_500_companies_fundamental_data.objects[0:100]
+    pagecount =totalresult/20
+    currentpage=1
+    input = '' 
+    input +=  '{"companyType":"'+screenerdatabean.companyType+'" ,"Trailing_P_E":"'+str(screenerdatabean.getTrailing_P_E)+'",'
+    input +=  '"Forward_P_E":"'+screenerdatabean.Forward_P_E+'",'
+    input +=  '"PEG_Ratio" :"'+screenerdatabean.PEG_Ratio+'",'
+    input +=  '"Quarterly_Earnings_Growth":"'+screenerdatabean.Quarterly_Earnings_Growth+'",'
+    input +=  '"Price_Sales":"'+screenerdatabean.Price_Sales+'",'
+    input +=  '"Price_Book":"'+screenerdatabean.Price_Book+'",'
+    input +=  '"Total_Cash_Per_Share":"'+screenerdatabean.Total_Cash_Per_Share+'",'
+    input +=  '"Levered_Free_Cash_Flow":"'+screenerdatabean.Levered_Free_Cash_Flow+'",'
+    input +=  '"Diluted_EPS":"'+screenerdatabean.Diluted_EPS+'",'
+    input +=  '"Return_on_Assets":"'+screenerdatabean.Return_on_Assets+'",'
+    input +=  '"Return_on_Equity":"'+screenerdatabean.Return_on_Equity+'",'
+    input +=  '"Current_Ratio":"'+screenerdatabean.Current_Ratio+'",'
+    input +=  '"Short_Ratio":"'+screenerdatabean.Short_Ratio+'",'
+    input +=  '"Short_of_Float":"'+screenerdatabean.Short_of_Float+'",'
+    input +=  '"Total_Debt":"'+screenerdatabean.Total_Debt+'",'
+    input +=  '"Total_Debt_Equity":"'+screenerdatabean.Total_Debt_Equity+'",'
+    input +=  '"Profit_Margin":"'+screenerdatabean.Profit_Margin+'",'
+    input +=  '"Operating_Margin":"'+screenerdatabean.Operating_Margin+'",'
+    input +=  '"Payout_Ratio":"'+screenerdatabean.Payout_Ratio+'",'
+    input +=  '"Held_by_Insiders":"'+screenerdatabean.Held_by_Insiders+'",'
+    input +=  '"Held_by_Institutions":"'+screenerdatabean.Held_by_Institutions+'",'
+    input +=  '"companyType":"'+screenerdatabean.companyType+'"}'
+    input +=  ''
+    
+    print("############- JSON DATA - ##############")
+    print(input)
+    return render(request,"Screener.html",{"fundamentaldata":result,"limit":100, "complanyType":"nifty500","input":input, "pagecount":pagecount,"currentpage":currentpage})
+
+def fundamentalDataHomeResponse(request,**kwargs):
+        value=request.GET["Trailing_P_E"]
+        print("########################Value#############")
+        print(value)
+        start=0
+        limit=100
+        if(companyType == "nifty50"):
+             result=nifty_50_companies_fundamental_data.objects[start:limit]
+        elif(companyType == "nifty100"):
+             result=nifty_100_companies_fundamental_data.objects[start:limit]
+        elif(companyType == "nifty200"):
+             result=nifty_200_companies_fundamental_data.objects[start:limit]
+        elif(companyType == "nifty500"):
+             result=nifty_500_companies_fundamental_data.objects[start:limit]
+        else:
+            result=nifty_500_companies_fundamental_data.objects[0:100]
+            
+        return render(request,"screenerResponse.html",{"fundamentaldata":result,"limit":100, "companyType":companyType})
     

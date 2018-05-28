@@ -14,11 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from screener import views
+from django.urls import path, include,re_path
+from screener import views, fundamentaldataView,portfolio
 
 urlpatterns = [
         path('fundamentalData/<str:ticker>/', views.getfundamentalData),
          path('staticVR/VR/', views.getStaticVr),
-         path('fundamentalDataHome/', views.fundamentalDataHome),
+         path('fundamentalDataHome/', fundamentaldataView.fundamentalDataHome),
+         re_path(r'^fundamentalDataHome/*', fundamentaldataView.fundamentalDataHome),
+         path('portfolioOptimization/', portfolio.getPortfolioChart),
+         path('portfolio/', portfolio.getportfolio),
 ]
