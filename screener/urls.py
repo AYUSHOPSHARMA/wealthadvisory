@@ -20,8 +20,8 @@ from screener import views, fundamentaldataView,portfolio
 urlpatterns = [
         path('fundamentalData/<str:ticker>/', views.getfundamentalData),
          path('staticVR/VR/', views.getStaticVr),
-         path('fundamentalDataHome/', fundamentaldataView.fundamentalDataHome),
-         re_path(r'^fundamentalDataHome/*', fundamentaldataView.fundamentalDataHome),
+         path('fundamentalDataHome/', views.fundamentalDataHome),
+         #re_path(r'^fundamentalDataHome/*', fundamentaldataView.fundamentalDataHome),
          path('portfolioOptimization/', portfolio.getPortfolioChart),
          path('portfolio/', portfolio.getportfolio),
 ]
