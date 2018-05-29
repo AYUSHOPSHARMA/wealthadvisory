@@ -1,8 +1,4 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    {% csrf_token %}
-		<div class="row">
+<div class="row">
 			<div class="title_sec">
 				<h1>Portfolio Optimization</h1>
 			</div>		
@@ -15,10 +11,7 @@
 						<table width="100%" cellspacing="1" cellpadding="1">
 							<tbody>
 							<tr>
-    							<button id="loadData" onclick="window.location.href='/screener/downloadPortfolioPDF/';return false;" target="_blank">Download PDF</button>
-							</tr>
-							<tr>
-								<div id="resultheatmap">{{data|safe|escape}} </div>
+								<div id="resultheatmap"> <img src="/screener/portfolioOptimization/" alt=""/></div>
 							</tr>
 							
 							</tbody>
@@ -95,34 +88,6 @@
 <!-- start Blog Section -->
 
 
-<!-- End located map  Section -->
-<!-- start footer Section -->
-		 <footer id="ft_sec" style="background-color:#224B59">
-			 <div class="container" style="background-color:#f5f5f5;padding-top: 30px;">
-				 <div class="row">
-					 <div class="col-lg-12" style="background-color:#f5f5f5">
-						 <div class="ft">
-							 <ul>
-								 <li><a href=""><i class="fa fa-facebook"></i></a></li>
-								 <li><a href=""><i class="fa fa-twitter"></i></a></li>
-								 <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-								 <li><a href=""><i class="fa fa-rss"></i></a></li>
-								 <li><a href=""><i class="fa fa-flickr"></i></a></li>
-								 <li><a href=""><i class="fa fa-pinterest"></i></a></li>
-								 <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-								 <li><a href=""><i class="fa fa-skype"></i></a></li>
-								 <li><a href=""><i class="fa fa-google"></i></a></li>
-							 </ul>
-						 </div>
-						 <ul class="copy_right">
-							 <li>@WealthView</li>
-
-						 </ul>
-					 </div>
-				 </div>
-			 </div>
-		 </footer>
-<!-- End footer Section -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <script src="/static/js/isotope.pkgd.min.js"></script>
@@ -148,12 +113,5 @@
       
     });
     
-    function downloadPDF()
-    {
-    alert("Downloading")
-}
 		</script>
 <script src="/static/js/main.js"></script>
-
-
-{% endblock %}

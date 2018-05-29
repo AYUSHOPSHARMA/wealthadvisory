@@ -18,9 +18,8 @@ from mongoengine.queryset.visitor import Q
 from mpld3._display import display_d3,fig_to_html,save_json
 from mpld3 import plugins
 import json
-from django.views.decorators.cache import cache_page
 
-
+ 
 def portfolioOptimization(stocks, st,ed,num_portfolios):
     #list of stocks in portfolio
     
@@ -63,6 +62,8 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
     ed=end.strftime('%Y-%m-%d')
 
     data = web.get_data_yahoo(stocks,st,ed)['Adj Close']
+    print("####################Data################")
+    print(data)
     #download daily price data for each of the stocks in the portfolio
     #data = web.DataReader(stocks,data_source='yahoo',start='01/01/2010')['Adj Close']
      
@@ -75,8 +76,9 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
     mean_daily_returns = returns.mean()
     cov_matrix = returns.cov()
     
+    print("##########cov_matrix########")
     print(cov_matrix)
-    num_portfolios = 500
+    num_portfolios = 100
      
     #set up array to hold results
     #We have increased the size of the array to hold the weight values for each stock
@@ -89,6 +91,8 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
         #rebalance weights to sum to 1
         weights /= np.sum(weights)
         
+        print("#######WEIGHT##########")
+        print(weights)
         #calculate portfolio return and volatility
         portfolio_return = np.sum(mean_daily_returns * weights) * 252
         portfolio_std_dev = np.sqrt(np.dot(weights.T,np.dot(cov_matrix, weights))) * np.sqrt(252)
@@ -105,16 +109,23 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
         #iterate through the weight vector and add data to results array
         for j in range(len(weights)):
             results[j+3,i] = weights[j]
+    print("#########################RESULT##############")    
+    print(results)
     
     fig, ax = plt.subplots() 
     
+    print("############ results.######  T###########")
+    print(results.T)
+    print("############ ARRAY###########")
         #convert results array to Pandas DataFrame
     results_frame = pd.DataFrame(results.T,columns=['returns','standard_deviation','sharpe_ratio',stocks[0],stocks[1],stocks[2],stocks[3]])
+    print("################## FRAME###############")
     for i in range(num_portfolios):
         label = results_frame.ix[[i], :].T
         label.columns = ['Statistics']
     # .to_html() is unicode; so make leading 'u' go away with str()
         labels.append(str(label.to_html()))
+    print(results_frame)
         #locate position of portfolio with highest Sharpe Ratio
     #print(results_frame['sharpe_ratio'])
     max_sharpe_port = results_frame.iloc[results_frame['sharpe_ratio'].idxmax()]
@@ -131,23 +142,23 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
     #labels.append(str(label.to_html()))
     plt.colorbar()
         #plot red star to highlight position of portfolio with highest sharpe_ratio Ratio
-    pointsst1=plt.scatter(max_sharpe_port[1],max_sharpe_port[0],marker=(5,1,0),color='r',s=1000)
+    plt.scatter(max_sharpe_port[1],max_sharpe_port[0],marker=(5,1,0),color='r',s=1000)
         #plot green star to highlight position of minimum variance portfolio
-    pointsst2=plt.scatter(min_vol_port[1],min_vol_port[0],marker=(5,1,0),color='g',s=1000)
+    plt.scatter(min_vol_port[1],min_vol_port[0],marker=(5,1,0),color='g',s=1000)
+    print("#########################standard_deviation###########")
         #print(results_frame.standard_deviation)
+    print("#########################return###########")
        # print(results_frame.return)
+    print("#########################sharpe_ratio###########")
         #print(results_frame.sharpe)
         
     ax.grid(color='lightgray', alpha=0.7)
         #fig1 = plt.gcf()
+    print("#############FIG###########")
         #print(fig1)
     byte_file = io.BytesIO()
     tooltip = plugins.PointHTMLTooltip(points, labels,voffset=10, hoffset=10, css=css)
-    tooltipstr1 = plugins.PointHTMLTooltip(pointsst1, labels,voffset=10, hoffset=10, css=css)
-    tooltipstr2 = plugins.PointHTMLTooltip(pointsst2, labels,voffset=10, hoffset=10, css=css)
     plugins.connect(fig, tooltip)
-    plugins.connect(fig, tooltipstr1)
-    plugins.connect(fig, tooltipstr2)
    # tooltip = plugins.PointHTMLTooltip(points[0], labels,
    #                               voffset=10, hoffset=10, css=css)
     #plugins.connect(fig, tooltip)
@@ -156,4 +167,4 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
        # fig1.savefig(byte_file, format='png')
         #image_file= byte_file.getvalue()
     save_json(fig,"test.json")
-    return fig
+    return fig_to_html(fig)

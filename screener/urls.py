@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include,re_path
 from screener import views, fundamentaldataView,portfolio
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
         path('fundamentalData/<str:ticker>/', views.getfundamentalData),
          path('staticVR/VR/', views.getStaticVr),
          path('fundamentalDataHome/', views.fundamentalDataHome),
          #re_path(r'^fundamentalDataHome/*', fundamentaldataView.fundamentalDataHome),
-         path('portfolioOptimization/', portfolio.getPortfolioChart),
-         path('portfolio/', portfolio.getportfolio),
+         path('portfolioOptimization/', cache_page(60 * 15)(portfolio.getPortfolioChart)),
+         path('portfolio/', cache_page(60 * 15)(portfolio.getportfolio)),
+          path('portfolioPDF/', cache_page(60 * 15)(portfolio.getportfolioPDF)),
+         path('downloadPortfolioPDF/', portfolio.downloadPortfolioPDF),
 ]
