@@ -235,7 +235,7 @@ class nifty_50_companies_fundamental_data(Document):
         Industry = StringField(max_length=100,required=True)
         Market_Cap= StringField(max_length=100,required=True)
         Enterprise_Value= StringField(max_length=100,required=True)
-        Trailing_P_E= StringField(required=True)
+        Trailing_P_E= DecimalField(required=True)
         Forward_P_E= StringField(required=True)
         PEG_Ratio= StringField(required=True)
         Price_Sales= StringField(required=True)

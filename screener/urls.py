@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include,re_path
-from screener import views, fundamentaldataView,portfolio
+from screener import views, fundamentaldataView,portfolio,fundamentalportfolioview
 from django.views.decorators.cache import cache_page
+from screener.FundamentalPortfolioForm import views as fundamentalview
 
 urlpatterns = [
         path('fundamentalData/<str:ticker>/', views.getfundamentalData),
@@ -27,4 +28,5 @@ urlpatterns = [
          path('portfolio/', cache_page(60 * 15)(portfolio.getportfolio)),
           path('portfolioPDF/', cache_page(60 * 15)(portfolio.getportfolioPDF)),
          path('downloadPortfolioPDF/', portfolio.downloadPortfolioPDF),
+         path('fundamentalportfolio/', fundamentalportfolioview.fundamentalportfolio),
 ]

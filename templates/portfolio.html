@@ -4,18 +4,18 @@
     {% csrf_token %}
 		<div class="row">
 			<div class="title_sec">
-				<h1>Portfolio Optimization</h1>
+				<h1 style="margin-left: -108px;">Portfolio Optimization</h1>
 			</div>		
 			<div>
 				<div class="sngl_blg">
-					<div style="background: #E6F0F3;padding-top: 7px;">
+					<div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;">
 						<h2 style="margin-left: 460px;background: 0000;">Portfolio 1</h2>
 					</div>
 					<div>
 						<table width="100%" cellspacing="1" cellpadding="1">
 							<tbody>
 							<tr>
-    							<button id="loadData" onclick="window.location.href='/screener/downloadPortfolioPDF/';return false;" target="_blank">Download PDF</button>
+    							<button id="loadData" onclick="window.location.href='/screener/downloadPortfolioPDF/';return false;" target="_blank" style="margin-top: 48px;background-color: #4CAF50; border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;border-radius: 12px;">Download PDF</button>
 							</tr>
 							<tr>
 								<div id="resultheatmap">{{data|safe|escape}} </div>
@@ -27,20 +27,20 @@
 				</div>	
 				
 				<div class="sngl_blg">
-					<div style="background: #E6F0F3;padding-top: 7px;">
+					<div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;padding-left: 15px;">
 						<h2 style="margin-left: 460px;background: 0000;">Portfolio info</h2>
 					</div>
 					<div>
 						<div>
 
 							<div id="screener-content">
-								<table border="0" width="100%" cellspacing="0" cellpadding="0">
+								<table border="0" width="100%" cellspacing="0" cellpadding="0" style="background-color: white;">
 									<tbody>
 									<tr>
 										<td width="100%"></td>
 									</tr>
 									<tr>
-										<td>
+										<td style="background-color: white !important;">
 											<table border="0" width="100%" cellspacing="1" cellpadding="3">
 												<tbody>
 												<tr style=" border: 1px solid black;"><strong>
@@ -58,17 +58,17 @@
 												</tr>
 												
 												<tr style="border: 1px solid black;">
-													<td style="padding-left: 16px;border: 1px solid black;">1</td>
-													<td style="padding-left: 16px;border: 1px solid black;"><a  href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a></td>
-													<td style="padding-left: 16px;border: 1px solid black;">as</td>
-													<td style="padding-left: 16px;border: 1px solid black;">qwe</td>
-													<td style="padding-left: 16px;border: 1px solid black;">INDIA</td>
-													<td style="padding-left: 16px;border: 1px solid black;">adas</td>
-													<td style="padding-left: 16px;border: 1px solid black;">asdas</td>
-													<td style="padding-left: 16px;border: 1px solid black;">asdasd</td>
-													<td style="padding-left: 16px;border: 1px solid black;">asdas</td>
-													<td style="padding-left: 16px;border: 1px solid black;">asdas</td>
-													<td style="padding-left: 16px;border: 1px solid black;">asda</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">1</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;"><a  href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a></td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">as</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">qwe</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">INDIA</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">adas</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">asdas</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">asdasd</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">asdas</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">asdas</td>
+													<td style="padding-left: 16px;border: 1px solid black;background-color: white;">asda</td>
 												</tr>
 												
                                         </td>
@@ -97,7 +97,7 @@
 
 <!-- End located map  Section -->
 <!-- start footer Section -->
-		 <footer id="ft_sec" style="background-color:#224B59">
+		 <footer id="ft_sec" style="background-color:#224B59;margin-top:100px;">
 			 <div class="container" style="background-color:#f5f5f5;padding-top: 30px;">
 				 <div class="row">
 					 <div class="col-lg-12" style="background-color:#f5f5f5">
