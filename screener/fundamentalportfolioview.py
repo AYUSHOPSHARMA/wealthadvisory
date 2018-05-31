@@ -98,6 +98,46 @@ def getParsedValue(field,form):
                 return Q(Forward_P_E__gte=value)
         else:
             return Q(Forward_P_E__lte=1000)
+    if field.label =="PEG" :
+        if form['PEG'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(PEG_Ratio__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(PEG_Ratio__gte=value)
+        else:
+            return Q(PEG_Ratio__lte=1000)
+    if field.label =="P/S" :
+        if form['PS'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Price_Sales__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Price_Sales__gte=value)
+        else:
+            return Q(Price_Sales__lte=1000)
+    if field.label =="P/B" :
+        if form['PB'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Price_Book__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Price_Book__gte=value)
+        else:
+            return Q(Price_Book__lte=1000)
+    if field.label =="Price/Cash" :
+        if form['Price_Free_Cash_Flow'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Total_Cash_Per_Share__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Total_Cash_Per_Share__gte=value)
+        else:
+            return Q(Total_Cash_Per_Share__lte=1000)
     else:
         return None
               
