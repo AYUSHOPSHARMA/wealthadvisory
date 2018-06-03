@@ -5,7 +5,7 @@ from screener.FundamentalPortfolioForm.forms import *
 from batchprocessing.models import nifty_500_companies_fundamental_data
 from batchprocessing.models import nifty_200_companies_fundamental_data
 from batchprocessing.models import nifty_100_companies_fundamental_data
-from batchprocessing.models import nifty_50_companies_fundamental_data
+from batchprocessing.models import nifty_50_fundamental_data
 from django.http import *
 from batchprocessing import *
 from mongoengine import Q
@@ -24,7 +24,7 @@ def fundamentalportfolio(request):
        print(form['Price_Cash'].value())
        if form.is_valid():
            if form['companyType'].value() == "nifty50":
-               n50=nifty_50_companies_fundamental_data
+               n50=nifty_50_fundamental_data
                print("######### N50##########")
                print(n50)
                result=filterFormData(form,n50)
@@ -43,7 +43,7 @@ def fundamentalportfolio(request):
        form = fundamental_form()
        print("#############################")
        if form['companyType'].value() == "nifty50":
-           result=nifty_50_companies_fundamental_data.objects[0:50]
+           result=nifty_50_fundamental_data.objects[0:50]
        elif form['companyType'].value() == "nifty100":
            result=nifty_100_companies_fundamental_data.objects[0:100]
        elif form['companyType'].value() == "nifty200":
@@ -72,7 +72,8 @@ def parseValue(form,resultdbobj):
             ob= getParsedValue(field,form)
             if ob is not None:
                 filters= filters & getParsedValue(field,form)
-        print("#######return#########")
+    print("#######retur FILTER #########")
+    print(filters)
     return resultdbobj.objects.filter(filters);
 
 def getParsedValue(field,form):
@@ -81,14 +82,12 @@ def getParsedValue(field,form):
             if isLE(field):
                 value = comparewithValue(field)
                 print("Returning Trailing PE LT")
-                return Q(Trailing_P_E__lte=value)
+                return Q(Trailing_P_E__lte=int(value))
             elif isGT(field):
                 value = comparewithValue(field)
                 print("Returning Trailing PE GT")
                 return Q(Trailing_P_E__gte=value)
-        else:
-            return Q(Trailing_P_E__lte=1000)
-    if field.label =="Forward P E" :
+    elif field.label =="Forward P E" :
         if form['Forward_P_E'].value() != "Any":
             if isLE(field):
                 value = comparewithValue(field)
@@ -96,9 +95,7 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Forward_P_E__gte=value)
-        else:
-            return Q(Forward_P_E__lte=1000)
-    if field.label =="PEG" :
+    elif field.label =="PEG" :
         if form['PEG'].value() != "Any":
             if isLE(field):
                 value = comparewithValue(field)
@@ -106,9 +103,7 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(PEG_Ratio__gte=value)
-        else:
-            return Q(PEG_Ratio__lte=1000)
-    if field.label =="P/S" :
+    elif field.label =="P/S" :
         if form['PS'].value() != "Any":
             if isLE(field):
                 value = comparewithValue(field)
@@ -116,9 +111,7 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Price_Sales__gte=value)
-        else:
-            return Q(Price_Sales__lte=1000)
-    if field.label =="P/B" :
+    elif field.label =="P/B" :
         if form['PB'].value() != "Any":
             if isLE(field):
                 value = comparewithValue(field)
@@ -126,9 +119,7 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Price_Book__gte=value)
-        else:
-            return Q(Price_Book__lte=1000)
-    if field.label =="Price/Cash" :
+    elif field.label =="Price/Cash" :
         if form['Price_Free_Cash_Flow'].value() != "Any":
             if isLE(field):
                 value = comparewithValue(field)
@@ -136,9 +127,9 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Total_Cash_Per_Share__gte=value)
-        else:
-            return Q(Total_Cash_Per_Share__lte=1000)
     else:
+        print("############NO CNDITION SATISFIED##########################")
+        print(field.label)      
         return None
               
 def isLE(field):

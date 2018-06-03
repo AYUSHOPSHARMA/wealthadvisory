@@ -82,17 +82,19 @@ def getValue(allTd, keyStatistic):
     return "NA"
 
 def get_fundamental_data(ticker,statics):
-    tickers = [ticker]
-    result = pd.DataFrame(index = tickers, columns = statics)
-    url = 'http://finance.yahoo.com/quote/'+ticker+'/key-statistics?ltr=1'
-    print(url)
     try:
+        tickers = [ticker]
+        result = pd.DataFrame(index = tickers, columns = statics)
+        url = 'http://finance.yahoo.com/quote/'+ticker+'/key-statistics?ltr=1'
+        print(url)
         resp = urlopen(url)
-    except URLError as e:
-        raise Exception("Cannot open url.")    
-    soup = BeautifulSoup(resp.read(), 'html.parser')
-    allTd = soup.find_all('td',attrs={'class':'Fz(s) Fw(500) Ta(end)'})
-        #
-    for static in statics:
-        result.ix[ticker, static] = getValue(allTd, static)
+        soup = BeautifulSoup(resp.read(), 'html.parser')
+        allTd = soup.find_all('td',attrs={'class':'Fz(s) Fw(500) Ta(end)'})
+            #
+        for static in statics:
+            result.ix[ticker, static] = getValue(allTd, static)
+    except:
+        print("Error in url Opening")
+        print(ticker)
+        return None
     return result

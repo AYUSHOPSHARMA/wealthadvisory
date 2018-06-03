@@ -64,15 +64,18 @@ def limitQuery(request,start,limit,companyType):
         if(symbol != "NA"):
             print(symbol)
             fundamentalData=fdview.getBatchFundamentalData(symbol)
+            if fundamentalData is None:
+                pass
             print(fundamentalData)
             j = 0
             fd = fdt.FundamentalData(request,symbol)
             fd.setTicker(symbol)
             fd.setCompanyName(cname)
             fd.setIndustry(industry)
-            while j < len(fundamentalData.columns.values):
-                 fd.setvalues(fundamentalData.columns.values[j],fundamentalData.values[0][j])
-                 j+=1
+            if fundamentalData is not None:
+                while j < len(fundamentalData.columns.values):
+                     fd.setvalues(fundamentalData.columns.values[j],fundamentalData.values[0][j])
+                     j+=1
                  
             fd.saveFundamentalData(companyType)
             

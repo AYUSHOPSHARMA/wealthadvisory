@@ -152,6 +152,8 @@ dividentSplitStatics=[
 
 def getfundamentalData(request,ticker):
      result = fd.get_fundamental_data(ticker,valuationMeasureStatistics)
+     if result is None:
+         pass
      i = 0
      valuationMeasuredata =[]
      while i < len(result.columns.values):
@@ -161,6 +163,8 @@ def getfundamentalData(request,ticker):
          print(valuationMeasuredata)
          i+=1
      result = fd.get_fundamental_data(ticker,financialHighlightsStatics)
+     if result is None:
+         pass
      i = 0
      financialHighlightsStaticsData =[]
      while i < len(result.columns.values):
@@ -170,6 +174,8 @@ def getfundamentalData(request,ticker):
          print(financialHighlightsStaticsData)
          i+=1
      result = fd.get_fundamental_data(ticker,profitablity)
+     if result is None:
+         pass
      i = 0
      profitablityData =[]
      while i < len(result.columns.values):
@@ -179,6 +185,8 @@ def getfundamentalData(request,ticker):
          print(profitablityData)
          i+=1
      result = fd.get_fundamental_data(ticker,managementEffectivenessStatics)
+     if result is None:
+         pass
      i = 0
      managementEffectivenessStaticsData =[]
      while i < len(result.columns.values):
@@ -188,6 +196,8 @@ def getfundamentalData(request,ticker):
          print(managementEffectivenessStaticsData)
          i+=1
      result = fd.get_fundamental_data(ticker,incomeStatementStatics)
+     if result is None:
+         pass
      i = 0
      incomeStatementStaticsData =[]
      while i < len(result.columns.values):
@@ -197,6 +207,8 @@ def getfundamentalData(request,ticker):
          print(incomeStatementStaticsData)
          i+=1
      result = fd.get_fundamental_data(ticker,balanceSheetStatics)
+     if result is None:
+         pass
      i = 0
      balanceSheetStaticsData =[]
      while i < len(result.columns.values):
@@ -206,6 +218,8 @@ def getfundamentalData(request,ticker):
          print(balanceSheetStaticsData)
          i+=1
      result = fd.get_fundamental_data(ticker,cashFlowStatementsStatics)
+     if result is None:
+         pass
      i = 0
      cashFlowStatementsStaticsData =[]
      while i < len(result.columns.values):
@@ -225,6 +239,8 @@ def getfundamentalData(request,ticker):
          print(stockPricsHistoryStaticsData)
          i+=1
      result = fd.get_fundamental_data(ticker,shareStatics)
+     if result is None:
+         pass
      i = 0
      shareStaticsData =[]
      while i < len(result.columns.values):
@@ -234,6 +250,8 @@ def getfundamentalData(request,ticker):
          print(shareStaticsData)
          i+=1
      result = fd.get_fundamental_data(ticker,dividentSplitStatics)
+     if result is None:
+         pass
      i = 0
      dividentSplitStaticsData =[]
      while i < len(result.columns.values):
