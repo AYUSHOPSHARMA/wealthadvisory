@@ -130,8 +130,11 @@ def benchmark(bench_symbol, start_date, api_key):
 
 def correlData(type,pdata):
         cor = pdata.corr()
+        print("########## cor ##########")
+        print(cor)
         data = cor.values
-
+        print("########## data ##########")
+        print(data)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
 

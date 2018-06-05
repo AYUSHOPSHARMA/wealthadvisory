@@ -74,7 +74,8 @@ def parseValue(form,resultdbobj):
                 filters= filters & getParsedValue(field,form)
     print("#######retur FILTER #########")
     print(filters)
-    return resultdbobj.objects.filter(filters);
+    mylist = resultdbobj.objects.filter(filters);
+    return mylist;
 
 def getParsedValue(field,form):
     if field.label =="Trailing P E" :
@@ -95,6 +96,14 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Forward_P_E__gte=value)
+    elif field.label =="Beta" :
+        if form['Beta'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Beta__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Beta__gte=value)
     elif field.label =="PEG" :
         if form['PEG'].value() != "Any":
             if isLE(field):
@@ -127,6 +136,102 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Total_Cash_Per_Share__gte=value)
+    elif field.label =="EPS growth this year" :
+        if form['EPS_growth_this_year'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Enterprise_Value_Revenue__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Enterprise_Value_Revenue__gte=value)
+    elif field.label =="Return on Assets" :
+        if form['Return_on_Assets'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Return_on_Assets__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Return_on_Assets__gte=value)
+    elif field.label =="Return on Equity" :
+        if form['Return_on_Equity'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Return_on_Equity__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Return_on_Equity__gte=value)
+    elif field.label =="Current Ratio" :
+        if form['Current_Ratio'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Current_Ratio__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Current_Ratio__gte=value)
+    elif field.label =="Quick Ratio" :
+        if form['Quick_Ratio'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Short_Ratio__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Short_Ratio__gte=value)
+    elif field.label =="Lt Debt Equity" :
+        if form['Lt_Debt_Equity'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Total_Debt_Equity__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Total_Debt_Equity__gte=value)
+    elif field.label =="Debt Equity" :
+        if form['Debt_Equity'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Total_Debt__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Total_Debt__gte=value)
+    elif field.label =="Gross Margin" :
+        if form['Gross_Margin'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Gross_Profit__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Gross_Profit__gte=value)
+    elif field.label =="Net Profit Margin" :
+        if form['Net_Profit_Margin'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Profit_Margin__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Profit_Margin__gte=value)
+    elif field.label =="Payout Ratio" :
+        if form['Payout_Ratio'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Payout_Ratio__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Payout_Ratio__gte=value)
+    elif field.label =="Insider Ownership" :
+        if form['Insider_Ownership'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Held_by_Insiders__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Held_by_Insiders__gte=value)
+    elif field.label =="Institutional Ownership" :
+        if form['Institutional_Ownership'].value() != "Any":
+            if isLE(field):
+                value = comparewithValue(field)
+                return Q(Held_by_Institutions__lte=value)
+            elif isGT(field):
+                value = comparewithValue(field)
+                return Q(Held_by_Institutions__gte=value)
     else:
         print("############NO CNDITION SATISFIED##########################")
         print(field.label)      
@@ -166,4 +271,4 @@ def is_number_tryexcept(s):
         return True
     except ValueError:
         return False         
-           
+

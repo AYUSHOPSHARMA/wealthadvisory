@@ -43,6 +43,10 @@ function change(d){
         					</div>
 					 </div>
                   <div>
+                  <div style="margin-top: 12px;margin-bottom: 18px;">
+                      <span id="label_Portfolio_Name">Please chosse your portfolio using below parameters and save it with Portfolio Name :</span>
+                      <input type="text" name="Portfolio_Name" style="margin-left: 39px;">
+                 </div> 
                   <table>
                   {% for field in fundamentalportfolioform %}
                       {%if forloop.counter|divisibleby:"4" %}
@@ -51,9 +55,14 @@ function change(d){
                         {{field.label}}  {{field}} 
                         
                     {%endfor%}
+                    <br/>
+                    <tr>
+                    <button type="submit" class="btn btn-success" style="float:right;margin-top: -7px;width: 196px;">Submit</button> 
+                    </tr>
                      </table>
+                    <br/> 
                   </div>
-                  <div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;">
+                  <div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;margin-top: 20px;">
 						<h2 style="margin-left: 460px;background: 0000;">All Company info</h2>
 					</div>
 					<div>

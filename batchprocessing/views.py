@@ -2,6 +2,7 @@ from batchprocessing.models import nifty_500_companies
 from batchprocessing.models import nifty_200_companies
 from batchprocessing.models import nifty_100_companies
 from batchprocessing.models import nifty_50_companies
+from batchprocessing.models import portfolio
 from django.http import HttpResponse
 import screener.views as fdview
 import batchprocessing.fundamentaldata as fdt
@@ -80,4 +81,11 @@ def limitQuery(request,start,limit,companyType):
             fd.saveFundamentalData(companyType)
             
         i+=1
-   
+
+def createPortfolio(request):
+    portfolioobj = portfolio()
+    portfolioobj.Portfolio_Name = 'My_Portfolio'
+    portfolioobj.Company_Type = 'nifty50'
+    portfolioobj.Ticker_List = ['ADANIPORTS.NS', 'AXISBANK.NS', 'ASIANPAINT.NS','BAJAJ-AUTO.NS','BAJFINANCE.NS']
+    portfolioobj.save()
+    return HttpResponse("Portfolio Created")

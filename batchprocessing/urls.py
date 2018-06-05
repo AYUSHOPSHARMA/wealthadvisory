@@ -19,5 +19,6 @@ from batchprocessing import views,indices
 
 urlpatterns = [
         path('uploadCompany/<str:companyType>/', views.uploadCompany),
-         path('uploadIndices/<str:companyType>/', indices.uploadIndices),
+        path('createPortfolio/', views.createPortfolio),
+        path('uploadIndices/<str:companyType>/', indices.uploadIndices),
        ]

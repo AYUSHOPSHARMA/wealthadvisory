@@ -41,6 +41,21 @@ class fundamentalportfolio(models.Model):
         ('gt_35','Over 35'),
         ('gt_45','Over 45'),
     )
+    BETA_CHOICES = (
+        ('Any','Any'),
+        ('lt_15', 'Low (<15)'),
+        ('gt_50', 'High (>50)'),
+        ('lt_5','Under 5'),
+        ('lt_10','Under 10'),
+        ('lt_25','Under 25'),
+        ('lt_45','Under 45'),
+        ('gt_5','Over 5'),
+        ('gt_10','Over 10'),
+        ('gt_15','Over 15'),
+        ('gt_25','Over 25'),
+        ('gt_35','Over 35'),
+        ('gt_45','Over 45'),
+    )
     PEG_CHOICES = (
        ('Any','Any'),
         ('lt_15', 'Low (<15)'),
@@ -116,96 +131,6 @@ class fundamentalportfolio(models.Model):
         ('gt_35','Over 35%'),
         ('gt_45','Over 45%'),
     )
-    EPS_GROWTH_NEXT_YEAR_CHOICES = (
-       ('Any','Any'),
-        ('lt_15', 'Low (<15%)'),
-        ('gt_50', 'High (>50%)'),
-        ('lt_5','Under 5%'),
-        ('lt_10','Under 10%'),
-        ('lt_25','Under 25%'),
-        ('lt_45','Under 45%'),
-        ('gt_5','Over 5%'),
-        ('gt_10','Over 10%'),
-        ('gt_15','Over 15%'),
-        ('gt_25','Over 25%'),
-        ('gt_35','Over 35%'),
-        ('gt_45','Over 45%'),
-    )
-    EPS_GROWTH_PAST_5_YEARS_CHOICES = (
-       ('Any','Any'),
-        ('lt_15', 'Low (<15%)'),
-        ('gt_50', 'High (>50%)'),
-        ('lt_5','Under 5%'),
-        ('lt_10','Under 10%'),
-        ('lt_25','Under 25%'),
-        ('lt_45','Under 45%'),
-        ('gt_5','Over 5%'),
-        ('gt_10','Over 10%'),
-        ('gt_15','Over 15%'),
-        ('gt_25','Over 25%'),
-        ('gt_35','Over 35%'),
-        ('gt_45','Over 45%'),   
-    )
-    EPS_GROWTH_NEXT_5_YEARS_CHOICES = (
-       ('Any','Any'),
-        ('lt_15', 'Low (<15%)'),
-        ('gt_50', 'High (>50%)'),
-        ('lt_5','Under 5%'),
-        ('lt_10','Under 10%'),
-        ('lt_25','Under 25%'),
-        ('lt_45','Under 45%'),
-        ('gt_5','Over 5%'),
-        ('gt_10','Over 10%'),
-        ('gt_15','Over 15%'),
-        ('gt_25','Over 25%'),
-        ('gt_35','Over 35%'),
-        ('gt_45','Over 45%'),  
-    )
-    SALES_GROWTH_PAST_5_YEARS_CHOICES = (
-       ('Any','Any'),
-        ('lt_15', 'Low (<15%)'),
-        ('gt_50', 'High (>50%)'),
-        ('lt_5','Under 5%'),
-        ('lt_10','Under 10%'),
-        ('lt_25','Under 25%'),
-        ('lt_45','Under 45%'),
-        ('gt_5','Over 5%'),
-        ('gt_10','Over 10%'),
-        ('gt_15','Over 15%'),
-        ('gt_25','Over 25%'),
-        ('gt_35','Over 35%'),
-        ('gt_45','Over 45%'),   
-    )
-    EPS_GROWTH_QTR_OVER_QTR_CHOICES = (
-       ('Any','Any'),
-        ('lt_15', 'Low (<15%)'),
-        ('gt_50', 'High (>50%)'),
-        ('lt_5','Under 5%'),
-        ('lt_10','Under 10%'),
-        ('lt_25','Under 25%'),
-        ('lt_45','Under 45%'),
-        ('gt_5','Over 5%'),
-        ('gt_10','Over 10%'),
-        ('gt_15','Over 15%'),
-        ('gt_25','Over 25%'),
-        ('gt_35','Over 35%'),
-        ('gt_45','Over 45%'),     
-    )
-    SALES_GROWTH_QTR_OVER_QTR_CHOICES = (
-       ('Any','Any'),
-        ('lt_15', 'Low (<15%)'),
-        ('gt_50', 'High (>50%)'),
-        ('lt_5','Under 5%'),
-        ('lt_10','Under 10%'),
-        ('lt_25','Under 25%'),
-        ('lt_45','Under 45%'),
-        ('gt_5','Over 5%'),
-        ('gt_10','Over 10%'),
-        ('gt_15','Over 15%'),
-        ('gt_25','Over 25%'),
-        ('gt_35','Over 35%'),
-        ('gt_45','Over 45%'),  
-    )
     RETURN_ON_ASSETS_CHOICES = (
        ('Any','Any'),
         ('lt_15', 'Low (<15%)'),
@@ -235,21 +160,6 @@ class fundamentalportfolio(models.Model):
         ('gt_25','Over 25%'),
         ('gt_35','Over 35%'),
         ('gt_45','Over 45%'),
-    )
-    RETURN_ON_INVESTMENT_CHOICES = (
-       ('Any','Any'),
-       ('gt_0','Positive (>0%)'),
-       ('lt_0','Negative (<0%)'),
-       ('gt_15','Very Positive (>15%)'),
-       ('lt_15','Very Negative (<-15%)'),
-       ('lt_10','Under 10%'),
-       ('lt_25','Under 25%'),
-       ('lt_45','Under 45%'),
-       ('gt_5','Over 5%'),
-       ('gt_10','Over 10%'),
-       ('gt_25','Over 25%'),
-       ('gt_35','Over 35%'),
-       ('gt_45','Over 45%'),
     )
     CURRENT_RATIO_CHOICES = (
        ('Any','Any'),
@@ -330,39 +240,6 @@ class fundamentalportfolio(models.Model):
        ('gt_1','Over 1'),
     )
     GROSS_MARGIN_CHOICES = (
-       ('Any','Any'),
-       ('gt_0','Positive (>0%)'),
-       ('lt_0','Negative (<0%)'),
-       ('gt_50','High (>50%)'),
-       ('lt_90','Under 90%'),
-       ('lt_80','Under 80%'),
-       ('lt_70','Under 70%'),
-       ('lt_60','Under 60%'),
-       ('lt_50','Under 50%'),
-       ('lt_45','Under 45%'),
-       ('lt_40','Under 40%'),
-       ('lt_35','Under 35%'),
-       ('lt_30','Under 30%'),
-       ('lt_25','Under 25%'),
-       ('lt_20','Under 20%'),
-       ('lt_15','Under 15%'),
-       ('lt_10','Under 10%'),
-       ('lt_5','Under 5%'),
-       ('gt_10','Over 10%'),
-       ('gt_15','Over 15%'),
-       ('gt_20','Over 20%'),
-       ('gt_25','Over 25%'),
-       ('gt_30','Over 30%'),
-       ('gt_35','Over 35%'),
-       ('gt_40','Over 40%'),
-       ('gt_45','Over 45%'),
-       ('gt_50','Over 50%'),
-       ('gt_60','Over 60%'),
-       ('gt_70','Over 70%'),
-       ('gt_80','Over 80%'),
-       ('gt_90','Over 90%'),
-    )
-    OPERATING_MARGIN_CHOICES = (
        ('Any','Any'),
        ('gt_0','Positive (>0%)'),
        ('lt_0','Negative (<0%)'),
@@ -494,39 +371,6 @@ class fundamentalportfolio(models.Model):
        ('gt_80','Over 80%'),
        ('gt_90','Over 90%'),
     )
-    INSIDER_TRANSACTIONS_CHOICES = (
-        ('Any','Any'),
-       ('gt_0','Positive (>0%)'),
-       ('lt_0','Negative (<0%)'),
-       ('gt_50','High (>50%)'),
-       ('lt_90','Under 90%'),
-       ('lt_80','Under 80%'),
-       ('lt_70','Under 70%'),
-       ('lt_60','Under 60%'),
-       ('lt_50','Under 50%'),
-       ('lt_45','Under 45%'),
-       ('lt_40','Under 40%'),
-       ('lt_35','Under 35%'),
-       ('lt_30','Under 30%'),
-       ('lt_25','Under 25%'),
-       ('lt_20','Under 20%'),
-       ('lt_15','Under 15%'),
-       ('lt_10','Under 10%'),
-       ('lt_5','Under 5%'),
-       ('gt_10','Over 10%'),
-       ('gt_15','Over 15%'),
-       ('gt_20','Over 20%'),
-       ('gt_25','Over 25%'),
-       ('gt_30','Over 30%'),
-       ('gt_35','Over 35%'),
-       ('gt_40','Over 40%'),
-       ('gt_45','Over 45%'),
-       ('gt_50','Over 50%'),
-       ('gt_60','Over 60%'),
-       ('gt_70','Over 70%'),
-       ('gt_80','Over 80%'),
-       ('gt_90','Over 90%'),
-    )
     INSTITUTIONAL_OWNERSHIP_CHOICES = (
        ('Any','Any'),
        ('gt_0','Positive (>0%)'),
@@ -563,6 +407,7 @@ class fundamentalportfolio(models.Model):
     companyType= models.CharField(max_length=100,choices=COMPANY_CHOICES, default='nifty50' )
     Trailing_P_E=models.CharField(max_length=100,choices=PE_CHOICES, default='Any')
     Forward_P_E=models.CharField(max_length=100,choices=PE_CHOICES, default='Any')
+    Beta=models.CharField(max_length=100,choices=BETA_CHOICES, default='Any')
     PEG=models.CharField(max_length=100,choices=PEG_CHOICES, default='Any')
     PS=models.CharField(max_length=100,choices=PS_CHOICES, default='Any')
     PB=models.CharField(max_length=100,choices=PB_CHOICES, default='Any')
@@ -570,26 +415,15 @@ class fundamentalportfolio(models.Model):
     Ticker=models.CharField(max_length=100)
     Price_Free_Cash_Flow=models.CharField(max_length=100,choices=PRICE_FREE_CASH_FLOW_CHOICES, default='Any')
     EPS_growth_this_year=models.CharField(max_length=100,choices=EPS_GROWTH_THIS_YEAR_CHOICES, default='Any')
-    EPS_growth_next_year=models.CharField(max_length=100,choices=EPS_GROWTH_NEXT_YEAR_CHOICES, default='Any')
-    EPS_growth_past_5_years=models.CharField(max_length=100,choices=EPS_GROWTH_PAST_5_YEARS_CHOICES, default='Any')
-    EPS_growth_next_5_years=models.CharField(max_length=100,choices=EPS_GROWTH_NEXT_5_YEARS_CHOICES, default='Any')
-    Sales_growth_past_5_years=models.CharField(max_length=100,choices=SALES_GROWTH_PAST_5_YEARS_CHOICES, default='Any')
-    EPS_growth_qtr_over_qtr=models.CharField(max_length=100,choices=EPS_GROWTH_QTR_OVER_QTR_CHOICES, default='Any')
-    Sales_growth_qtr_over_qtr=models.CharField(max_length=100,choices=SALES_GROWTH_QTR_OVER_QTR_CHOICES, default='Any')
     Return_on_Assets=models.CharField(max_length=100,choices=RETURN_ON_ASSETS_CHOICES, default='Any')
     Return_on_Equity=models.CharField(max_length=100,choices=RETURN_ON_EQUITY_CHOICES, default='Any')
-    Return_on_Investment=models.CharField(max_length=100,choices=RETURN_ON_INVESTMENT_CHOICES, default='Any')
     Current_Ratio=models.CharField(max_length=100,choices=CURRENT_RATIO_CHOICES, default='Any')
     Quick_Ratio=models.CharField(max_length=100,choices=QUICK_RATIO_CHOICES, default='Any')
     Lt_Debt_Equity=models.CharField(max_length=100,choices=LT_DEBT_EQUITY_CHOICES, default='Any')
     Debt_Equity=models.CharField(max_length=100,choices=DEBT_EQUITY_CHOICES, default='Any')
     Gross_Margin=models.CharField(max_length=100,choices=GROSS_MARGIN_CHOICES, default='Any')
-    Operating_Margin=models.CharField(max_length=100,choices=OPERATING_MARGIN_CHOICES, default='Any')
     Net_Profit_Margin=models.CharField(max_length=100,choices=NET_PROFIT_MARGIN_CHOICES, default='Any')
     Payout_Ratio=models.CharField(max_length=100,choices=PAYOUT_RATIO_CHOICES, default='Any')
     Insider_Ownership=models.CharField(max_length=100,choices=INSIDER_OWNERSHIP_CHOICES, default='Any')
-    Insider_Transactions=models.CharField(max_length=100,choices=INSIDER_TRANSACTIONS_CHOICES, default='Any')
     Institutional_Ownership=models.CharField(max_length=100,choices=INSTITUTIONAL_OWNERSHIP_CHOICES, default='Any')
-    
-    
     

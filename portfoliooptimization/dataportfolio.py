@@ -29,39 +29,31 @@ def portfolio(symbols, allocations, api_key, start_date):
     symbolss = ['ASIANPAINT.NS','ADANIPORTS.NS']
     #Portfolio Data
     print("Port Folio Data##########")
-    print(start_date)
-    print(end_date)
-    print("########################")
     merged_data_frame = pd.DataFrame()
     i=0
     for sysm in symbolss:
-        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm)
+        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
         objclose= objnf50.values_list('Close')
         objdt= objnf50.values_list('Date')
         closelist=list(objclose)
         datelist=list(objdt)
         if i==0:
-            merged_data_frame=pd.DataFrame(closelist,columns=[sysm], index=[datelist])
+            merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            merged_data_frame=merged_data_frame.set_index('Date')
         else:    
-            data_frame =pd.DataFrame(closelist,columns=[sysm], index=[datelist])
-            print("########### INSIDE DF ########")
+            data_frame =pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            data_frame=data_frame.set_index('Date')
             merged_data_frame = pd.merge(
                 merged_data_frame, data_frame, right_index=True, left_index=True, how='outer')
         i+=1
-    print("#########port_datalist###############")
-    merged_data_frame=merged_data_frame.reindex(merged_data_frame.index.rename(['Date']))
-    print(merged_data_frame)      
-    print("#########END port_datalist###############")
-    print(merged_data_frame.columns)
-    print("########### INSIDE merged_data_frame ########")
-    print(merged_data_frame.index.name)  
     temp_data = merged_data_frame.iloc[:,0:len(merged_data_frame.columns)].apply(pd.to_numeric)
     for column in temp_data.columns:
         c = temp_data[column]
         if c.isnull().all():
             print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
             sys.exit()
-
+    #print("########### merged_data_frame ########")
+    #print(merged_data_frame)
     port_val = merged_data_frame * allocations
     # Remove Rows With No Values
 
@@ -74,7 +66,7 @@ def portfolio(symbols, allocations, api_key, start_date):
     # Calculate Portfolio Returns
     port_rets = port_val.pct_change()
     port_rets = port_rets.dropna(how='any')
-
+    
     #Calculate Portfolio Weights
     assets = port_val.tail(1)
     s = port_val.iloc[-1:, -1]
@@ -82,16 +74,14 @@ def portfolio(symbols, allocations, api_key, start_date):
     port_weights = port_weights.transpose()
     port_weights.columns = ["Weight"]
     port_weights = port_weights.drop(port_weights.index[len(port_weights) - 1])
-    
-    print("###########port_val###########")
-    print(port_val)
-    print("###########port_rets###########")
-    print(port_rets)
-    print(merged_data_frame)
-    print("###########port_weights###########")
-    print(port_weights)
-    correlData(type,merged_data_frame)
-    #risk_return(port_rets)
+    correlData(merged_data_frame.astype(float))
+    risk_return(port_rets.astype(float))
+    print("############ port_rets as #########")
+    print(port_rets.index)
+    violin(port_rets.astype(float))
+    box_plot(port_rets.astype(float))
+    #calmap(port_rets.astype(float))
+    weights_plot(port_weights.astype(float))
     
 def benchmark(bench_symbol, start_date, api_key):
 
@@ -127,10 +117,13 @@ def benchmark(bench_symbol, start_date, api_key):
 
 style.use('ggplot')
 
-def correlData(type,pdata):
+def correlData(pdata):
         cor = pdata.corr()
+        print("########## cor ##########")
+        print(cor)
         data = cor.values
-
+        print("########## data ##########")
+        print(data)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
 
@@ -188,11 +181,12 @@ def risk_return(port_rets):
         plt.yticks(fontsize=8)
         plt.show()
    
-def violin(group=0):
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv')
-        port_rets['month'] = pd.DatetimeIndex(port_rets['Date']).month
-        port_rets['day'] = pd.DatetimeIndex(port_rets['Date']).weekday_name
+def violin(port_rets):
+        group=0
+        print("##########port_rets['Date']########3")
+        print(port_rets['ASIANPAINT.NS'])
+        port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
+        port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
 
         if group == "day":
@@ -209,14 +203,11 @@ def violin(group=0):
         ax.set_ylabel('')
         plt.suptitle(title)
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
-
-def box_plot(group=0):
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv')
-        port_rets['month'] = pd.DatetimeIndex(port_rets['Date']).month
-        port_rets['day'] = pd.DatetimeIndex(port_rets['Date']).weekday_name
+        
+def box_plot(port_rets):
+        group=0
+        port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
+        port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
 
         if group == "day":
@@ -236,13 +227,8 @@ def box_plot(group=0):
         ax.set_ylabel('')
         plt.suptitle(title)
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
-
-def calmap():
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv',index_col=0)
-
+        
+def calmap(port_rets):
         import numpy as np;
         np.random.seed(sum(map(ord, 'calmap')))
         import calmap
@@ -257,13 +243,8 @@ def calmap():
                             fillcolor='grey', linewidth=0,
                             fig_kws=dict(figsize=(8, 4)))
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
-
-def weights_plot():
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Weights.csv'):
-        port_weights = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Weights.csv',index_col=0)
-
+        
+def weights_plot(port_weights):
         plt.pie(
             port_weights["Weight"],
             labels=port_weights.index,
@@ -275,6 +256,3 @@ def weights_plot():
         plt.axis('equal')
         plt.suptitle('Portfolio Weights')
         plt.show()
-
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
