@@ -28,6 +28,14 @@ $.ajaxSetup({
 function change(d){
     document.getElementById("portfolioform").submit();
 }
+function saveForm(){
+$('Portfolio_Name')
+$.post( "/screener/fundamentalportfolio/", { "savevalue": "save"} );
+}
+function buttonA_clickHandler(event) {
+    document.getElementById('buttonA').value = "submit";
+    document.getElementById('portfolioform').submit();
+}
 </script>
     <form method="post" action="" name="portfolioform" id="portfolioform">
         {% csrf_token %}
@@ -57,7 +65,8 @@ function change(d){
                     {%endfor%}
                     <br/>
                     <tr>
-                    <button type="submit" class="btn btn-success" style="float:right;margin-top: -7px;width: 196px;">Submit</button> 
+                    
+                    <input id="buttonA" name="buttonA" class="btn btn-success" style="float:right;margin-top: -7px;width: 196px;" type="button" value="" onclick="buttonA_clickHandler(event);"/>
                     </tr>
                      </table>
                     <br/> 
