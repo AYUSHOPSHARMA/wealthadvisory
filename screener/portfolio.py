@@ -7,13 +7,14 @@ import pdfkit , os
 from django.views.decorators.cache import cache_page
 from mpld3._display import display_d3,fig_to_html,save_json
 import io
+import portfoliooptimization.dataportfolio as dataportfolio
 
 @cache_page(60 * 15)
 def getportfolio(request):
     stocks = ['AAPL','AMZN','MSFT','ACC']
     end = datetime.date(2018,5,27)
     begin = datetime.date(2017,1,1)
-    
+    allocations = [10,10]
     	#timestamp format and get apple stock.
     
     st=begin.strftime('%Y-%m-%d')
@@ -23,7 +24,11 @@ def getportfolio(request):
     #set number of runs of random portfolio weights
     num_portfolios = 25000
     result_HTML=fig_to_html(po.portfolioOptimization(stocks,st,ed,num_portfolios))
-    return render(request,"portfolio.html",{"data":result_HTML})
+    result_corr_HTML = fig_to_html(dataportfolio.correlData(stocks,allocations,begin))
+    result_riskreturn_HTML = fig_to_html(dataportfolio.risk_return(stocks,allocations,begin))
+    result_violin_HTML = fig_to_html(dataportfolio.violin(stocks,allocations,begin))
+    
+    return render(request,"portfolio.html",{"data":result_HTML,"result_corr_HTML":result_corr_HTML,"result_riskreturn_HTML":result_riskreturn_HTML,"result_violin_HTML":result_violin_HTML})
 
 @cache_page(60 * 15)
 def getportfolioPDF(request):
