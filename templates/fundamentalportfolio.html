@@ -32,10 +32,6 @@ function saveForm(){
 $('Portfolio_Name')
 $.post( "/screener/fundamentalportfolio/", { "savevalue": "save"} );
 }
-function buttonA_clickHandler(event) {
-    document.getElementById('buttonA').value = "submit";
-    document.getElementById('portfolioform').submit();
-}
 </script>
     <form method="post" action="" name="portfolioform" id="portfolioform">
         {% csrf_token %}
@@ -66,7 +62,7 @@ function buttonA_clickHandler(event) {
                     <br/>
                     <tr>
                     
-                    <input id="buttonA" name="buttonA" class="btn btn-success" style="float:right;margin-top: -7px;width: 196px;" type="button" value="" onclick="buttonA_clickHandler(event);"/>
+                    <button type="submit" name="submit_button"  class="btn btn-success" style="float:right;margin-top: -7px;width: 196px;" value="Submit">Submit portfolio</button>
                     </tr>
                      </table>
                     <br/> 

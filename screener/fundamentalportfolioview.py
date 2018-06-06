@@ -37,10 +37,8 @@ def fundamentalportfolio(request):
                result=filterFormData(form,nifty_500_companies_fundamental_data.objects.all())
            print("########SAVE#########")
            tickerList = getTicker(form,result)
-           submitvalue= request.POST.get('buttonA')
            print("##############submitvalue#############")
-           print(submitvalue)
-           if submitvalue is not None and submitvalue!="":
+           if request.POST.get("submit_button"):
                savePortfolio(tickerList)
            ##form.save()
            print("################DATA SAVED#############")
