@@ -4,7 +4,7 @@ import calendar
 import os
 import pandas as pd
 import sys
-from main import root_path
+from .main import root_path
 from batchprocessing.models import nift50Indices
 from matplotlib import style
 import matplotlib.pyplot as plt
@@ -13,10 +13,11 @@ import pandas as pd
 import matplotlib.ticker as mtick
 from matplotlib import style
 import os
-from main import root_path
 import seaborn as sns
 import calendar
 import inspect
+from mpld3._display import display_d3,fig_to_html,save_json
+from mpld3 import plugins
 
 #Dates
 end_date = dt.date.today()
@@ -117,7 +118,40 @@ def benchmark(bench_symbol, start_date, api_key):
 
 style.use('ggplot')
 
-def correlData(pdata):
+def getPortfolioCorrelationData(symbols, allocations,start_date):
+    symbolss = ['ASIANPAINT.NS','ADANIPORTS.NS']
+    #Portfolio Data
+    print("Port Folio Data##########")
+    merged_data_frame = pd.DataFrame()
+    i=0
+    for sysm in symbolss:
+        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        objclose= objnf50.values_list('Close')
+        objdt= objnf50.values_list('Date')
+        closelist=list(objclose)
+        datelist=list(objdt)
+        if i==0:
+            merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            merged_data_frame=merged_data_frame.set_index('Date')
+        else:    
+            data_frame =pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            data_frame=data_frame.set_index('Date')
+            merged_data_frame = pd.merge(
+                merged_data_frame, data_frame, right_index=True, left_index=True, how='outer')
+        i+=1
+    temp_data = merged_data_frame.iloc[:,0:len(merged_data_frame.columns)].apply(pd.to_numeric)
+    for column in temp_data.columns:
+        c = temp_data[column]
+        if c.isnull().all():
+            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
+            sys.exit()
+    #print("########### merged_data_frame ########")
+    #print(merged_data_frame)
+    return merged_data_frame.astype(float)
+
+
+def correlData(symbols, allocations,start_date):
+        pdata=getPortfolioCorrelationData(symbols, allocations,start_date)
         cor = pdata.corr()
         print("########## cor ##########")
         print(cor)
@@ -148,10 +182,58 @@ def correlData(pdata):
         print("call_name########")
         print(call_name)      
 
-        if call_name != "diversification":
-            plt.show()
+        #if call_name != "diversification":
+         #   plt.show()
+        save_json(fig,"correlation.json")
+        return fig
 
-def risk_return(port_rets):
+def getPortfolioRiskReturn(symbols, allocations, start_date):
+    symbolss = ['ASIANPAINT.NS','ADANIPORTS.NS']
+    #Portfolio Data
+    print("Port Folio Data##########")
+    merged_data_frame = pd.DataFrame()
+    i=0
+    for sysm in symbolss:
+        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        objclose= objnf50.values_list('Close')
+        objdt= objnf50.values_list('Date')
+        closelist=list(objclose)
+        datelist=list(objdt)
+        if i==0:
+            merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            merged_data_frame=merged_data_frame.set_index('Date')
+        else:    
+            data_frame =pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            data_frame=data_frame.set_index('Date')
+            merged_data_frame = pd.merge(
+                merged_data_frame, data_frame, right_index=True, left_index=True, how='outer')
+        i+=1
+    temp_data = merged_data_frame.iloc[:,0:len(merged_data_frame.columns)].apply(pd.to_numeric)
+    for column in temp_data.columns:
+        c = temp_data[column]
+        if c.isnull().all():
+            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
+            sys.exit()
+    #print("########### merged_data_frame ########")
+    #print(merged_data_frame)
+    port_val = merged_data_frame * allocations
+    # Remove Rows With No Values
+
+    #FIX!!!!!!
+    #port_data.dropna(axis=0, how='any')
+    port_val = port_val.fillna(port_val.mean())
+
+    port_val['Portfolio Value'] = port_val.sum(axis=1)
+
+    # Calculate Portfolio Returns
+    port_rets = port_val.pct_change()
+    port_rets = port_rets.dropna(how='any')
+    
+    return port_rets.astype(float)
+
+
+def risk_return(symbols, allocations,start_date):
+        port_rets=getPortfolioRiskReturn(symbols, allocations,start_date)
         x = (port_rets.std() * np.sqrt(252)) * 100
         x = x[:-1]
         y = (port_rets.mean() * 252) * 100
@@ -179,15 +261,18 @@ def risk_return(port_rets):
         plt.ylabel("Return", fontsize=10)
         plt.xticks(fontsize=8)
         plt.yticks(fontsize=8)
-        plt.show()
+        save_json(fig,"risk_return.json")
+        return fig
    
-def violin(port_rets):
+def violin(symbols, allocations,start_date):
+        port_rets = getPortfolioRiskReturn(symbols, allocations,start_date)
         group=0
         print("##########port_rets['Date']########3")
         print(port_rets['ASIANPAINT.NS'])
         port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
         port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
+        fig = plt.figure()
 
         if group == "day":
             ax = sns.violinplot(x="day", y="Portfolio Value", data=port_rets, palette="Pastel1")
@@ -202,7 +287,8 @@ def violin(port_rets):
         ax.set_xlabel('')
         ax.set_ylabel('')
         plt.suptitle(title)
-        plt.show()
+        save_json(fig,"violation.json")
+        return fig
         
 def box_plot(port_rets):
         group=0
