@@ -21,7 +21,7 @@ import json
 from django.views.decorators.cache import cache_page
 
 
-def portfolioOptimization(stocks, st,ed,num_portfolios):
+def portfolioOptimization(portfolio, st,ed,num_portfolios):
     #list of stocks in portfolio
     
     css = """
@@ -45,7 +45,7 @@ def portfolioOptimization(stocks, st,ed,num_portfolios):
           text-align: right;
         }
         """
-    stocks = ['AAPL','AMZN','MSFT','ACC']
+    stocks = portfolio.Ticker_List
     yf.pdr_override() # <== that's all it takes :-)
     
     #indices= nift200Indices.objects(Ticker__in=["ACC.NS","AMZN.NS"], Date__lte=ed, Date__gte=st)

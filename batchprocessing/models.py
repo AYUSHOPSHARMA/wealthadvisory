@@ -410,7 +410,25 @@ class portfolio(Document):
         Portfolio_Name=  StringField(max_length=100,required=True)
         Company_Type=   StringField(max_length=100,required=False)
         Ticker_List =   ListField(StringField())
-        
+
+class portfolioDetail(Document):
+        Portfolio_Name=  StringField(max_length=100,required=True)
+        Company_Type=   StringField(max_length=100,required=False)
+        Ticker_List =   ListField(StringField())
+        correlationData= StringField(required=False)
+        riskandreturnData= StringField(required=False)
+        violationData= StringField(required=False)
+        boxplotData= StringField(required=False)
+        callmapData= StringField(required=False)
+        weightplotData= StringField(required=False)
+        Open = DecimalField(max_length=100,required=False)
+        High = DecimalField(max_length=100,required=False)
+        Low =  DecimalField(max_length=100,required=False)
+        Close =DecimalField(max_length=100,required=False)
+        Adj_Close =DecimalField(required=False)
+        Volume = LongField(required=False)
+        Company_Name = StringField(max_length=100,required=False)
+        fundamentalDataList=ListField()
         
        
      

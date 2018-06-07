@@ -6,6 +6,7 @@ from batchprocessing.models import nifty_500_companies_fundamental_data
 from batchprocessing.models import nifty_200_companies_fundamental_data
 from batchprocessing.models import nifty_100_companies_fundamental_data
 from batchprocessing.models import nifty_50_fundamental_data
+from batchprocessing.models import portfolio
 from django.http import *
 from batchprocessing import *
 from mongoengine import Q
@@ -35,6 +36,10 @@ def fundamentalportfolio(request):
            elif form['companyType'].value() == "nifty500":
                result=filterFormData(form,nifty_500_companies_fundamental_data.objects.all())
            print("########SAVE#########")
+           tickerList = getTicker(form,result)
+           print("##############submitvalue#############")
+           if request.POST.get("submit_button"):
+               savePortfolio(tickerList)
            ##form.save()
            print("################DATA SAVED#############")
            return render(request,"fundamentalportfolio.html",{"fundamentalportfolioform":form,"list":result})
@@ -270,5 +275,23 @@ def is_number_tryexcept(s):
         float(s)
         return True
     except ValueError:
-        return False         
+        return False     
 
+def getTicker(form,result):
+    print("In Ticker Method#########")
+    tickerList=[]
+    for element in result:
+        tickerList.append(element.Ticker)
+    return tickerList
+    
+
+def savePortfolio(tickerList):
+    print("In SavePortfolio Method#########")
+    print(tickerList)
+    portfolioobj = portfolio()
+    portfolioobj.Portfolio_Name = 'My_Portfolio'
+    portfolioobj.Company_Type = 'nifty50'
+    portfolioobj.Ticker_List = tickerList
+    portfolioobj.save()
+    print("Data saved#########")
+    return 100

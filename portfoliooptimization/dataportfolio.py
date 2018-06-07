@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import sys
 from .main import root_path
-from batchprocessing.models import nift50Indices
+from batchprocessing.models import nift50Indices,nift100Indices,nift200Indices,nift500Indices,nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data
 from matplotlib import style
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,18 +26,29 @@ eday = end_date.day
 eyear = end_date.year
 emonth = calendar.month_abbr[emo]
 
-def portfolio(symbols, allocations, api_key, start_date):
-    symbolss = ['ASIANPAINT.NS','ADANIPORTS.NS']
+def optimizePortfolio(portfolio,start_date):
+    portfolio=portfoliodetail(portfolio,start_date)
+    #portfolio.correlationData=fig_to_html(correlData(portfolio,start_date))
+    #portfolio.riskandreturnData=fig_to_html(risk_return(portfolio,start_date))
+    return portfolio
+
+def portfoliodetail(portfolio,start_date):
+    symbolss = portfolio.Ticker_List
     #Portfolio Data
     print("Port Folio Data##########")
     merged_data_frame = pd.DataFrame()
     i=0
     for sysm in symbolss:
-        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        objclose= objnf50.values_list('Close')
-        objdt= objnf50.values_list('Date')
-        closelist=list(objclose)
-        datelist=list(objdt)
+        if portfolio.Company_Type =="nifty50":
+            objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        elif portfolio.Company_Type =="nifty100":
+            objnf50=nift100Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        elif portfolio.Company_Type =="nifty200":
+            objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        else:
+            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm)
+            fundamentaldata = nifty_500_companies_fundamental_data.objects.filter(Ticker=sysm)
+        
         if i==0:
             merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
             merged_data_frame=merged_data_frame.set_index('Date')
@@ -55,6 +66,9 @@ def portfolio(symbols, allocations, api_key, start_date):
             sys.exit()
     #print("########### merged_data_frame ########")
     #print(merged_data_frame)
+    allocations = []
+    for tk in portfolio.Ticker_List:
+        allocations.append(10)
     port_val = merged_data_frame * allocations
     # Remove Rows With No Values
 
@@ -75,14 +89,14 @@ def portfolio(symbols, allocations, api_key, start_date):
     port_weights = port_weights.transpose()
     port_weights.columns = ["Weight"]
     port_weights = port_weights.drop(port_weights.index[len(port_weights) - 1])
-    correlData(merged_data_frame.astype(float))
-    risk_return(port_rets.astype(float))
-    print("############ port_rets as #########")
-    print(port_rets.index)
-    violin(port_rets.astype(float))
-    box_plot(port_rets.astype(float))
+    portfolio.correlationData=fig_to_html(correlData(merged_data_frame.astype(float)))
+    portfolio.riskandreturnData=fig_to_html(risk_return(port_rets.astype(float)))
+    #violin(port_rets.astype(float))
+    #box_plot(port_rets.astype(float))
     #calmap(port_rets.astype(float))
-    weights_plot(port_weights.astype(float))
+    portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
+    portfolio.weightplotData=fig_to_html(weights_plot(port_weights.astype(float)))
+    return portfolio
     
 def benchmark(bench_symbol, start_date, api_key):
 
@@ -118,18 +132,22 @@ def benchmark(bench_symbol, start_date, api_key):
 
 style.use('ggplot')
 
-def getPortfolioCorrelationData(symbols, allocations,start_date):
-    symbolss = ['ASIANPAINT.NS','ADANIPORTS.NS']
+def getPortfolioCorrelationData(portfolio,start_date):
+    symbolss = portfolio.Ticker_List
     #Portfolio Data
     print("Port Folio Data##########")
     merged_data_frame = pd.DataFrame()
     i=0
     for sysm in symbolss:
-        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        objclose= objnf50.values_list('Close')
-        objdt= objnf50.values_list('Date')
-        closelist=list(objclose)
-        datelist=list(objdt)
+        if portfolio.Company_Type =="nifty50":
+            objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        elif portfolio.Company_Type =="nifty100":
+            objnf50=nift100Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        elif portfolio.Company_Type =="nifty200":
+            objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        else:
+            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+            
         if i==0:
             merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
             merged_data_frame=merged_data_frame.set_index('Date')
@@ -150,8 +168,8 @@ def getPortfolioCorrelationData(symbols, allocations,start_date):
     return merged_data_frame.astype(float)
 
 
-def correlData(symbols, allocations,start_date):
-        pdata=getPortfolioCorrelationData(symbols, allocations,start_date)
+def correlData(pdata):
+        #pdata=getPortfolioCorrelationData(portfolio,start_date)
         cor = pdata.corr()
         print("########## cor ##########")
         print(cor)
@@ -187,18 +205,26 @@ def correlData(symbols, allocations,start_date):
         save_json(fig,"correlation.json")
         return fig
 
-def getPortfolioRiskReturn(symbols, allocations, start_date):
-    symbolss = ['ASIANPAINT.NS','ADANIPORTS.NS']
+def getPortfolioRiskReturn(portfolio, start_date):
+    symbolss =  portfolio.Ticker_List
+    allocations = []
+    for tk in portfolio.Ticker_List:
+        allocations.append(10)
+
     #Portfolio Data
     print("Port Folio Data##########")
     merged_data_frame = pd.DataFrame()
     i=0
     for sysm in symbolss:
-        objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        objclose= objnf50.values_list('Close')
-        objdt= objnf50.values_list('Date')
-        closelist=list(objclose)
-        datelist=list(objdt)
+        if portfolio.Company_Type =="nifty50":
+            objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        elif portfolio.Company_Type =="nifty100":
+            objnf50=nift100Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        elif portfolio.Company_Type =="nifty200":
+            objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+        else:
+            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
+            
         if i==0:
             merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
             merged_data_frame=merged_data_frame.set_index('Date')
@@ -216,6 +242,7 @@ def getPortfolioRiskReturn(symbols, allocations, start_date):
             sys.exit()
     #print("########### merged_data_frame ########")
     #print(merged_data_frame)
+    print(allocations)
     port_val = merged_data_frame * allocations
     # Remove Rows With No Values
 
@@ -232,8 +259,8 @@ def getPortfolioRiskReturn(symbols, allocations, start_date):
     return port_rets.astype(float)
 
 
-def risk_return(symbols, allocations,start_date):
-        port_rets=getPortfolioRiskReturn(symbols, allocations,start_date)
+def risk_return(port_rets):
+        #port_rets=getPortfolioRiskReturn(portfolio,start_date)
         x = (port_rets.std() * np.sqrt(252)) * 100
         x = x[:-1]
         y = (port_rets.mean() * 252) * 100
@@ -255,8 +282,7 @@ def risk_return(symbols, allocations,start_date):
 
         for i, txt in enumerate(n):
             ax.annotate(txt, (x[i], y[i]))
-
-        plt.suptitle("Risk / Return of Assets")
+        plt.title("Risk / Return of Assets", fontsize=15)
         plt.xlabel("Risk", fontsize=10)
         plt.ylabel("Return", fontsize=10)
         plt.xticks(fontsize=8)
@@ -290,12 +316,12 @@ def violin(symbols, allocations,start_date):
         save_json(fig,"violation.json")
         return fig
         
-def box_plot(port_rets):
-        group=0
+def box_plot(port_rets,group):
         port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
         port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
-
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
         if group == "day":
             title = "Daily Returns"
             ax = sns.boxplot(x="day", y="Portfolio Value", data=port_rets, palette="Pastel1")
@@ -311,8 +337,8 @@ def box_plot(port_rets):
         ax.set_yticklabels(['{:.2f}%'.format(x * 100) for x in vals])
         ax.set_xlabel('')
         ax.set_ylabel('')
-        plt.suptitle(title)
-        plt.show()
+        plt.title(title, fontsize=18)
+        return fig
         
 def calmap(port_rets):
         import numpy as np;
@@ -331,7 +357,8 @@ def calmap(port_rets):
         plt.show()
         
 def weights_plot(port_weights):
-        plt.pie(
+    fig, ax = plt.subplots(figsize=(8, 6))    
+    plt.pie(
             port_weights["Weight"],
             labels=port_weights.index,
             shadow=False,
@@ -339,6 +366,7 @@ def weights_plot(port_weights):
             autopct='%1.1f%%',
         )
 
-        plt.axis('equal')
-        plt.suptitle('Portfolio Weights')
-        plt.show()
+    plt.axis('equal')
+    plt.title("Portfolio Weights", fontsize=18)
+        #plt.show()
+    return fig
