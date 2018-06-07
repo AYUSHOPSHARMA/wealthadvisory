@@ -10,6 +10,7 @@ from django.http import HttpResponse
 import screener.views as fdview
 import batchprocessing.fundamentaldata as fdt
 import scipy.stats as stats
+import time
 
 from pandas_datareader import data as pdr
 
@@ -80,10 +81,18 @@ def limitQuery(request,start,limit,companyType):
         print(cname)
         if(symbol != "NA"):
             yf.pdr_override() # <== that's all it takes :-)
+            print("############## DOWNLOADING DATA ###########")
+            print(symbol)
+            print(st)
+            print(ed)
             data = pdr.get_data_yahoo(symbol,st,ed)
             print("#########downloaded data from yahoo for ############")
             print(symbol)
             print(len(data))
+            if len(data) <= 0 :
+                time.sleep(10)
+                data = pdr.get_data_yahoo(symbol,st,ed)
+                
             j = 0
             
             while j < len(data):

@@ -18,6 +18,7 @@ import calendar
 import inspect
 from mpld3._display import display_d3,fig_to_html,save_json
 from mpld3 import plugins
+import screener.portfoliooptimization as po
 
 #Dates
 end_date = dt.date.today()
@@ -46,8 +47,7 @@ def portfoliodetail(portfolio,start_date):
         elif portfolio.Company_Type =="nifty200":
             objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
         else:
-            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm)
-            fundamentaldata = nifty_500_companies_fundamental_data.objects.filter(Ticker=sysm)
+            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
         
         if i==0:
             merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
@@ -91,6 +91,8 @@ def portfoliodetail(portfolio,start_date):
     port_weights = port_weights.drop(port_weights.index[len(port_weights) - 1])
     portfolio.correlationData=fig_to_html(correlData(merged_data_frame.astype(float)))
     portfolio.riskandreturnData=fig_to_html(risk_return(port_rets.astype(float)))
+    num_portfolios = 25000
+    portfolio.heatMapData=fig_to_html(po.portfolioOptimization(portfolio,start_date,end_date,num_portfolios))
     #violin(port_rets.astype(float))
     #box_plot(port_rets.astype(float))
     #calmap(port_rets.astype(float))

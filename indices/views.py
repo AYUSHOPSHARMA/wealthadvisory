@@ -43,22 +43,15 @@ def hello(request):
 
 
 def nift50(request):
-	#from pandas.plotting import scatter_matrix
-	end = datetime.date(2018,5,5)
-	begin = datetime.date(2017,1,1)
-
-	#timestamp format and get apple stock.
-
-	st=begin.strftime('%Y-%m-%d')
-
-	ed=end.strftime('%Y-%m-%d')
-
-	yf.pdr_override() # <== that's all it takes :-)
-
-	data = pdr.get_data_yahoo('RAIN.NS',st,ed)
-	print(data)
-   
-	return render(request,"indices.html",{"data":data})
+    end = datetime.date(2018,5,5)
+    begin = datetime.date(2013,1,1)
+    st=begin.strftime('%Y-%m-%d')
+    ed=end.strftime('%Y-%m-%d')
+    yf.pdr_override() # <== that's all it takes :-)
+    data = pdr.get_data_yahoo('YESBANK.NS',st,ed)
+    print(data)
+    print(len(data))
+    return render(request,"indices.html",{"data":data})
 
 def nift100Indices(request,companyname,styear,stmonth,stday,endyear,endmonth,endday):
 	#from pandas.plotting import scatter_matrix

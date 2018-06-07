@@ -19,11 +19,12 @@ from mpld3._display import display_d3,fig_to_html,save_json
 from mpld3 import plugins
 import json
 from django.views.decorators.cache import cache_page
-
+from batchprocessing.models import nift50Indices,nift100Indices,nift200Indices,nift500Indices,nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data
+import datetime as dt
+import sys
 
 def portfolioOptimization(portfolio, st,ed,num_portfolios):
     #list of stocks in portfolio
-    
     css = """
         table
         {
@@ -53,28 +54,58 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
     #=nift200Indices.objects(Ticker ='AAPL.NS')
     yf.pdr_override() # <== that's all it takes :-)
 
-    end = datetime.date(2018,5,27)
     begin = datetime.date(2017,1,1)
 
 	#timestamp format and get apple stock.
 
-    st=begin.strftime('%Y-%m-%d')
+    start_date=begin.strftime('%Y-%m-%d')
 
-    ed=end.strftime('%Y-%m-%d')
-
-    data = web.get_data_yahoo(stocks,st,ed)['Adj Close']
+    #end_date=end.strftime('%Y-%m-%d')
+    end_date = dt.date.today()
+    #data = web.get_data_yahoo(stocks,st,ed)['Adj Close']
+    i=0
+    for sysm in stocks:
+        if portfolio.Company_Type =="nifty50":
+            objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Adj_Close','Date')
+        elif portfolio.Company_Type =="nifty100":
+            objnf50=nift100Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Adj_Close','Date')
+        elif portfolio.Company_Type =="nifty200":
+            objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Adj_Close','Date')
+        else:
+            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Adj_Close','Date')
+        
+        if i==0:
+            data=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            data=data.set_index('Date')
+        else:    
+            data_frame =pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
+            data_frame=data_frame.set_index('Date')
+            data = pd.merge(
+                data, data_frame, right_index=True, left_index=True, how='outer')
+        i+=1
+    temp_data = data.iloc[:,0:len(data.columns)].apply(pd.to_numeric)
+    for column in temp_data.columns:
+        c = temp_data[column]
+        if c.isnull().all():
+            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
+            sys.exit()   
+        
     #download daily price data for each of the stocks in the portfolio
     #data = web.DataReader(stocks,data_source='yahoo',start='01/01/2010')['Adj Close']
-     
     data.sort_index(inplace=True)
      
     #convert daily stock prices into daily returns
     returns = data.pct_change()
-     
+    print("#########returns#########")
+    returns = returns.dropna(how='any')
+    print(returns)
     #calculate mean daily return and covariance of daily returns
     mean_daily_returns = returns.mean()
-    cov_matrix = returns.cov()
+    cov_matrix = returns.astype(float).cov()
     
+    print("#########DATA##########")
+    print(data)
+    print("##########cov_matrix##########")
     print(cov_matrix)
     num_portfolios = 500
      
@@ -84,7 +115,7 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
     labels = []
     for i in range(num_portfolios):
         #select random weights for portfolio holdings
-        weights = np.array(np.random.random(4))
+        weights = np.array(np.random.random(len(stocks)))
        
         #rebalance weights to sum to 1
         weights /= np.sum(weights)
@@ -107,9 +138,16 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
             results[j+3,i] = weights[j]
     
     fig, ax = plt.subplots() 
-    
+    columnst=[]
+    columnst.append("returns")
+    columnst.append("standard_deviation")
+    columnst.append("sharpe_ratio")
+    for st in stocks:
+        columnst.append(st)
         #convert results array to Pandas DataFrame
-    results_frame = pd.DataFrame(results.T,columns=['returns','standard_deviation','sharpe_ratio',stocks[0],stocks[1],stocks[2],stocks[3]])
+    print("###########columst#########")
+    print(columnst)      
+    results_frame = pd.DataFrame(results.T,columns=columnst)
     for i in range(num_portfolios):
         label = results_frame.ix[[i], :].T
         label.columns = ['Statistics']

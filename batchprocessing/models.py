@@ -416,6 +416,7 @@ class portfolioDetail(Document):
         Company_Type=   StringField(max_length=100,required=False)
         Ticker_List =   ListField(StringField())
         correlationData= StringField(required=False)
+        heatMapData= StringField(required=False)
         riskandreturnData= StringField(required=False)
         violationData= StringField(required=False)
         boxplotData= StringField(required=False)

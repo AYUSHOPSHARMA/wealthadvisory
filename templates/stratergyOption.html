@@ -78,6 +78,7 @@
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
+            padding-bottom: 100%;
         }
         .modalA-content {
             background-color: #fefefe;
@@ -85,34 +86,11 @@
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
+            padding-bottom: 100%;
         }
 
         /* The Close Button */
-        .close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .closeA {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .closeA:hover,
-        .closeA:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
+        
     </style>
 </head>
 <body>
@@ -211,7 +189,7 @@
                         <tbody>
                         <tr id="1" style>
                             <td>1</td>
-                            <td><span style="color:#337ab7">Bollinger Band Stratergy</span></td>
+                            <td><span style="color:#337ab7">Moving Average Comparing stratergy</span></td>
                             <td>&nbsp;&nbsp;equities</td>
                             <td>
                                 <button id="portfoliobtn1" class="btn btn-success" style="width: 100px;font-size: 10px;">
@@ -251,7 +229,7 @@
                         </tr>
                         <tr id="2" class="gridrow_alternate">
                             <td>2</td>
-                            <td><span style="color:#337ab7">Moving Average Comparing stratergy</span></td>
+                            <td><span style="color:#337ab7">Bollinger Band Stratergy</span></td>
                             <td>&nbsp;&nbsp;equities</td>
                             <td>
                                 <button id="portfoliobtn2" class="btn btn-success" style="width: 100px;font-size: 10px;">
@@ -395,6 +373,15 @@
                         </div>
 
                     </div>
+                    <div id="myModalB" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modalA-content" style="padding-bottom: 100%;">
+                            <div style="margin-bottom:10px"><span class="closeB">&times;</span></div>
+                            <div id="innerModelB" style="position:""">{{bbbandGraph|safe|escape}}</div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <!--<div class="col-lg-4 col-md-4 col-sm-4">
@@ -528,6 +515,9 @@
 
     // Get the modal for stratergy result
     var modalA = document.getElementById('myModalA');
+    var modalB = document.getElementById('myModalB');
+    var modalC = document.getElementById('myModalC');
+    var modalD = document.getElementById('myModalD');
 
     // Get the button that opens the modal for portfolio
     var btno = document.getElementById("portfoliobtn1");
@@ -547,6 +537,7 @@
     var span = document.getElementsByClassName("close")[0];
     // Get the <span> element that closes the modal FOR RESULT
     var spanA = document.getElementsByClassName("closeA")[0];
+    var spanB = document.getElementsByClassName("closeB")[0];
 
     // When the user clicks the button, open the modal
     btno.onclick = function () {
@@ -564,16 +555,29 @@
     
     resA.onclick = function () {
         modalA.style.display = "block";
+        modalB.style.display = "none";
+        modalC.style.display = "none";
+        modalD.style.display = "none";
         
     }
     resB.onclick = function () {
-        modalA.style.display = "block";
+        modalA.style.display = "none";
+        modalB.style.display = "block";
+        modalC.style.display = "none";
+        modalD.style.display = "none";
     }
     resC.onclick = function () {
-        modalA.style.display = "block";
+        modalA.style.display = "none";
+        modalB.style.display = "none";
+        modalC.style.display = "block";
+        modalD.style.display = "none";
     }
     resD.onclick = function () {
-        modalA.style.display = "block";
+       modalA.style.display = "none";
+        modalB.style.display = "none";
+        modalC.style.display = "none";
+        modalD.style.display = "block";
+        
     }
 
     // When the user clicks on <span> (x), close the modal
@@ -581,7 +585,12 @@
         modal.style.display = "none";
     }
     spanA.onclick = function () {
+        alert("Close A Clicked");
         modalA.style.display = "none";
+    }
+    spanB.onclick = function () {
+        alert("Close Clicked");
+        modalB.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
@@ -590,7 +599,10 @@
             modal.style.display = "none";
         }
         if (event.target == modalA) {
-            modal.style.display = "none";
+            modalA.style.display = "none";
+        }
+         if (event.target == modalB) {
+            modalA.style.display = "none";
         }
     }
 
