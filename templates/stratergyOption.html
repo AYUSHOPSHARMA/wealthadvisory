@@ -29,6 +29,81 @@
         td {
             padding-top: .5em;
             padding-bottom: .5em;
+            padding-left: .5em;
+            padding-right: .5em;
+        }
+        th {
+            text-align: center;
+        }
+    </style>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        .modalA {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .closeA {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .closeA:hover,
+        .closeA:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -112,14 +187,15 @@
                     <table class="grid styled">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>&nbsp; &nbsp; &nbsp; &nbsp;Stratergy </th>
+                            <th style="padding-left: 10px;padding-right: 10px;">ID</th>
+                            <th>&nbsp; &nbsp; &nbsp; &nbsp;Stratergy</th>
                             <th>Markets Traded</th>
+                            <th style="padding-right: 33px;">Your portfolio</th>
                             <th style="padding-right: 33px;">Returns</th>
-                            <th style="padding-right: 33px;">Returns on stratergy</th>
+                            <th>Returns on stratergy</th>
                             <th>Keywords</th>
                             <th>Live Trading</th>
-                            <th>Set stop trigger</th>
+                            <th>Stop loss trigger</th>
                             <th>Paper trading</th>
                             <th>Check analysis</th>
                         </tr>
@@ -127,35 +203,160 @@
                         <tbody>
                         <tr id="1" style>
                             <td>1</td>
-                            <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
+                            <td><span style="color:#337ab7">Bollinger Band Stratergy</span></td>
                             <td>&nbsp;&nbsp;equities</td>
+                            <td>
+                                <button id="portfoliobtn1" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Check Portfolios
+                                </button>
+                            </td>
                             <td style="">11.27%*</td>
                             <td style="">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
+                            <td>
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td>
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td>
+                                <button id="result01" class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;">
+                                    Stratergy result
+                                </button>
+                            </td>
+
                         </tr>
                         <tr id="2" class="gridrow_alternate">
                             <td>2</td>
-                            <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
+                            <td><span style="color:#337ab7">Moving Average Comparing stratergy</span></td>
                             <td>&nbsp;&nbsp;equities</td>
+                            <td>
+                                <button id="portfoliobtn2" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Check Portfolios
+                                </button>
+                            </td>
                             <td style="">15.00%*</td>
                             <td style="">9.60%*</td>
                             <td>momentum, asset class picking, rotational system</td>
+                            <td>
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
+                                    <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td>
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td>
+                                <button id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Stratergy result
+                                </button>
+                            </td>
                         </tr>
                         <tr id="3" class="gridrow">
                             <td>3</td>
                             <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
                             <td>&nbsp;&nbsp;equities</td>
+                            <td>
+                                <button id="portfoliobtn3" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Check Portfolios
+                                </button>
+                            </td>
                             <td style="">13.94%*</td>
                             <td style="">18.38%*</td>
                             <td>momentum, sector picking, rotational system</td>
+                            <td>
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
+                                    <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td>
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td>
+                                <button id="result03" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Stratergy result
+                                </button>
+                            </td>
                         </tr>
                         <tr id="4" class="gridrow_alternate">
                             <td>4</td>
                             <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
                             <td>&nbsp;&nbsp;equities</td>
+                            <td>
+                                <button id="portfoliobtn4" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Check Portfolios
+                                </button>
+                            </td>
                             <td style="">0.00%</td>
                             <td style="">0.00%</td>
                             <td>-</td>
+                            <td>
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
+                                    <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td>
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td>
+                                <button id="result04" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                    Stratergy result
+                                </button>
+                            </td>
                         </tr>
                         <!--<tr id="5" class="gridrow">
                             <td>5</td>
@@ -167,6 +368,25 @@
                         </tr>-->
                         </tbody>
                     </table>
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <p>Some text in the Modal..</p>
+                        </div>
+
+                    </div>
+                    <div id="myModalA" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="closeA">&times;</span>
+                            <p>Some text in the Modal..</p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <!--<div class="col-lg-4 col-md-4 col-sm-4">
@@ -190,7 +410,7 @@
 
                     <details style="margin-top: 100px;">
                         <summary><label>Try paper trading</label></summary>
-                        <button type="submit" name="submit_button"  class="btn btn-success" style="float:right;width: 196px;margin-top: 10px;" value="Submit">Paper trading</button>
+                        <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;" value="Submit">Paper trading</button>
                     </details>
 
                 </div>
@@ -198,7 +418,6 @@
         </div>
     </div>
 </section>
-
 
 
 <footer id="ft_sec" style="background-color:#224B59">
@@ -314,6 +533,77 @@
         });
 
     });
+</script>
+<script>
+    // Get the modal for portfolio
+    var modal = document.getElementById('myModal');
+
+    // Get the modal for stratergy result
+    var modalA = document.getElementById('myModalA');
+
+    // Get the button that opens the modal for portfolio
+    var btno = document.getElementById("portfoliobtn1");
+    var btnp = document.getElementById("portfoliobtn2");
+    var btnq = document.getElementById("portfoliobtn3");
+    var btnr = document.getElementById("portfoliobtn4");
+
+    // Get the button that opens the modal for result of stratergy
+    var resA = document.getElementById("result01");
+    var resB = document.getElementById("result02");
+    var resC = document.getElementById("result03");
+    var resD = document.getElementById("result04");
+
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // Get the <span> element that closes the modal FOR RESULT
+    var spanA = document.getElementsByClassName("closeA")[0];
+
+    // When the user clicks the button, open the modal
+    btno.onclick = function () {
+        modal.style.display = "block";
+    }
+    btnp.onclick = function () {
+        modal.style.display = "block";
+    }
+    btnq.onclick = function () {
+        modal.style.display = "block";
+    }
+    btnr.onclick = function () {
+        modal.style.display = "block";
+    }
+    resA.onclick = function () {
+        modalA.style.display = "block";
+    }
+    resB.onclick = function () {
+        modalA.style.display = "block";
+    }
+    resC.onclick = function () {
+        modalA.style.display = "block";
+    }
+    resD.onclick = function () {
+        modalA.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    spanA.onclick = function () {
+        modalA.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        if (event.target == modalA) {
+            modal.style.display = "none";
+        }
+    }
+
 </script>
 
 
