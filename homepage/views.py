@@ -15,3 +15,6 @@ def positions(request):
 def summary(request):
     return render(request,"summary.html")
 
+def homepage(request):
+    return render(request,"homepage.html")
+
