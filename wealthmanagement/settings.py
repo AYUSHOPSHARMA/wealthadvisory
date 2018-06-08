@@ -37,13 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'equities',
-	'indices',
-	'mutualfunds',
-   'screener',
-   'batchprocessing',
-   'charts',
-   'homepage',
+    'equities',
+    'indices',
+    'mutualfunds',
+    'screener',
+    'batchprocessing',
+    'charts',
+    'homepage',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +133,11 @@ STATICFILES_DIRS = [
     '/static/js',
     '/static/data',
     '/static/font',
+    '/static/font1',
+    '/static/js1',
+    '/static/css1',
+    '/static/img1',
+    '/static/js2',
 ]
 
 CACHES = {
