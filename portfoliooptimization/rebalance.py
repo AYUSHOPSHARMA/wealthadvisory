@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 import os
-from main import root_path
+
+root_path = "C:/Portfolio Tracker"
 
 def rebalance(allocations):
     if os.path.exists(root_path+'/Daily Data/Portfolio/Portfolio Value.csv') and os.path.exists(root_path+'/Daily Data/Portfolio/Portfolio Daily Prices.csv'):

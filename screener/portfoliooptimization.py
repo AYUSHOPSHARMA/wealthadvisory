@@ -137,7 +137,7 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
         for j in range(len(weights)):
             results[j+3,i] = weights[j]
     
-    fig, ax = plt.subplots() 
+    fig, ax = plt.subplots()
     columnst=[]
     columnst.append("returns")
     columnst.append("standard_deviation")
@@ -186,6 +186,7 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
     plugins.connect(fig, tooltip)
     plugins.connect(fig, tooltipstr1)
     plugins.connect(fig, tooltipstr2)
+    fig.set_size_inches(11.7, 8.27)
    # tooltip = plugins.PointHTMLTooltip(points[0], labels,
    #                               voffset=10, hoffset=10, css=css)
     #plugins.connect(fig, tooltip)

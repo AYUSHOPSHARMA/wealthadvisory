@@ -6,16 +6,13 @@ import os
 from main import root_path
 style.use('ggplot')
 
-def min_var(symbols):
-
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv', index_col= 0)
-
+def min_var(portfolio,port_rets):
+        symbols= portfolio.Ticker_List
         n = len(port_rets.columns) - 1
         returns = port_rets.iloc[:,0:n]
 
-        cov_matrix = returns.cov()
-        mean_daily_returns = returns.mean()
+        cov_matrix = returns.astype(float).cov()
+        mean_daily_returns = returns.astype(float).mean()
 
         # set number of runs of random portfolio weights
         num_portfolios = 25000
@@ -56,8 +53,8 @@ def min_var(symbols):
         max_sharpe_port = results_frame.iloc[results_frame['sharpe'].idxmax()]
         # locate positon of portfolio with minimum standard deviation
         min_vol_port = results_frame.iloc[results_frame['stdev'].idxmin()]
-
-        print results_frame
+        fig, ax = plt.subplots()
+        print(results_frame)
 
         print ("-------------Max Sharpe Portfolio------------")
         print(max_sharpe_port)
@@ -74,8 +71,7 @@ def min_var(symbols):
         plt.scatter(max_sharpe_port[1], max_sharpe_port[0], marker='o', color='b', s=20, label='Tangent Portfolio')
         plt.scatter(min_vol_port[1], min_vol_port[0], marker='o', color='r', s=20, label='Minimum Variance Portfolio')
         plt.legend(loc='upper left', fontsize='small')
-        plt.show()
-
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
+        #plt.show()
+        fig.set_size_inches(11.7, 8.27)
+        return fig
 

@@ -4,7 +4,6 @@ import calendar
 import os
 import pandas as pd
 import sys
-from .main import root_path
 from batchprocessing.models import nift50Indices,nift100Indices,nift200Indices,nift500Indices,nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data
 from matplotlib import style
 import matplotlib.pyplot as plt
@@ -20,6 +19,7 @@ from mpld3._display import display_d3,fig_to_html,save_json
 from mpld3 import plugins
 import screener.portfoliooptimization as po
 
+root_path = "C:/Portfolio Tracker"
 #Dates
 end_date = dt.date.today()
 emo = end_date.month
@@ -93,10 +93,11 @@ def portfoliodetail(portfolio,start_date):
     portfolio.riskandreturnData=fig_to_html(risk_return(port_rets.astype(float)))
     num_portfolios = 25000
     portfolio.heatMapData=fig_to_html(po.portfolioOptimization(portfolio,start_date,end_date,num_portfolios))
-    #violin(port_rets.astype(float))
+    portfolio.violationData=fig_to_html(violin(port_rets.astype(float),start_date))
+    portfolio.minvariance=fig_to_html(min_var(portfolio,port_rets.astype(float)))
     #box_plot(port_rets.astype(float))
     #calmap(port_rets.astype(float))
-    portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
+    #portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
     portfolio.weightplotData=fig_to_html(weights_plot(port_weights.astype(float)))
     return portfolio
     
@@ -115,14 +116,14 @@ def benchmark(bench_symbol, start_date, api_key):
     smonth = calendar.month_abbr[smo]
 
     #Benchmark Data
-    bench_data = pd.read_csv(
-        'http://finance.google.com/finance/historical?q='+str(bench_symbol)+'&startdate='+ str(smonth) +'+'+ str(sday) +'+'+ str(syear) +'&enddate='+ str(emonth) +'+'+ str(eday) +'+'+ str(eyear) +'&output=csv',
-        index_col=0)["Close"]
-    bench_data.index = pd.to_datetime(bench_data.index)
+    objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=bench_symbol).values_list('Close','Date')
+    bench_data=pd.DataFrame(list(objnf50),columns=[bench_symbol,'Date'])
+    bench_data=bench_data.set_index('Date')
 
     #Reverse Frame
     bench_rets = bench_data.iloc[::-1]
     bench_rets = bench_rets.dropna(how='any')
+    print(bench_rets)
 
     bench_rets = bench_rets.pct_change()
 
@@ -133,41 +134,6 @@ def benchmark(bench_symbol, start_date, api_key):
 
 
 style.use('ggplot')
-
-def getPortfolioCorrelationData(portfolio,start_date):
-    symbolss = portfolio.Ticker_List
-    #Portfolio Data
-    print("Port Folio Data##########")
-    merged_data_frame = pd.DataFrame()
-    i=0
-    for sysm in symbolss:
-        if portfolio.Company_Type =="nifty50":
-            objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        elif portfolio.Company_Type =="nifty100":
-            objnf50=nift100Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        elif portfolio.Company_Type =="nifty200":
-            objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        else:
-            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-            
-        if i==0:
-            merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
-            merged_data_frame=merged_data_frame.set_index('Date')
-        else:    
-            data_frame =pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
-            data_frame=data_frame.set_index('Date')
-            merged_data_frame = pd.merge(
-                merged_data_frame, data_frame, right_index=True, left_index=True, how='outer')
-        i+=1
-    temp_data = merged_data_frame.iloc[:,0:len(merged_data_frame.columns)].apply(pd.to_numeric)
-    for column in temp_data.columns:
-        c = temp_data[column]
-        if c.isnull().all():
-            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
-            sys.exit()
-    #print("########### merged_data_frame ########")
-    #print(merged_data_frame)
-    return merged_data_frame.astype(float)
 
 
 def correlData(pdata):
@@ -180,7 +146,7 @@ def correlData(pdata):
         print(data)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
-
+        fig.set_size_inches(11.7, 8.27)
         heatmap = ax.pcolor(data, cmap=plt.cm.coolwarm)
         fig.colorbar(heatmap)
         ax.set_xticks(np.arange(data.shape[0]) + 0.5, minor=False)
@@ -207,59 +173,6 @@ def correlData(pdata):
         save_json(fig,"correlation.json")
         return fig
 
-def getPortfolioRiskReturn(portfolio, start_date):
-    symbolss =  portfolio.Ticker_List
-    allocations = []
-    for tk in portfolio.Ticker_List:
-        allocations.append(10)
-
-    #Portfolio Data
-    print("Port Folio Data##########")
-    merged_data_frame = pd.DataFrame()
-    i=0
-    for sysm in symbolss:
-        if portfolio.Company_Type =="nifty50":
-            objnf50=nift50Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        elif portfolio.Company_Type =="nifty100":
-            objnf50=nift100Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        elif portfolio.Company_Type =="nifty200":
-            objnf50=nift200Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-        else:
-            objnf50=nift500Indices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=sysm).values_list('Close','Date')
-            
-        if i==0:
-            merged_data_frame=pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
-            merged_data_frame=merged_data_frame.set_index('Date')
-        else:    
-            data_frame =pd.DataFrame(list(objnf50),columns=[sysm,'Date'])
-            data_frame=data_frame.set_index('Date')
-            merged_data_frame = pd.merge(
-                merged_data_frame, data_frame, right_index=True, left_index=True, how='outer')
-        i+=1
-    temp_data = merged_data_frame.iloc[:,0:len(merged_data_frame.columns)].apply(pd.to_numeric)
-    for column in temp_data.columns:
-        c = temp_data[column]
-        if c.isnull().all():
-            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
-            sys.exit()
-    #print("########### merged_data_frame ########")
-    #print(merged_data_frame)
-    print(allocations)
-    port_val = merged_data_frame * allocations
-    # Remove Rows With No Values
-
-    #FIX!!!!!!
-    #port_data.dropna(axis=0, how='any')
-    port_val = port_val.fillna(port_val.mean())
-
-    port_val['Portfolio Value'] = port_val.sum(axis=1)
-
-    # Calculate Portfolio Returns
-    port_rets = port_val.pct_change()
-    port_rets = port_rets.dropna(how='any')
-    
-    return port_rets.astype(float)
-
 
 def risk_return(port_rets):
         #port_rets=getPortfolioRiskReturn(portfolio,start_date)
@@ -269,6 +182,7 @@ def risk_return(port_rets):
         y = y[:-1]
         n = y.index
         fig = plt.figure()
+        fig.set_size_inches(11.7, 8.27)
         ax = fig.add_subplot(1, 1, 1)
         t = x
         print("############x#############")
@@ -292,29 +206,30 @@ def risk_return(port_rets):
         save_json(fig,"risk_return.json")
         return fig
    
-def violin(symbols, allocations,start_date):
-        port_rets = getPortfolioRiskReturn(symbols, allocations,start_date)
+def violin(port_rets,start_date):
+        print(port_rets)
         group=0
-        print("##########port_rets['Date']########3")
-        print(port_rets['ASIANPAINT.NS'])
         port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
         port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
-        fig = plt.figure()
+        fig, ax = plt.subplots()
+        # the size of A4 paper
+        fig.set_size_inches(11.7, 8.27)
 
         if group == "day":
-            ax = sns.violinplot(x="day", y="Portfolio Value", data=port_rets, palette="Pastel1")
+            sns.violinplot(x="day", y="Portfolio Value", data=port_rets, palette="Pastel1",ax=ax)
             title = "Daily Returns"
         else:
             title = "Monthly Returns"
-            ax = sns.violinplot(x="month", y="Portfolio Value", data=port_rets, palette="Pastel1")
+            sns.violinplot(x="month", y="Portfolio Value", data=port_rets, palette="Pastel1",ax=ax)
 
         #Modify x axis labels
-        vals = ax.get_yticks()
-        ax.set_yticklabels(['{:.2f}%'.format(x * 100) for x in vals])
-        ax.set_xlabel('')
-        ax.set_ylabel('')
-        plt.suptitle(title)
+        sns.despine()
+        #vals = ax.get_yticks()
+        #ax.set_yticklabels(['{:.2f}%'.format(x * 100) for x in vals])
+        #ax.set_xlabel('')
+        #ax.set_ylabel('')
+        plt.title(title,fontsize=15)
         save_json(fig,"violation.json")
         return fig
         
@@ -322,25 +237,27 @@ def box_plot(port_rets,group):
         port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
         port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
+        print("############ port_rets['month'] #######")
+        print(port_rets)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         if group == "day":
             title = "Daily Returns"
-            ax = sns.boxplot(x="day", y="Portfolio Value", data=port_rets, palette="Pastel1")
-            ax = sns.swarmplot(x="day", y="Portfolio Value", data=port_rets, color="grey")
-
+            ax = sns.boxplot(ax=ax,x="day", y="Portfolio Value", data=port_rets, palette="Pastel1")
+            ax = sns.swarmplot(ax=ax,x="day", y="Portfolio Value", data=port_rets, color="grey")
+            sns.despine()
         else:
             title = "Monthly Returns"
-            ax = sns.boxplot(x="month", y="Portfolio Value", data=port_rets, palette="Pastel1")
-            ax = sns.swarmplot(x="month", y="Portfolio Value", data=port_rets, color="grey")
-
+            ax = sns.boxplot(ax=ax,x="month", y="Portfolio Value", data=port_rets, palette="Pastel1")
+            ax = sns.swarmplot(ax=ax,x="month", y="Portfolio Value", data=port_rets, color="grey")
+            sns.despine()
         #Modify x axis labels
         vals = ax.get_yticks()
         ax.set_yticklabels(['{:.2f}%'.format(x * 100) for x in vals])
         ax.set_xlabel('')
         ax.set_ylabel('')
         plt.title(title, fontsize=18)
-        return fig
+        return plt.gcf()
         
 def calmap(port_rets):
         import numpy as np;
@@ -359,7 +276,8 @@ def calmap(port_rets):
         plt.show()
         
 def weights_plot(port_weights):
-    fig, ax = plt.subplots(figsize=(8, 6))    
+    fig, ax = plt.subplots(figsize=(8, 6))
+    fig.set_size_inches(11.7, 8.27)
     plt.pie(
             port_weights["Weight"],
             labels=port_weights.index,
@@ -372,3 +290,72 @@ def weights_plot(port_weights):
     plt.title("Portfolio Weights", fontsize=18)
         #plt.show()
     return fig
+
+def min_var(portfolio,port_rets):
+        symbols= portfolio.Ticker_List
+        n = len(port_rets.columns) - 1
+        returns = port_rets.iloc[:,0:n]
+
+        cov_matrix = returns.astype(float).cov()
+        mean_daily_returns = returns.astype(float).mean()
+
+        # set number of runs of random portfolio weights
+        num_portfolios = 25000
+
+        # set up array to hold results
+        # We have increased the size of the array to hold the weight values for each stock
+        results = np.zeros((4 + len(symbols) - 1, num_portfolios))
+
+        for i in range(num_portfolios):
+            # select random weights for portfolio holdings
+            weights = np.array(np.random.random(len(symbols)))
+
+            # rebalance weights to sum to 1
+            weights /= np.sum(weights)
+
+            # calculate portfolio return and volatility
+            portfolio_return = np.sum(mean_daily_returns * weights) * 252
+            portfolio_std_dev = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights))) * np.sqrt(252)
+
+            # store results in results array
+            results[0, i] = portfolio_return
+            results[1, i] = portfolio_std_dev
+
+            # store Sharpe Ratio (return / volatility) - risk free rate element excluded for simplicity
+            results[2, i] = results[0, i] / results[1, i]
+
+           # iterate through the weight vector and add data to results array
+            for j in range(len(weights)):
+                results[j + 3, i] = weights[j]
+
+        # convert results array to Pandas DataFrame
+        flds = ['ret', 'stdev', 'sharpe']
+        lista = flds + symbols
+        results_frame = pd.DataFrame(results.T,
+                                     columns=lista)
+
+        # locate position of portfolio with highest Sharpe Ratio
+        max_sharpe_port = results_frame.iloc[results_frame['sharpe'].idxmax()]
+        # locate positon of portfolio with minimum standard deviation
+        min_vol_port = results_frame.iloc[results_frame['stdev'].idxmin()]
+        fig, ax = plt.subplots()
+        print(results_frame)
+
+        print ("-------------Max Sharpe Portfolio------------")
+        print(max_sharpe_port)
+        print ("\n")
+        print ("-------------Minimum Variance Portfolio------------")
+        print(min_vol_port)
+
+        plt.scatter(results_frame.stdev, results_frame.ret, c=results_frame.sharpe, cmap='plasma')
+        plt.title('Efficient Froniter of a ' + str(len(symbols)) + ' Asset Portfolio', fontsize=14, fontweight='bold', y=1.02)
+        plt.xlabel('Risk')
+        plt.ylabel('Return')
+        clb = plt.colorbar()
+        clb.ax.set_ylabel('Sharpe Ratio Value', color='Black')
+        plt.scatter(max_sharpe_port[1], max_sharpe_port[0], marker='o', color='b', s=20, label='Tangent Portfolio')
+        plt.scatter(min_vol_port[1], min_vol_port[0], marker='o', color='r', s=20, label='Minimum Variance Portfolio')
+        plt.legend(loc='upper left', fontsize='small')
+        #plt.show()
+        fig.set_size_inches(11.7, 8.27)
+        return fig

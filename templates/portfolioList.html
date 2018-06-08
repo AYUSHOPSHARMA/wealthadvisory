@@ -86,6 +86,7 @@
             padding: 12px 16px;
             background-color: white;
             cursor: pointer;
+            color:green;
         }
 
         .btn:hover {
@@ -93,7 +94,7 @@
         }
 
         .btn.active {
-            background-color: #666;
+            background-color: red;
             color: white;
         }
     </style>
@@ -183,14 +184,16 @@
             </div>
             <!-- Portfolio Gallery Grid -->
             <div class="row">
-            <div class="content">
              {% for portfolio in portfolioList %}
                 <div class="column {{portfolio.Portfolio_Name}} {%if forloop.first %} show {%endif%}">
                 <div class="content">
                         <!-- <img src="/w3images/mountains.jpg" alt="Mountains" style="width:100%">-->
-                        <h1>{{portfolio.Portfolio_Name}}</h1>
+                        <h1 style="padding-left:10px">{{portfolio.Portfolio_Name}}</h1>
                         <table border="0" width="100%" cellspacing="1" cellpadding="3">
                             <tbody>
+                            <tr>
+        							<button id="loadData" onclick="window.location.href='/screener/downloadPortfolioPDF?port={{portfolio.Portfolio_Name}}';return false;" target="_blank" style="margin-top: 48px;background-color: #4CAF50; border: none;color: white;padding: 15px 61px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;border-radius: 12px;float:right;">Download PDF</button>
+    							 </tr>
                             <tr style=" border: 1px solid black;"><strong>
                                 <td style="padding-left: 16px;border: 1px solid black; width:10px">No.</td>
                                 <td style="padding-left: 16px;border: 1px solid black; width:10px"><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
@@ -223,24 +226,26 @@
                             {%endfor%}
                             </tbody>
                         </table>
-                    </div>
-                    <div class="content">
                         <table border="0" width="100%" cellspacing="1" cellpadding="3">
                             <tbody>
                             <tr>
                                 <div id="resultcorrheatmap">{{portfolio.heatMapData|safe|escape}} </div>
                             </tr>
                             <tr>
-                                <div id="resultcorrheatmap">{{portfolio.correlationData|safe|escape}} </div>
+                                <div id="resultcorrheatmap">{{portfolio.minvariance|safe|escape}} </div>
                             </tr>
                             <tr>
-                                <div id="resultcorrheatmap">{{portfolio.riskandreturnData|safe|escape}} </div>
+                                <div id="resultcorrheatmap">{{portfolio.violationData|safe|escape}} </div>
+                            </tr>
+                            <tr>
+                                <div id="resultcorrheatmap">{{portfolio.correlationData|safe|escape}} </div>
                             </tr>
                              <tr>
                                 <div id="resultcorrheatmap">{{portfolio.weightplotData|safe|escape}} </div>
                             </tr>
+                            
                             <tr>
-                                <div id="resultcorrheatmap">{{portfolio.boxplotData|safe|escape}} </div>
+                                <div id="resultcorrheatmap">{{portfolio.riskandreturnData|safe|escape}} </div>
                             </tr>
 
                             </tbody>
@@ -249,7 +254,6 @@
                 </div>
                 {%endfor%}
                 <!-- END GRID -->
-            </div>
             </div>
         </div>
     </div>

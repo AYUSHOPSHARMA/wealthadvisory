@@ -419,7 +419,7 @@ class portfolioDetail(Document):
         heatMapData= StringField(required=False)
         riskandreturnData= StringField(required=False)
         violationData= StringField(required=False)
-        boxplotData= StringField(required=False)
+        minvariance= StringField(required=False)
         callmapData= StringField(required=False)
         weightplotData= StringField(required=False)
         Open = DecimalField(max_length=100,required=False)

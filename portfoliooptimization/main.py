@@ -6,7 +6,7 @@ allocations = [10,10]
 start_date = dt.date(2017,1,3)
 
 #Benchmark Index
-bench_symbol = "SPY"
+bench_symbol = "ONGC.NS"
 
 #RF Syntax: 6 MO, 2 YR etc.
 rate = '1 YR'
@@ -21,15 +21,16 @@ root_path = "C:/Portfolio Tracker"
 
 #------------Run Program----------------------#
 if __name__ == '__main__':
-    import rebalance
-    import dataportfolio
-    import data
-    import dataportfolio
-    import performance
-    import plots
+    #import rebalance
+    #import dataportfolio
+    #import data
+    #import dataportfolio
+    #import performance
+    #import plots
+    import report
     #data.portfolio(symbols,allocations,api_key,start_date)
     
-    dataportfolio.portfolio(symbols,allocations,api_key,start_date)
+    #dataportfolio.portfolio(symbols,allocations,api_key,start_date)
     #dataportfolio.benchmark(bench_symbol,start_date,api_key)
     #data.benchmark(bench_symbol,start_date,api_key)
     #rebalance.rebalance(allocations=allocations)
@@ -39,12 +40,12 @@ if __name__ == '__main__':
     # import report
     #
     # # Select Functions
-    #end_date = dt.date.today()
+    end_date = dt.date.today()
 
-    # r = report.rep(fname=root_path + '/Reports/Daily Report ' + str(end_date) + '.pdf',fund_name="Valhalla Investments LLC",logo_path="C:/Users/fdupu/Desktop/logo.png")
-    # r.cover()
-    # r.perf()
-    # r.mets()
-    # r.diversification()
-    # r.savePDF()
+    r = report.rep(fname=root_path + '/Reports/Daily Report ' + str(end_date) + '.pdf',fund_name="Wealth Advisory",logo_path="")
+    r.cover()
+    r.perf()
+    r.mets()
+    r.diversification()
+    r.savePDF()
    # plots.correl()
