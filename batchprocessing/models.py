@@ -421,6 +421,7 @@ class portfolioDetail(Document):
         violationData= StringField(required=False)
         minvariance= StringField(required=False)
         callmapData= StringField(required=False)
+        banchmarkData= StringField(required=False)
         weightplotData= StringField(required=False)
         Open = DecimalField(max_length=100,required=False)
         High = DecimalField(max_length=100,required=False)
@@ -431,5 +432,15 @@ class portfolioDetail(Document):
         Company_Name = StringField(max_length=100,required=False)
         fundamentalDataList=ListField()
         
-       
+class niftBanchMarkIndices(Document):
+        Date = DateTimeField(default=datetime.datetime.utcnow)
+        Ticker= StringField(max_length=100,required=False)
+        Company_Name = StringField(max_length=100,required=False)
+        Industry = StringField(max_length=100,required=True)
+        Open = DecimalField(max_length=100,required=True)
+        High = DecimalField(max_length=100,required=True)
+        Low =  DecimalField(max_length=100,required=True)
+        Close =DecimalField(max_length=100,required=True)
+        Adj_Close =DecimalField(required=False)
+        Volume = LongField(required=False)     
      

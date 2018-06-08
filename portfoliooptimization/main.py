@@ -27,7 +27,7 @@ if __name__ == '__main__':
     #import dataportfolio
     #import performance
     #import plots
-    import report
+    import wealthmanagementreport
     #data.portfolio(symbols,allocations,api_key,start_date)
     
     #dataportfolio.portfolio(symbols,allocations,api_key,start_date)
@@ -42,10 +42,10 @@ if __name__ == '__main__':
     # # Select Functions
     end_date = dt.date.today()
 
-    r = report.rep(fname=root_path + '/Reports/Daily Report ' + str(end_date) + '.pdf',fund_name="Wealth Advisory",logo_path="")
+    r = wealthmanagementreport.rep(fname=root_path + '/Reports/Daily Report ' + str(end_date) + '.pdf',fund_name="Wealth Advisory",logo_path="")
     r.cover()
-    r.perf()
-    r.mets()
-    r.diversification()
+    #r.perf()
+    #r.mets()
+    #r.diversification()
     r.savePDF()
    # plots.correl()

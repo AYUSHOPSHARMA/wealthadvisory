@@ -27,6 +27,7 @@ def getportfolio(request):
     result_corr_HTML = fig_to_html(dataportfolio.correlData(stocks,allocations,begin))
     result_riskreturn_HTML = fig_to_html(dataportfolio.risk_return(stocks,allocations,begin))
     result_violin_HTML = fig_to_html(dataportfolio.violin(stocks,allocations,begin))
+    result_violin_HTML = fig_to_html(dataportfolio.benchmark(begin))
     
     return render(request,"portfolio.html",{"data":result_HTML,"result_corr_HTML":result_corr_HTML,"result_riskreturn_HTML":result_riskreturn_HTML,"result_violin_HTML":result_violin_HTML})
 

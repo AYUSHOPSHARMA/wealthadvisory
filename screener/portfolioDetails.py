@@ -4,7 +4,7 @@ import screener.portfoliooptimization as po
 from mpld3._display import display_d3,fig_to_html,save_json
 import portfoliooptimization.dataportfolio as dataportfolio
 import datetime as datetime
-from batchprocessing.models import nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data
+from batchprocessing.models import nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data,niftBanchMarkIndices
 
 def getPortfolioDetails(request):
     return render(request,"portfolio.html")
@@ -26,6 +26,8 @@ def getPortfolioList(request):
              fundamentaldata = nifty_100_companies_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
          elif portfolioobj.Company_Type =="nifty200":
              fundamentaldata = nifty_200_companies_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
+         elif portfolioobj.Company_Type =="banchMark":
+             fundamentaldata = niftBanchMarkIndices.objects.filter(Ticker ="%5Ensei")
          else:
              fundamentaldata = nifty_500_companies_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
          print("###########SYMBOL##############")

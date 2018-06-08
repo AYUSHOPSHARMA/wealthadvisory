@@ -6,6 +6,7 @@ from batchprocessing.models import nifty_500_companies
 from batchprocessing.models import nifty_200_companies
 from batchprocessing.models import nifty_100_companies
 from batchprocessing.models import nifty_50_companies
+from batchprocessing.models import niftBanchMarkIndices
 from django.http import HttpResponse
 import screener.views as fdview
 import batchprocessing.fundamentaldata as fdt
@@ -42,6 +43,9 @@ def top500IndicesData(request,companyType):
     limitQuery(request,301,375,companyType)
     limitQuery(request,376,450,companyType)
     limitQuery(request,451,500,companyType)
+ 
+def banchMarkIndicesData(request,companyType):
+    limitQuery(request,0,50,companyType)
     
 def callBatch(request,companyType):
     if(companyType == "nifty50"):
@@ -52,7 +56,8 @@ def callBatch(request,companyType):
         top200IndicesData(request,companyType)
     elif(companyType == "nifty500"):
         top500IndicesData(request,companyType)
-        
+    elif(companyType == "banchMark"):
+         banchMarkIndicesData(request,companyType)
     
 def uploadIndices(request,companyType):
     callBatch(request,companyType)
@@ -67,17 +72,25 @@ def limitQuery(request,start,limit,companyType):
          result=nifty_200_companies.objects[start:limit]
      elif(companyType == "nifty500"):
          result=nifty_500_companies.objects[start:limit]
+     elif(companyType == "banchMark"):
+         result =[]
+         result.append("%5Ensei")
      now= datetime.datetime.now().strftime("%Y-%m-%d")    
-     begin = datetime.date(2013,1,1)
+     begin = datetime.date(2010,1,1)
      #timestamp format and get apple stock.
      st=begin.strftime('%Y-%m-%d')
      ed=now
      print(result)
      i=0
      for companyname in result:
-        cname=companyname.Company_Name
-        symbol=companyname.Symbol+".NS"
-        industry = companyname.Industry
+        if(companyType == "banchMark"):
+            cname="NIFTY 50"
+            symbol=companyname
+            industry = ""
+        else:
+            cname=companyname.Company_Name
+            symbol=companyname.Symbol+".NS"
+            industry = companyname.Industry
         print(cname)
         if(symbol != "NA"):
             yf.pdr_override() # <== that's all it takes :-)
@@ -109,6 +122,9 @@ def limitQuery(request,start,limit,companyType):
                 elif(companyType=="nifty50"):
                     companies_indices_data_obj=nift50Indices()
                     indices = nift50Indices.objects(Ticker=symbol,Date=data.index.date[j])
+                elif(companyType=="banchMark"):
+                    companies_indices_data_obj=niftBanchMarkIndices()
+                    indices = {}  
                 print("############################################# Length Indices##################")
                 print(len(indices))      
                 if len(indices) <= 0:
