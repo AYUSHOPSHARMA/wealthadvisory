@@ -2,117 +2,163 @@
 
 {% block content %}
 <script>
-$.ajaxSetup({ 
-     beforeSend: function(xhr, settings) {
-         function getCookie(name) {
-             var cookieValue = null;
-             if (document.cookie && document.cookie != '') {
-                 var cookies = document.cookie.split(';');
-                 for (var i = 0; i < cookies.length; i++) {
-                     var cookie = jQuery.trim(cookies[i]);
-                     // Does this cookie string begin with the name we want?
-                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                         break;
-                     }
-                 }
-             }
-             return cookieValue;
-         }
-         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-             // Only send the token to relative URLs i.e. locally.
-             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-         }
-     } 
-});
-function change(d){
-    document.getElementById("portfolioform").submit();
-}
-function saveForm(){
-$('Portfolio_Name')
-$.post( "/screener/fundamentalportfolio/", { "savevalue": "save"} );
-}
-</script>
-    <form method="post" action="" name="portfolioform" id="portfolioform">
-        {% csrf_token %}
-        <div class="row">
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
 
-        			<div>
-        				<div class="sngl_blg">
-        					<div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;">
-        						<h2 style="margin-left: 460px;background: 0000;">Fundamental Analysis</h2>
-        					</div>
-					 </div>
-                  <div>
-                  <div style="margin-top: 12px;margin-bottom: 18px;">
-                      <span id="label_Portfolio_Name">Please chosse your portfolio using below parameters and save it with Portfolio Name :</span>
-                      <input type="text" name="Portfolio_Name" style="margin-left: 39px;">
-                 </div> 
-                  <table>
-                  {% for field in fundamentalportfolioform %}
-                      {%if forloop.counter|divisibleby:"4" %}
-                          <br/>
-                      {%endif%}
-                        {{field.label}}  {{field}} 
-                        
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
+    function change(d) {
+        document.getElementById("portfolioform").submit();
+    }
+
+    function saveForm() {
+        $('Portfolio_Name')
+        $.post("/screener/fundamentalportfolio/", {"savevalue": "save"});
+    }
+</script>
+<form method="post" action="" name="portfolioform" id="portfolioform">
+    {% csrf_token %}
+    <!--<div id="showMessage" class="row">
+        <div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;">
+            <h2 style="background: 0000;">Your portfolio is successfuly saved, Please check ur portfolio in portfolio page through Menu</h2>
+        </div>
+    </div>-->
+    <div class="row">
+
+        <div style="margin-top: 30px">
+            <div class="sngl_blg">
+                <div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;">
+                    <h2 style="margin-left: 460px;background: 0000;">Fundamental Analysis</h2>
+                </div>
+            </div>
+            <div>
+                <div style="margin-top: 12px;margin-bottom: 18px;">
+                    <span id="label_Portfolio_Name">Please chosse your portfolio using below parameters and save it with Portfolio Name :</span>
+                    <input type="text" name="Portfolio_Name" style="margin-left: 39px;">
+                </div>
+                <table>
+                    {% for field in fundamentalportfolioform %}
+                    {%if forloop.counter|divisibleby:"4" %}
+                    <br/>
+                    {%endif%}
+                    {{field.label}} {{field}}
+
                     {%endfor%}
                     <br/>
                     <tr>
-                    
-                    <button type="submit" name="submit_button"  class="btn btn-success" style="float:right;margin-top: -7px;width: 196px;" value="Submit">Submit portfolio</button>
-                    </tr>
-                     </table>
-                    <br/> 
-                  </div>
-                  <div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;margin-top: 20px;">
-						<h2 style="margin-left: 460px;background: 0000;">All Company info</h2>
-					</div>
-					<div>
-						<div>
-							<div id="screener-content">
-    							<table border="0" width="100%" cellspacing="0" cellpadding="0">
-									<tbody>
-									<tr>
-										<td width="100%"></td>
-									</tr>
-									<tr>
-										<td>
-											<table border="0" width="100%" cellspacing="1" cellpadding="3">
-												<tbody>
-												<tr style=" border: 1px solid black;"><strong>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">No.</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px"><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Company</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Industry</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Country</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Market Cap</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Trailing P/E</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Forward P/E</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Beta</td>
-																										<td style="padding-left: 16px;border: 1px solid black; width:10px">52 Weeek Change</td>
-													<td style="padding-left: 16px;border: 1px solid black; width:10px">Avg. Volume 3 Month</td>
-													{% for fd in list %}
-												</tr>
-												<tr style="border: 1px solid black;">
-													<td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter }}</td>
-													<td style="padding-left: 16px;border: 1px solid black;"><a  href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a></td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Company_Name}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">INDIA</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Market_Cap}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Trailing_P_E}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Forward_P_E}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Beta}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Week_52_Change}}</td>
-													<td style="padding-left: 16px;border: 1px solid black;">{{fd.Avg_Vol_3_month}}</td>
-												</tr>
-												{% endfor %}
 
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>			
-          </div>     
-    </form>
+                        <button type="submit" name="submit_button" class="btn btn-success"
+                                style="float:right;margin-top: -7px;width: 196px;" value="Submit">Submit portfolio
+                        </button>
+                    </tr>
+                </table>
+                <br/>
+            </div>
+            <div style="background: #E6F0F3;padding-top: 7px;padding-bottom: 7px;margin-top: 20px;">
+                <h2 style="margin-left: 460px;background: 0000;">All Company info</h2>
+            </div>
+            <div>
+                <div>
+                    <div id="screener-content">
+                        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td width="100%"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table border="0" width="100%" cellspacing="1" cellpadding="3">
+                                        <tbody>
+                                        <tr style=" border: 1px solid black;"><strong>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">No.</td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px"><img
+                                                    src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14"
+                                                    height="10" align="top" border="0"/>Ticker
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Company
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">
+                                                Industry
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Country
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Market
+                                                Cap
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Trailing
+                                                P/E
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Forward
+                                                P/E
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Beta</td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">52 Weeek
+                                                Change
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black; width:10px">Avg.
+                                                Volume 3 Month
+                                            </td>
+                                            {% for fd in list %}
+                                        </strong></tr>
+                                        <tr style="border: 1px solid black;">
+                                            <td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter
+                                                }}
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black;"><a
+                                                    href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/"
+                                                    target="_blank">{{fd.Ticker}}</a></td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">
+                                                {{fd.Company_Name}}
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">INDIA</td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">{{fd.Market_Cap}}
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">
+                                                {{fd.Trailing_P_E}}
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">{{fd.Forward_P_E}}
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">{{fd.Beta}}</td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">
+                                                {{fd.Week_52_Change}}
+                                            </td>
+                                            <td style="padding-left: 16px;border: 1px solid black;">
+                                                {{fd.Avg_Vol_3_month}}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </divstyle>
+    </div>
+</form>
 {% endblock %}

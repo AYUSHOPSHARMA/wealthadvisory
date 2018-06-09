@@ -1,168 +1,303 @@
-<!doctype html>
-<html class="no-js" lang="">
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/><!-- /Added by HTTrack -->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Wealth View</title>
-    <meta name="description" content="">
+    <title>Wealth View | Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!--[if lt IE 9]>
-    <script src="/static/js/html5shiv.js"></script>
-    <script src="/static/js/respond.min.js"></script> <![endif]-->
-    <!-- Place favicon.ico in the root directory -->
-    
-    <link rel="stylesheet" href="/static/css/normalize.css">
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/owl.carousel.css">
-    <link rel="stylesheet" href="/static/css/responsive.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    
-
+    <meta charset="utf-8"/>
+    <link href="/static/cssA/style.css" type="text/css" rel="stylesheet" media="all">
     <style>
-        table {
-            border-collapse: collapse;
+        #white-backgroundM{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        #white-backgroundB{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
         }
 
-        td {
-            padding-top: .5em;
-            padding-bottom: .5em;
-            padding-left: .5em;
-            padding-right: .5em;
+        #dlgboxMSA{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+
+
         }
-        th {
-            text-align: center;
+        #dlgboxBE{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+
+
+        }
+
+        .dlg-header{
+            background-color: #e96147;
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px 10px 0px 10px;
+        }
+
+        .dlg-body{
+            background-color: white;
+            color: black;
+            font-size: 14px;
+            padding: 10px;
+            margin: 0px 10px 0px 10px;
+            overflow-y:scroll;
+        }
+
+        .dlg-footer{
+            background-color: #f2f2f2;
+            text-align: right;
+            padding: 10px;
+            margin: 0px 10px 10px 10px;
+        }
+
+        .dlg-footer button{
+            background-color: #5cb85c;
+            color: white;
+            padding: 5px;
+            border: 0px;
         }
     </style>
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
+        .animateLeftRight {
+            position: relative;
+            -webkit-animation: myfirst 5s 2; /* Safari 4.0 - 8.0 */
+            -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+            animation: myfirst 5s 1;
+            animation-direction: alternate;
         }
 
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0); /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        @-webkit-keyframes myfirst {
+            0% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+            25% {
+                background: yellow;
+                left: 200px;
+                top: 0px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 0px;
+                top: 200px;
+            }
+            100% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
         }
 
-        .modalA {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0); /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        @keyframes myfirst {
+            0% {
+                left: 0px;
+                top: 0px;
+            }
+            25% {
+                left: 500px;
+                top: 0px;
+            }
         }
-
-        /* Modal Content */
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            padding-bottom: 100%;
-        }
-        .modalA-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            padding-bottom: 100%;
-        }
-
-        /* The Close Button */
-        
     </style>
+    <style>
+        .canvasA {
+            border: 1px solid white;
+
+            display: inline-block;
+        }
+    </style>
+
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Custom Theme files -->
+    <link href="/static/cssA/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+
+    <!-- banner slider -->
+    <link rel="stylesheet" type="text/css" href="/static/cssA/zoomslider.css"/>
+    <!--gallery -->
+    <link type="text/css" rel="stylesheet" href="/static/cssA/cm-overlay.css"/>
+    <!-- //gallery -->
+    <script src="/static/js1/jquery-2.2.3.min.js"></script>
+    <!-- numscroller -->
+    <script type="text/javascript" src="/static/js1/numscroller-1.0.js"></script>
+    <script src="/static/js1/bootstrap.js"></script>
+    <!-- font-awesome icons -->
+    <link href="/static/cssA/font-awesome.css" rel="stylesheet">
+    <!-- //Custom Theme files -->
+    <!-- web-fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Mukta+Mahee:200,300,400,500,600,700,800" rel="stylesheet">
+    <!-- //web-fonts -->
 </head>
 <body>
-<!-- start preloader -->
-<div id="loader-wrapper">
-    <div class="logo"></div>
-    <div id="loader">
-    </div>
-</div>
-<!-- end preloader -->
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
-<![endif]-->
-<!-- Start Header Section -->
-<header class="main_menu_sec navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12">
-                <div class="lft_hd">
-                    <!--<a href="index.html"><img src="img/logo.png" alt=""/></a>-->
-                </div>
-            </div>
-            <div class="col-lg-9 col-md-9 col-sm-12">
-                <div class="rgt_hd">
-                    <div class="main_menu">
-                        <nav id="nav_menu">
-                            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar"
-                                    data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <div id="navbar">
-                                <ul>
-                                    <li><a class="page-scroll" href="index.html">Home</a></li>
-                                    <li><a href="#">Screener <i class="fa fa-angle-down"></i></a>
-                                        <ul>
-                                            <li><a class="page-scroll" href="/screener/fundamentalData/AAPL/">Fundamental
-                                                Data</a></li>
-                                            <li><a class="page-scroll" href="/screener/technicalData/AAPL/">Technical
-                                                Data</a></li>
-                                            <li><a class="page-scroll" href="#lts_sec">All</a></li>
-                                        </ul>
-                                    </li>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gauge.js/1.3.6/gauge.min.js"></script>
+<script src='/static/js1/jquery.min.js'></script>
+<script src="/static/js1/monetization.js" type="text/javascript"></script>
+<script>
+    (function () {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            // format, zoneKey, segment:value, options
+            _bsa.init('flexbar', 'CKYI627U', 'placement:syoutscom');
+        }
+    })();
+</script>
+<script>
+    (function () {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            // format, zoneKey, segment:value, options
+            _bsa.init('fancybar', 'CKYDL2JN', 'placement:demo');
+        }
+    })();
+</script>
+<script>
+    (function () {
+        if (typeof _bsa !== 'undefined' && _bsa) {
+            // format, zoneKey, segment:value, options
+            _bsa.init('stickybox', 'CKYI653J', 'placement:w3layoutscom');
+        }
+    })();
+</script>
+<script type="text/javascript"
+        src="/static/js1/adsInternalReferral7946.js?ver=20180503"></script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '/static/js1/analytics.js', 'ga');
+    ga('create', 'UA-30027142-1', 'w3layouts.com');
+    ga('send', 'pageview');
+</script>
 
-                                    <li><a href="#">Static Page<i class="fa fa-angle-down"></i></a>
-                                        <ul>
-                                            <li><a class="page-scroll" href="/homepage/summary/">Summary</a></li>
-                                            <li><a class="page-scroll" href="/homepage/actualvstargetallocation/">Actualvstargetallocation</a>
-                                            </li>
-                                            <li><a class="page-scroll" href="/homepage/allocations/">Allocations</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="page-scroll" href="/charts/maps/">Map</a></li>
-                                    <li><a class="page-scroll" href="/charts/graphs/">Graph</a></li>
-                                    <li><a class="page-scroll" href="indices/nift100Indices/RAIN.NS/2017/1/1/2018/5/5/">Indices</a>
-                                    </li>
-                                    <li><a class="page-scroll" href="#protfolio_sec">Mutual Funds</a></li>
-                                    <li><a class="page-scroll" href="#ctn_sec">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
+<!---728x90--->
+<script src='/static/js2/dynamicScript.js'></script>
+<div style='margin: 0 auto;text-align: center;margin-top: 5px;'>
+    <script>
+        var allowedNumberOfEboundDynamicAdds = 4;
+        var sizesEboundDynamicAdsDesktop = ['728x90'];
+        var sizesEboundDynamicAdsTablet = ['728x90'];
+        var sizesEboundDynamicAdsMobile = ['320x100'];
+        eboundAdsTagByDevice(sizesEboundDynamicAdsDesktop, sizesEboundDynamicAdsTablet, sizesEboundDynamicAdsMobile, 'ebound_header_tag');
+
+        if (typeof user_tag_config == 'undefined') {
+            var user_tag_config = {};
+        }
+        user_tag_config['ebound_header_tag'] = {};
+        user_tag_config['ebound_header_tag']['desktop'] = {};
+        user_tag_config['ebound_header_tag']['desktop']['cpm'] = '';
+        user_tag_config['ebound_header_tag']['desktop']['adsCode'] = '';
+        user_tag_config['ebound_header_tag']['tablet'] = {};
+        user_tag_config['ebound_header_tag']['tablet']['cpm'] = '';
+        user_tag_config['ebound_header_tag']['tablet']['adsCode'] = '';
+        user_tag_config['ebound_header_tag']['mobile'] = {};
+        user_tag_config['ebound_header_tag']['mobile']['cpm'] = '';
+        user_tag_config['ebound_header_tag']['mobile']['adsCode'] = '';
+    </script>
+</div>
+<div class="w3_agilits_banner_bootm">
+    <!-- header -->
+    <div class="container">
+        <div class="w3_agile_logo">
+            <h1>
+                <a href="index.html">
+                    <img src="/static/img1/bar-chart.png" alt=""/>&nbsp; &nbsp; Intelligent Wealth Advisory</a>
+            </h1>
+        </div>
+        <div class="agileits_w3layouts_nav">
+            <div id="toggle_m_nav">
+                <div id="m_nav_menu" class="m_nav">
+                    <div class="m_nav_ham w3_agileits_ham" id="m_ham_1"></div>
+                    <div class="m_nav_ham" id="m_ham_2"></div>
+                    <div class="m_nav_ham" id="m_ham_3"></div>
                 </div>
+
+            </div>
+            <div id="m_nav_container" class="m_nav wthree_bg">
+                <nav class="menu menu--sebastian">
+                    <ul id="m_nav_list" class="m_nav menu__list">
+                        <li class="m_nav_item menu__item menu__item--current" id="m_nav_item_1">
+                            <a href="/homepage/" class="menu__link"> Home </a>
+                        </li>
+                        <li class="m_nav_item menu__item" id="moble_nav_item_2">
+                            <a href="/homepage/news.html" class="menu__link"> News </a>
+                        </li>
+                        <li class="m_nav_item menu__item" id="moble_nav_item_3">
+                            <a href="/screener/fundamentalportfolio/" class="menu__link">Screener</a>
+                        </li>
+                        <li class="m_nav_item menu__item" id="moble_nav_item_4">
+                            <a href="" class="menu__link">Fundamental Analysis</a>
+                        </li>
+                        <li class="m_nav_item menu__item" id="moble_nav_item_5">
+                            <a href="/screener/portfoliolist/" class="menu__link">Portfolio</a>
+                        </li>
+                        <li class="m_nav_item menu__item" id="moble_nav_item_6">
+                            <a href="" class="menu__link"> Contact </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
-</header>
+</div>
 
-<section id="blg_sec" style="background-color: #E6E6E6;">
+<div id="about" class="wthree-about section-w3ls">
     <div class="container">
         <div class="row">
             <div class="title_sec">
@@ -221,7 +356,7 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td>
-                                <button id="result01" class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;">
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MSA')">
                                     Stratergy result
                                 </button>
                             </td>
@@ -261,7 +396,7 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td>
-                                <button id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;">
+                                <button id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;" onclick="showDialog('BE')">
                                     Stratergy result
                                 </button>
                             </td>
@@ -344,43 +479,26 @@
                                 </button>
                             </td>
                         </tr>
-                        <!--<tr id="5" class="gridrow">
-                            <td>5</td>
-                            <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
-                            <td>&nbsp;&nbsp;equities</td>
-                            <td style="">7.49%*</td>
-                            <td style="">9.70%*</td>
-                            <td>carry trade, FX anomaly, forex system</td>
-                        </tr>-->
                         </tbody>
                     </table>
                     <!-- The Modal -->
-                    <div id="myModal" class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <p>Some text in the Modal..</p>
-                        </div>
-
+                    <div id="white-backgroundM">
                     </div>
-                    <div id="myModalA" class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modalA-content" style="padding-bottom: 100%;">
-                            <div style="margin-bottom:10px"><span class="closeA">&times;</span></div>
-                            <div id="innerModel" style="position:""">{{smadata|safe|escape}}</div>
+                    <div id="dlgboxMSA">
+                        <div class="dlg-header">Find the graphs below using stratergy on your portfolio</div>
+                        <div class="dlg-body">{{smadata|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('MSA')">Cancel</button>
                         </div>
-
                     </div>
-                    <div id="myModalB" class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modalA-content" style="padding-bottom: 100%;">
-                            <div style="margin-bottom:10px"><span class="closeB">&times;</span></div>
-                            <div id="innerModelB" style="position:""">{{bbbandGraph|safe|escape}}</div>
+                    <div id="white-backgroundB">
+                    </div>
+                    <div id="dlgboxBE">
+                        <div class="dlg-header">Find the graphs below using stratergy on your portfolio</div>
+                        <div class="dlg-body">{{bbbandGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('BE')">Cancel</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -412,201 +530,244 @@
             </div>-->
         </div>
     </div>
-</section>
+</div>
 
 
-<footer id="ft_sec" style="background-color:#224B59">
-    <div class="container" style="background-color:#f5f5f5;padding-top: 30px;">
-        <div class="row">
-            <div class="col-lg-12" style="background-color:#f5f5f5">
-                <div class="ft">
-                    <ul>
-                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                        <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-                        <li><a href=""><i class="fa fa-rss"></i></a></li>
-                        <li><a href=""><i class="fa fa-flickr"></i></a></li>
-                        <li><a href=""><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href=""><i class="fa fa-skype"></i></a></li>
-                       
+<div class="agile-footer w3ls-section">
+    <div class="container">
+        <div class="list-footer">
+            <ul class="footer-nav">
+                <li>
+                    <a href="/homepage/">Home</a>
+                </li>
+                <li>
+                    <a href="">News</a>
+                </li>
+                <li>
+                    <a href="/screener/fundamentalportfolio/">Screener</a>
+                </li>
+                <li>
+                    <a href="">Fundamental Analysis</a>
+                </li>
+                <li>
+                    <a href="/screener/portfolioList/">Portfolios</a>
+                </li>
+                <li>
+                    <a href="">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div class="agileits_w3layouts-footer-bottom">
+            <div class="w3_agile-footer-grids">
+                <div class="col-md-3  w3_agile-footer1 f1">
+                    <!--<h2>
+                        <a href="index.html">Beverages</a>
+                    </h2>-->
+                    <h5 class="f1">about us</h5>
+                    <p>Our goal is to break all barriers that traders and investors face in India in terms of cost,
+                        support, and technology.</p>
+                </div>
+                <div class="col-md-6  w3_agile-footer1 f2">
+                    <div class="col-md-4 col-sm-4 col-xs-4 inner-li" style="float: right">
+                        <h5>support</h5>
+                        <ul class="w3ls-footer-bottom-list">
+                            <li>
+                                <a href="">suppport</a>
+                            </li>
+                            <li>
+                                <a href="">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="">media</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-3  w3_agile-footer1 f3">
+                    <h5>follow us</h5>
+                    <ul class="footer-social-icons">
+                        <li>
+                            <a href="">
+                                <i class="fa icon1 fa-facebook icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa icon2 fa-twitter icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa icon3 fa-google-plus icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa icon3 fa-linkedin icon4 icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <ul class="copy_right">
-                    <li>@WealthView</li>
-
-                </ul>
+                <div class="clearfix"></div>
             </div>
         </div>
+        <!---728x90--->
+        <!--<script src='/static/js2/dynamicScript.js'></script>-->
+        <div style='margin: 0 auto;text-align: center;margin-top: 5px;'>
+            <script>
+                var allowedNumberOfEboundDynamicAdds = 4;
+                var sizesEboundDynamicAdsDesktop = ['728x90'];
+                var sizesEboundDynamicAdsTablet = ['728x90'];
+                var sizesEboundDynamicAdsMobile = ['320x100'];
+                eboundAdsTagByDevice(sizesEboundDynamicAdsDesktop, sizesEboundDynamicAdsTablet, sizesEboundDynamicAdsMobile, 'ebound_header_tag');
+
+                if (typeof user_tag_config == 'undefined') {
+                    var user_tag_config = {};
+                }
+                user_tag_config['ebound_header_tag'] = {};
+                user_tag_config['ebound_header_tag']['desktop'] = {};
+                user_tag_config['ebound_header_tag']['desktop']['cpm'] = '';
+                user_tag_config['ebound_header_tag']['desktop']['adsCode'] = '';
+                user_tag_config['ebound_header_tag']['tablet'] = {};
+                user_tag_config['ebound_header_tag']['tablet']['cpm'] = '';
+                user_tag_config['ebound_header_tag']['tablet']['adsCode'] = '';
+                user_tag_config['ebound_header_tag']['mobile'] = {};
+                user_tag_config['ebound_header_tag']['mobile']['cpm'] = '';
+                user_tag_config['ebound_header_tag']['mobile']['adsCode'] = '';
+            </script>
+        </div>
+        <div class="agileits_w3layouts-copyright">
+            <p>© 2018 Wealth View. All Rights Reserved |
+                <a> Equity Manangement </a>
+            </p>
+        </div>
     </div>
-</footer>
-<!-- End footer Section -->
+</div>
+<!-- //footer -->
+<!-- banner slider -->
+<script src="/static/js1/modernizr-2.6.2.min.js"></script>
+<script src="/static/js1/jquery.zoomslider.min.js"></script>
+<!-- //banner slider -->
+<!-- //gallery -->
+<script src="/static/js1/jquery.tools.min.js"></script>
+<script src="/static/js1/jquery.mobile.custom.min.js"></script>
+<script src="/static/js1/jquery.cm-overlay.js"></script>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="/static/js/vendor/jquery-1.11.3.min.js"></script>
-
-<script src="/static/js/isotope.pkgd.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/jquery-ui.js"></script>
-<script src="/static/js/appear.js"></script>
-<script src="/static/js/jquery.counterup.min.js"></script>
-<script src="/static/js/waypoints.min.js"></script>
-<script src="/static/js/owl.carousel.min.js"></script>
-<script src="/static/js/showHide.js"></script>
-<script src="/static/js/jquery.nicescroll.min.js"></script>
-<script src="/static/js/jquery.easing.min.js"></script>
-<script src="/static/js/scrolling-nav.js"></script>
-<script src="/static/js/plugins.js"></script>
-<!-- Google Map js -->
-<script src="/static/js/main.js"></script>
-
-<script src="showHide.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-
+<script>
     $(document).ready(function () {
-
-
-        $('.show_hide').showHide({
-            speed: 1000,  // speed you want the toggle to happen
-            easing: '',  // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
-            changeText: 1, // if you dont want the button text to change, set this to 0
-            showText: 'View',// the button text to show when a div is closed
-            hideText: 'Close' // the button text to show when a div is open
-
-        });
-
-
+        $('.cm-overlay').cmOverlay();
     });
-
 </script>
+<!-- //gallery -->
+<!-- testimonials -->
+<!-- required-js-files-->
+<link href="/static/cssA/owl.carousel.css" rel="stylesheet">
+<script src="/static/js1/owl.carousel.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+            items: 1,
+            lazyLoad: true,
+            autoPlay: false,
+            navigation: true,
+            navigationText: true,
+            pagination: true,
+        });
+    });
+</script>
+<!--//required-js-files-->
+<!-- start-smooth-scrolling -->
+<script src="/static/js1/move-top.js"></script>
+<script src="/static/js1/easing.js"></script>
 <script>
     jQuery(document).ready(function ($) {
-        $('.counter').counterUp({
-            delay: 10,
-            time: 1000
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
         });
     });
 </script>
-
+<!-- //end-smooth-scrolling -->
+<!-- smooth-scrolling-of-move-up -->
 <script>
-
-    //Hide Overflow of Body on DOM Ready //
     $(document).ready(function () {
-        $("body").css("overflow", "hidden");
-    });
+        /*
+     var defaults = {
+         containerID: 'toTop', // fading element id
+         containerHoverID: 'toTopHover', // fading element hover id
+         scrollSpeed: 1200,
+         easingType: 'linear'
+     };
+     */
 
-    // Show Overflow of Body when Everything has Loaded
-    $(window).load(function () {
-        $("body").css("overflow", "visible");
-        var nice = $('html').niceScroll({
-            cursorborder: "5",
-            cursorcolor: "#00AFF0",
-            cursorwidth: "3px",
-            boxzoom: true,
-            autohidemode: true
+        $().UItoTop({
+            easingType: 'easeOutQuart'
         });
 
     });
 </script>
+<script src="/static/js1/SmoothScroll.min.js"></script>
+<!-- //smooth-scrolling-of-move-up -->
+<!-- navigation  -->
+<script src="/static/js1/main.js"></script>
+
+<!-- -><script>
+    $('#myModal').modal('show');
+</script>-->
+
+
 <script>
-    // Get the modal for portfolio
-    var modal = document.getElementById('myModal');
+    function dlgCancel(ast){
 
-    // Get the modal for stratergy result
-    var modalA = document.getElementById('myModalA');
-    var modalB = document.getElementById('myModalB');
-    var modalC = document.getElementById('myModalC');
-    var modalD = document.getElementById('myModalD');
-
-    // Get the button that opens the modal for portfolio
-    var btno = document.getElementById("portfoliobtn1");
-    var btnp = document.getElementById("portfoliobtn2");
-    var btnq = document.getElementById("portfoliobtn3");
-    var btnr = document.getElementById("portfoliobtn4");
-
-    // Get the button that opens the modal for result of stratergy
-    var resA = document.getElementById("result01");
-    var resB = document.getElementById("result02");
-    var resC = document.getElementById("result03");
-    var resD = document.getElementById("result04");
-
-
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    // Get the <span> element that closes the modal FOR RESULT
-    var spanA = document.getElementsByClassName("closeA")[0];
-    var spanB = document.getElementsByClassName("closeB")[0];
-
-    // When the user clicks the button, open the modal
-    btno.onclick = function () {
-        modal.style.display = "block";
-    }
-    btnp.onclick = function () {
-        modal.style.display = "block";
-    }
-    btnq.onclick = function () {
-        modal.style.display = "block";
-    }
-    btnr.onclick = function () {
-        modal.style.display = "block";
-    }
-    
-    resA.onclick = function () {
-        modalA.style.display = "block";
-        modalB.style.display = "none";
-        modalC.style.display = "none";
-        modalD.style.display = "none";
-        
-    }
-    resB.onclick = function () {
-        modalA.style.display = "none";
-        modalB.style.display = "block";
-        modalC.style.display = "none";
-        modalD.style.display = "none";
-    }
-    resC.onclick = function () {
-        modalA.style.display = "none";
-        modalB.style.display = "none";
-        modalC.style.display = "block";
-        modalD.style.display = "none";
-    }
-    resD.onclick = function () {
-       modalA.style.display = "none";
-        modalB.style.display = "none";
-        modalC.style.display = "none";
-        modalD.style.display = "block";
-        
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-    spanA.onclick = function () {
-        alert("Close A Clicked");
-        modalA.style.display = "none";
-    }
-    spanB.onclick = function () {
-        alert("Close Clicked");
-        modalB.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if(ast == "MSA"){
+            var dlg = document.getElementById("dlgboxMSA");
+            var whitebg = document.getElementById("white-backgroundM");
         }
-        if (event.target == modalA) {
-            modalA.style.display = "none";
+        if(ast == "BE"){
+            var dlg = document.getElementById("dlgboxBE");
+            var whitebg = document.getElementById("white-backgroundB");
         }
-         if (event.target == modalB) {
-            modalA.style.display = "none";
-        }
+        whitebg.style.display = "none";
+        dlg.style.display = "none";
     }
 
+    function showDialog(ast){
+        if(ast == "MSA"){
+            var dlg = document.getElementById("dlgboxMSA");
+            var whitebg = document.getElementById("white-backgroundM");
+        }
+        if(ast == "BE"){
+            var dlg = document.getElementById("dlgboxBE");
+            var whitebg = document.getElementById("white-backgroundB");
+        }
+
+        whitebg.style.display = "block";
+        dlg.style.display = "block";
+
+
+        var winWidth = window.innerWidth;
+        var winHeight = window.innerHeight;
+
+        dlg.style.left = (winWidth/2) - 480/2 + "px";
+        dlg.style.top = "150px";
+    }
 </script>
+<!-- //newsletter modal -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+</body>
+</html>
+<!-- End footer Section -->
+
+
+
 
 
 </body>
