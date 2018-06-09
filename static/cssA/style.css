@@ -2007,7 +2007,7 @@ figure.w3l-service-hover:hover p {
 /* inner-bg*/
 
 .inner-bg {
-    background: url(../images/b3.jpg) no-repeat center;
+    background: url(/static/img1/up.jpg) no-repeat center;
     background-size: cover;
     min-height: 300px;
 }
