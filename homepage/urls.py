@@ -18,10 +18,9 @@ from django.urls import path, include
 from homepage import views
 
 urlpatterns = [
-        path('', views.summary),
+        path('', views.homepage),
         path('actualvstargetallocation/', views.actualvstargetallocation),
         path('allocations/', views.allocations),
         path('positions/', views.positions),
         path('summary/', views.summary),
-        path('homepage/', views.homepage),
 ]
