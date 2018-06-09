@@ -27,15 +27,93 @@
         }
     });
 
-    function change(d) {
-        document.getElementById("portfolioform").submit();
+    function Onclick(d) {
+        if(d == "Yes") {
+            var whitebg = document.getElementById("submit_button");
+            whitebg.name = "submit_button";
+            document.getElementById("portfolioform").submit();
+        } else{
+            var whitebg = document.getElementById("white-background");
+            var dlg = document.getElementById("dlgbox");
+            whitebg.style.display = "none";
+            dlg.style.display = "none";
+        }
+
     }
 
-    function saveForm() {
+    /*function saveForm() {
         $('Portfolio_Name')
         $.post("/screener/fundamentalportfolio/", {"savevalue": "save"});
+    }*/
+</script>
+<style>
+    #white-background{
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: #fefefe;
+        opacity: 0.7;
+        z-index: 9999;
+    }
+
+    #dlgbox{
+        /*initially dialog box is hidden*/
+        display: none;
+        position: fixed;
+        width: 480px;
+        z-index: 9999;
+        border-radius: 10px;
+        background-color: #7c7d7e;
+    }
+
+    #dlg-header{
+        background-color: #e96147;
+        color: white;
+        font-size: 20px;
+        padding: 10px;
+        margin: 10px 10px 0px 10px;
+    }
+
+    #dlg-body{
+        background-color: white;
+        color: black;
+        font-size: 14px;
+        padding: 10px;
+        margin: 0px 10px 0px 10px;
+    }
+
+    #dlg-footer{
+        background-color: #f2f2f2;
+        text-align: right;
+        padding: 10px;
+        margin: 0px 10px 10px 10px;
+    }
+
+    #dlg-footer button{
+        background-color: #5cb85c;
+        color: white;
+        padding: 5px;
+        border: 0px;
+    }
+</style>
+    <script>
+    function showDialog(){
+        var whitebg = document.getElementById("white-background");
+        var dlg = document.getElementById("dlgbox");
+        whitebg.style.display = "block";
+        dlg.style.display = "block";
+
+        var winWidth = window.innerWidth;
+        var winHeight = window.innerHeight;
+
+        dlg.style.left = (winWidth/2) - 480/2 + "px";
+        dlg.style.top = "150px";
     }
 </script>
+
 <form method="post" action="" name="portfolioform" id="portfolioform">
     {% csrf_token %}
     <!--<div id="showMessage" class="row">
@@ -67,9 +145,9 @@
                     <br/>
                     <tr>
 
-                        <button type="submit" name="submit_button" class="btn btn-success"
-                                style="float:right;margin-top: -7px;width: 196px;" value="Submit">Submit portfolio
-                        </button>
+                        <div id="submit_button" class="btn btn-success"
+                                style="float:right;margin-top: -7px;width: 196px;" onclick="showDialog()">Submit portfolio
+                        </div>
                     </tr>
                 </table>
                 <br/>
@@ -159,6 +237,17 @@
                 </div>
             </div>
         </divstyle>
+    </div>
+        <div id="white-background">
+        </div>
+        <div id="dlgbox">
+            <div id="dlg-header">Your portfolio will be save successfully</div>
+            <div id="dlg-body">Kindly check your saved portfolio on Portfolio page, you can navigate from Menu</div>
+            <div id="dlg-footer">
+                <button onclick="Onclick('Yes')">Save</button>
+                <button onclick="Onclick('Cancel')">Cancel</button>
+            </div>
+        </div>
     </div>
 </form>
 {% endblock %}
