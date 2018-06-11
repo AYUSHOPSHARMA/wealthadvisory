@@ -41,10 +41,14 @@
 
     }
 
-    /*function saveForm() {
+    function change(d) {
+        document.getElementById("portfolioform").submit();
+    }
+
+    function saveForm() {
         $('Portfolio_Name')
         $.post("/screener/fundamentalportfolio/", {"savevalue": "save"});
-    }*/
+    }
 </script>
 <style>
     #white-background{
@@ -199,8 +203,7 @@
                                             {% for fd in list %}
                                         </strong></tr>
                                         <tr style="border: 1px solid black;">
-                                            <td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter
-                                                }}
+                                            <td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter}}
                                             </td>
                                             <td style="padding-left: 16px;border: 1px solid black;"><a
                                                     href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/"
