@@ -223,22 +223,14 @@
 
         <div class="row">
             <div>
-                <table style=" border: 1px solid black;margin-left: 480px;">
-                    <tbody>
-                    <tr style=" border: 1px solid black;">
-                        <td style=" border: 1px solid black;background-color:#FAFAD2;"><b>Portfolio 123411</b></td>
-                        <td style=" border: 1px solid black;"><b>Portfolio 123422</b></td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 " style="border: 1px solid black;">
                 <div class="sngl_blg">
                     <img style="height: 19px;width: 19px;margin-top: -6px;margin-left: 10px;"
                          src="/static/img/rupee (2).png"> <span
-                        style="margin-left: 14px;color: #224B59;">Current Assets </span> <span style="font-size: 16px;">&nbsp; &nbsp; IND &#8377 2,00,000</span>
+                        style="margin-left: 14px;color: #224B59;">Current Assets </span> <span style="font-size: 16px;">&nbsp; &nbsp; IND &#8377 2,00,00,000</span>
                     <div>
-                        <canvas id="pie-chart" width="800" height="450"></canvas>
+                        <canvas id="pie-chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -249,8 +241,8 @@
                         <tr>
                             <td width="267"></td>
                             <td width="267"><b>%Current Assets($)</b></td>
-                            <td width="267"><b>Value($)</b></td>
-                            <td width="267"><b>Unrealised P&amp;L($)</b></td>
+                            <td width="267"><b>Value(&#8377)</b></td>
+                            <td width="267"><b>Unrealised P&amp;L(&#8377)</b></td>
                         </tr>
                         </tbody>
                     </table>
@@ -258,49 +250,35 @@
                         <tbody>
                         <tr style="background-color: #f4f4f4;">
                             <td width="264"><b>Precious Metals and Commodities</b></td>
-                            <td width="267"><b>13.0</b></td>
-                            <td width="267"><b>20,360,000.00</b></td>
-                            <td width="267"><b>+120,000.00</b></td>
+                            <td width="267"><b>10.00</b></td>
+                            <td width="267"><b>20,00,000.00</b></td>
+                            <td width="267"><b>+30,00,000.00</b></td>
                         </tr>
                         <tr>
                             <td width="264">Real Estate</td>
                             <td width="267">30.00</td>
-                            <td width="267">49,500,500.00</td>
-                            <td width="267">-812,000.00</td>
-                        </tr>
-                        <tr style="background-color: #f4f4f4;">
-                            <td width="264">Alternative Investments</td>
-                            <td width="267">5.00</td>
-                            <td width="267">8,100,000.00</td>
-                            <td width="267">-180,000.00</td>
-                        </tr>
-                        <tr>
-                            <td width="264">Fixed Income</td>
-                            <td width="267">25.00</td>
-                            <td width="267">40,500,400.00</td>
-                            <td width="267">+8,000,400.00</td>
+                            <td width="267">60,00,000.00</td>
+                            <td width="267">+80,00,000.00</td>
                         </tr>
                         <tr style="background-color: #f4f4f4;">
                             <td width="264">Equities</td>
-                            <td width="267">18.00</td>
-                            <td width="267">29,750,000.00</td>
-                            <td width="267">+2,025,000.00</td>
-                        </tr>
-                        <tr>
-                            <td width="264">Cash/Liquid
-
-                                Investment
-                            </td>
-                            <td width="267">9.0</td>
-                            <td width="267">14,325,000.00</td>
-                            <td width="267">+950,000.00</td>
+                            <td width="267">25.00</td>
+                            <td width="267">50,00,000.00</td>
+                            <td width="267">+70,00,000.00</td>
                         </tr>
                         <tr style="background-color: #f4f4f4;">
                             <td width="264">Others</td>
-                            <td width="267">0.00</td>
-                            <td width="267">0.00</td>
-                            <td width="267">+0.00</td>
+                            <td width="267">25.00</td>
+                            <td width="267">50,00,000.00</td>
+                            <td width="267">+50,50,000.00</td>
                         </tr>
+                        <tr>
+                            <td width="264">Cash/Liquid Investment</td>
+                            <td width="267">10.00</td>
+                            <td width="267">20,00,000.00</td>
+                            <td width="267">+20,50,000.00</td>
+                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -318,11 +296,11 @@
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
         data: {
-            labels: ["Precious Metals and Commodities", "Real Estate", "Equities", "Alternative Investments", "Fixed Income"],
+            labels: ["Precious Metals and Commodities", "Real Estate", "Equities", "Others", "Cash & Liquid Investment"],
             datasets: [{
                 label: "Assets",
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: [784, 5267, 2478, 784, 433]
+                data: [25, 30, 25, 10, 10]
             }]
         },
         options: {
