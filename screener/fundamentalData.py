@@ -70,8 +70,6 @@ keyStatistics = [
     "Last Split Date"
 ]
 
-
-
 def getValue(allTd, keyStatistic):
     for t in allTd:
         tdValue = t.parent.find(text=re.compile(re.escape("%s" % keyStatistic)))
@@ -98,3 +96,53 @@ def get_fundamental_data(ticker,statics):
         print(ticker)
         return None
     return result
+
+def get_fundamental_data(ticker,statics):
+    try:
+        tickers = [ticker]
+        result = pd.DataFrame(index = tickers, columns = statics)
+        url = 'http://finance.yahoo.com/quote/'+ticker+'/key-statistics?ltr=1'
+        print(url)
+        resp = urlopen(url)
+        soup = BeautifulSoup(resp.read(), 'html.parser')
+        allTd = soup.find_all('td',attrs={'class':'Fz(s) Fw(500) Ta(end)'})
+            #
+        for static in statics:
+            result.ix[ticker, static] = getValue(allTd, static)
+    except:
+        print("Error in url Opening")
+        print(ticker)
+        return None
+    return result
+
+def get_balance_sheet_data(ticker,static):
+    try:
+        url = 'http://finance.yahoo.com/quote/'+ticker+'/balance-sheet/'
+        print(url)
+        resp = urlopen(url)
+        soup = BeautifulSoup(resp.read(), 'html.parser')
+        allTd = soup.find_all('td',attrs={'class':'Fw(b) Fz(s) Ta(end) Pb(20px)'})
+        asset=allTd[0].text
+        asset = asset.replace(",", "")
+        print(asset)
+        if ('-' in allTd[0].text)  or not is_number_tryexcept(asset):
+            asset=allTd[1].text
+        if ('-' in asset)  or not is_number_tryexcept(asset):
+            asset=allTd[2].text
+        elif ('-' in asset):
+            asset=1000000
+        print("####ASSET#########")
+        return float(asset)
+    except:
+        print("Error in url Opening")
+        print(ticker)
+        return None
+    return result
+
+def is_number_tryexcept(s):
+    """ Returns True is string is a number. """
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False

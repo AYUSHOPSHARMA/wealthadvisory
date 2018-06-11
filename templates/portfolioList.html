@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!doctype html>
+
+{% load static %}
 <html lang="zxx">
 
 
@@ -77,7 +79,7 @@
             padding: 12px 16px;
             background-color: white;
             cursor: pointer;
-            color:green;
+            color: green;
         }
 
         .btn:hover {
@@ -275,93 +277,202 @@
 </div>
 
 
-
-
 <!-- start blog Section -->
 <div class=" w3ls-services section-w3ls">
     <div class="container">
         <h3 class="w3ls-title">
             <span>P</span>ortfolios</h3>
-        <div class="row">
+        <div class="row" style="background-color: #E6E6E6;">
             <div id="myBtnContainer">
                 {% for portfolio in portfolioList %}
-                    <button class="btn  {%if forloop.first %} active{%endif%}" onclick="filterSelection('{{portfolio.Portfolio_Name}}')">{{portfolio.Portfolio_Name}}</button>
+                <button class="btn  {%if forloop.first %} active{%endif%}"
+                        onclick="filterSelection('{{portfolio.Portfolio_Name}}')">{{portfolio.Portfolio_Name}}
+                </button>
                 {%endfor%}
             </div>
             <!-- Portfolio Gallery Grid -->
             <div class="row">
-             {% for portfolio in portfolioList %}
+                {% for portfolio in portfolioList %}
                 <div class="column {{portfolio.Portfolio_Name}} {%if forloop.first %} show {%endif%}">
-                <div class="content">
+                    <div class="content">
                         <!-- <img src="/w3images/mountains.jpg" alt="Mountains" style="width:100%">-->
                         <h1 style="padding-left:10px">{{portfolio.Portfolio_Name}}</h1>
                         <table border="0" width="100%" cellspacing="1" cellpadding="3">
                             <tbody>
                             <tr>
-        							<button id="loadData" onclick="window.location.href='/screener/downloadPortfolioPDF?port={{portfolio.Portfolio_Name}}';return false;" target="_blank" style="margin-top: 48px;background-color: #4CAF50; border: none;color: white;padding: 15px 61px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;border-radius: 12px;float:right;">Download PDF</button>
-    							 </tr>
+                                <button id="loadData"
+                                        onclick="window.location.href='/screener/downloadPortfolioPDF?port={{portfolio.Portfolio_Name}}';return false;"
+                                        target="_blank"
+                                        style="margin-top: 48px;background-color: #4CAF50; border: none;color: white;padding: 15px 61px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;border-radius: 12px;float:right;">
+                                    Download PDF
+                                </button>
+
+                            </tr>
+
                             <tr style=" border: 1px solid black;"><strong>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">No.</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px"><img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10" align="top" border="0" />Ticker</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Company</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Industry</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Market Cap</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Trailing P/E</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Forward P/E</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Beta</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">52 Weeek Change</td>
-                                <td style="padding-left: 16px;border: 1px solid black; width:10px">Avg. Volume 3 Month</td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    No.
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    <img src="https://finviz.com/gfx/tab_arrow_u.gif" alt="" width="14" height="10"
+                                         align="top" border="0"/>Ticker
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Company
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Industry
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Market Cap
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Trailing P/E
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Forward P/E
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Beta
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    52 Weeek Change
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black; width:10px;background-color: white;">
+                                    Avg. Volume 3 Month
+                                </td>
+
 
                             </strong>
-                            </tr>
-                            {% for fdlst in portfolio.fundamentalDataList %}
-                            {% for fd in fdlst %}
-                                <tr style="border: 1px solid black;">
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{ forloop.counter }}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;"><a  href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a></td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Company_Name}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Industry}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Market_Cap}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Trailing_P_E}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Forward_P_E}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Beta}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Week_52_Change}}</td>
-                                    <td style="padding-left: 16px;border: 1px solid black;">{{fd.Avg_Vol_3_month}}</td>
-                                </tr>
-                            {%endfor%}
-                            {%endfor%}
-                            </tbody>
-                        </table>
-                        <table border="0" width="100%" cellspacing="1" cellpadding="3">
-                            <tbody>
-                            <tr>
-                                <div id="resultcorrheatmap">{{portfolio.heatMapData|safe|escape}} </div>
-                            </tr>
-                             <tr>
-                                <div id="resultcorrheatmap">{{portfolio.banchmarkData|safe|escape}} </div>
-                            </tr>
-                            <tr>
-                                <div id="resultcorrheatmap">{{portfolio.minvariance|safe|escape}} </div>
-                            </tr>
-                            <tr>
-                                <div id="resultcorrheatmap">{{portfolio.violationData|safe|escape}} </div>
-                            </tr>
-                            <tr>
-                                <div id="resultcorrheatmap">{{portfolio.correlationData|safe|escape}} </div>
-                            </tr>
-                             <tr>
-                                <div id="resultcorrheatmap">{{portfolio.weightplotData|safe|escape}} </div>
-                            </tr>
-                            
-                            <tr>
-                                <div id="resultcorrheatmap">{{portfolio.riskandreturnData|safe|escape}} </div>
+
                             </tr>
 
+                            {% for fdlst in portfolio.fundamentalDataList %}
+
+                            {% for fd in fdlst %}
+
+                            <tr style="border: 1px solid black;">
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">{{
+                                    forloop.counter }}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;"><a
+                                        href="/indices/nift100Indices/{{fd.Ticker}}/2017/1/1/2018/5/5/" target="_blank">{{fd.Ticker}}</a>
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Company_Name}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Industry}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Market_Cap}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Trailing_P_E}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Forward_P_E}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Beta}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Week_52_Change}}
+                                </td>
+
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                    {{fd.Avg_Vol_3_month}}
+                                </td>
+
+                            </tr>
+
+                            {%endfor%}
+
+                            {%endfor%}
+
                             </tbody>
+
                         </table>
+
+                        <table border="0" width="100%" cellspacing="1" cellpadding="3">
+
+                            <tbody>
+
+                            <tr>
+
+                                <div id="resultcorrheatmap">{{portfolio.heatMapData|safe|escape}}</div>
+
+                            </tr>
+
+                            <tr>
+
+                                <div id="resultcorrheatmap"><img
+                                        src="/static/Portfolio_Tracker/Figures/{{portfolio.Portfolio_Name}}_port_perf.png"
+                                        alt=""/></div>
+
+                            </tr>
+
+                            <tr>
+
+                                <div id="resultcorrheatmap">{{portfolio.minvariance|safe|escape}}</div>
+
+                            </tr>
+
+                            <tr>
+
+                                <div id="resultcorrheatmap">{{portfolio.violationData|safe|escape}}</div>
+
+                            </tr>
+
+                            <tr>
+
+                                <div id="resultcorrheatmap">{{portfolio.correlationData|safe|escape}}</div>
+
+                            </tr>
+
+                            <tr>
+
+                                <div id="resultcorrheatmap">{{portfolio.weightplotData|safe|escape}}</div>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <div id="resultcorrheatmap">{{portfolio.riskandreturnData|safe|escape}}</div>
+
+                            </tr>
+
+
+                            </tbody>
+
+                        </table>
+
                     </div>
+
                 </div>
+
                 {%endfor%}
+
                 <!-- END GRID -->
             </div>
         </div>
@@ -369,280 +480,358 @@
 </div>
 <!-- start Blog Section -->
 
-    <div class="agile-footer w3ls-section">
-        <div class="container">
-            <div class="list-footer">
-                <ul class="footer-nav">
-                    <li>
-                        <a href="/homepage/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/homepage/news/">News</a>
-                    </li>
-                    <li>
-                        <a href="/screener/strategy/">Screener</a>
-                    </li>
-                    <li>
-                        <a href="/screener/fundamentalportfolio/">Fundamental Analysis</a>
-                    </li>
-                    <li>
-                        <a href="/screener/portfoliolist/">Portfolios</a>
-                    </li>
-                    <li>
-                        <a href="/homepage/tutorial/">Tutorial</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="agileits_w3layouts-footer-bottom">
-                <div class="w3_agile-footer-grids">
-                    <div class="col-md-3  w3_agile-footer1 f1">
-                        <!--<h2>
-                            <a href="index.html">Beverages</a>
-                        </h2>-->
-                        <h5 class="f1">about us</h5>
-                        <p>Our goal is to break all barriers that traders and investors face in India in terms of cost,
-                            support, and technology.</p>
-                    </div>
-                    <div class="col-md-6  w3_agile-footer1 f2">
-                        <!-- <div class="col-md-4 col-sm-4 col-xs-4 inner-li">
-                             <h5>Drink</h5>
-                             <ul class="w3ls-footer-bottom-list">
-                                 <li>
-                                     <a class="page-scroll scroll" href="#about">volupta</a>
-                                 </li>
-                                 <li>
-                                     <a class="page-scroll scroll" href="#pricing">omnis</a>
-                                 </li>
-                                 <li>
-                                     <a class="page-scroll scroll" href="#gallery">iatis</a>
-                                 </li>
-                                 <li>
-                                     <a class="page-scroll scroll" href="#team">Sedutp</a>
-                                 </li>
-                                 <li>
-                                     <a class="page-scroll scroll" href="#contact">undeo</a>
-                                 </li>
-                             </ul>
-                         </div>
-                         <div class="col-md-4 col-sm-4 col-xs-4 inner-li">
-                             <h5>buy online</h5>
-                             <ul class="w3ls-footer-bottom-list">
-                                 <li>
-                                     <a href="#">iste</a>
-                                 </li>
-                                 <li>
-                                     <a href="#">perspi</a>
-                                 </li>
-                                 <li>
-                                     <a href="#">natus</a>
-                                 </li>
-                                 <li>
-                                     <a href="#">atisu</a>
-                                 </li>
-                             </ul>
-                         </div>-->
-                        <div class="col-md-4 col-sm-4 col-xs-4 inner-li" style="float: right">
-                            <h5>support</h5>
-                            <ul class="w3ls-footer-bottom-list">
-                                <li>
-                                    <a href="">suppport</a>
-                                </li>
-                                <li>
-                                    <a href="">FAQ</a>
-                                </li>
-                                <li>
-                                    <a href="">media</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-3  w3_agile-footer1 f3">
-                        <h5>follow us</h5>
-                        <ul class="footer-social-icons">
+<div class="agile-footer w3ls-section">
+    <div class="container">
+        <div class="list-footer">
+            <ul class="footer-nav">
+                <li>
+                    <a href="/homepage/">Home</a>
+                </li>
+                <li>
+                    <a href="/homepage/news/">News</a>
+                </li>
+                <li>
+                    <a href="/screener/strategy/">Screener</a>
+                </li>
+                <li>
+                    <a href="/screener/fundamentalportfolio/">Fundamental Analysis</a>
+                </li>
+                <li>
+                    <a href="/screener/portfoliolist/">Portfolios</a>
+                </li>
+                <li>
+                    <a href="/homepage/tutorial/">Tutorial</a>
+                </li>
+            </ul>
+        </div>
+        <div class="agileits_w3layouts-footer-bottom">
+            <div class="w3_agile-footer-grids">
+                <div class="col-md-3  w3_agile-footer1 f1">
+                    <!--<h2>
+                        <a href="index.html">Beverages</a>
+                    </h2>-->
+                    <h5 class="f1">about us</h5>
+                    <p>Our goal is to break all barriers that traders and investors face in India in terms of cost,
+                        support, and technology.</p>
+                </div>
+                <div class="col-md-6  w3_agile-footer1 f2">
+                    <!-- <div class="col-md-4 col-sm-4 col-xs-4 inner-li">
+                         <h5>Drink</h5>
+                         <ul class="w3ls-footer-bottom-list">
+                             <li>
+                                 <a class="page-scroll scroll" href="#about">volupta</a>
+                             </li>
+                             <li>
+                                 <a class="page-scroll scroll" href="#pricing">omnis</a>
+                             </li>
+                             <li>
+                                 <a class="page-scroll scroll" href="#gallery">iatis</a>
+                             </li>
+                             <li>
+                                 <a class="page-scroll scroll" href="#team">Sedutp</a>
+                             </li>
+                             <li>
+                                 <a class="page-scroll scroll" href="#contact">undeo</a>
+                             </li>
+                         </ul>
+                     </div>
+                     <div class="col-md-4 col-sm-4 col-xs-4 inner-li">
+                         <h5>buy online</h5>
+                         <ul class="w3ls-footer-bottom-list">
+                             <li>
+                                 <a href="#">iste</a>
+                             </li>
+                             <li>
+                                 <a href="#">perspi</a>
+                             </li>
+                             <li>
+                                 <a href="#">natus</a>
+                             </li>
+                             <li>
+                                 <a href="#">atisu</a>
+                             </li>
+                         </ul>
+                     </div>-->
+                    <div class="col-md-4 col-sm-4 col-xs-4 inner-li" style="float: right">
+                        <h5>support</h5>
+                        <ul class="w3ls-footer-bottom-list">
                             <li>
-                                <a href="">
-                                    <i class="fa icon1 fa-facebook icons" aria-hidden="true"></i>
-                                </a>
+                                <a href="">suppport</a>
                             </li>
                             <li>
-                                <a href="">
-                                    <i class="fa icon2 fa-twitter icons" aria-hidden="true"></i>
-                                </a>
+                                <a href="">FAQ</a>
                             </li>
                             <li>
-                                <a href="">
-                                    <i class="fa icon3 fa-google-plus icons" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="fa icon3 fa-linkedin icon4 icons" aria-hidden="true"></i>
-                                </a>
+                                <a href="">media</a>
                             </li>
                         </ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
-            </div>
-            <!---728x90--->
-            <!--<script src='/static/js2/dynamicScript.js'></script>-->
-            <div style='margin: 0 auto;text-align: center;margin-top: 5px;'>
-                <script>
-                    var allowedNumberOfEboundDynamicAdds = 4;
-                    var sizesEboundDynamicAdsDesktop = ['728x90'];
-                    var sizesEboundDynamicAdsTablet = ['728x90'];
-                    var sizesEboundDynamicAdsMobile = ['320x100'];
-                    eboundAdsTagByDevice(sizesEboundDynamicAdsDesktop, sizesEboundDynamicAdsTablet, sizesEboundDynamicAdsMobile, 'ebound_header_tag');
-
-                    if (typeof user_tag_config == 'undefined') {
-                        var user_tag_config = {};
-                    }
-                    user_tag_config['ebound_header_tag'] = {};
-                    user_tag_config['ebound_header_tag']['desktop'] = {};
-                    user_tag_config['ebound_header_tag']['desktop']['cpm'] = '';
-                    user_tag_config['ebound_header_tag']['desktop']['adsCode'] = '';
-                    user_tag_config['ebound_header_tag']['tablet'] = {};
-                    user_tag_config['ebound_header_tag']['tablet']['cpm'] = '';
-                    user_tag_config['ebound_header_tag']['tablet']['adsCode'] = '';
-                    user_tag_config['ebound_header_tag']['mobile'] = {};
-                    user_tag_config['ebound_header_tag']['mobile']['cpm'] = '';
-                    user_tag_config['ebound_header_tag']['mobile']['adsCode'] = '';
-                </script>
-            </div>
-            <div class="agileits_w3layouts-copyright">
-                <p>© 2018 Wealth View. All Rights Reserved |
-                    <a> Equity Manangement </a>
-                </p>
+                <div class="col-md-3  w3_agile-footer1 f3">
+                    <h5>follow us</h5>
+                    <ul class="footer-social-icons">
+                        <li>
+                            <a href="">
+                                <i class="fa icon1 fa-facebook icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa icon2 fa-twitter icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa icon3 fa-google-plus icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa icon3 fa-linkedin icon4 icons" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
+        <!---728x90--->
+        <!--<script src='/static/js2/dynamicScript.js'></script>-->
+        <div style='margin: 0 auto;text-align: center;margin-top: 5px;'>
+            <script>
+                var allowedNumberOfEboundDynamicAdds = 4;
+                var sizesEboundDynamicAdsDesktop = ['728x90'];
+                var sizesEboundDynamicAdsTablet = ['728x90'];
+                var sizesEboundDynamicAdsMobile = ['320x100'];
+                eboundAdsTagByDevice(sizesEboundDynamicAdsDesktop, sizesEboundDynamicAdsTablet, sizesEboundDynamicAdsMobile, 'ebound_header_tag');
+
+                if (typeof user_tag_config == 'undefined') {
+                    var user_tag_config = {};
+                }
+                user_tag_config['ebound_header_tag'] = {};
+                user_tag_config['ebound_header_tag']['desktop'] = {};
+                user_tag_config['ebound_header_tag']['desktop']['cpm'] = '';
+                user_tag_config['ebound_header_tag']['desktop']['adsCode'] = '';
+                user_tag_config['ebound_header_tag']['tablet'] = {};
+                user_tag_config['ebound_header_tag']['tablet']['cpm'] = '';
+                user_tag_config['ebound_header_tag']['tablet']['adsCode'] = '';
+                user_tag_config['ebound_header_tag']['mobile'] = {};
+                user_tag_config['ebound_header_tag']['mobile']['cpm'] = '';
+                user_tag_config['ebound_header_tag']['mobile']['adsCode'] = '';
+            </script>
+        </div>
+        <div class="agileits_w3layouts-copyright">
+            <p>© 2018 Wealth View. All Rights Reserved |
+                <a> Equity Manangement </a>
+            </p>
+        </div>
     </div>
-    <!-- //footer -->
-    <!-- banner slider -->
-    <script src="/static/js1/modernizr-2.6.2.min.js"></script>
-    <script src="/static/js1/jquery.zoomslider.min.js"></script>
-    <!-- //banner slider -->
-    <!-- //gallery -->
-    <script src="/static/js1/jquery.tools.min.js"></script>
-    <script src="/static/js1/jquery.mobile.custom.min.js"></script>
-    <script src="/static/js1/jquery.cm-overlay.js"></script>
+</div>
+<!-- //footer -->
+<!-- banner slider -->
+<script src="/static/js1/modernizr-2.6.2.min.js"></script>
+<script src="/static/js1/jquery.zoomslider.min.js"></script>
+<!-- //banner slider -->
+<!-- //gallery -->
+<script src="/static/js1/jquery.tools.min.js"></script>
+<script src="/static/js1/jquery.mobile.custom.min.js"></script>
+<script src="/static/js1/jquery.cm-overlay.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('.cm-overlay').cmOverlay();
+<script>
+    $(document).ready(function () {
+        $('.cm-overlay').cmOverlay();
+    });
+</script>
+<!-- //gallery -->
+<!-- testimonials -->
+<!-- required-js-files-->
+<link href="/static/cssA/owl.carousel.css" rel="stylesheet">
+<script src="/static/js1/owl.carousel.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+            items: 1,
+            lazyLoad: true,
+            autoPlay: false,
+            navigation: true,
+            navigationText: true,
+            pagination: true,
         });
-    </script>
-    <!-- //gallery -->
-    <!-- testimonials -->
-    <!-- required-js-files-->
-    <link href="/static/cssA/owl.carousel.css" rel="stylesheet">
-    <script src="/static/js1/owl.carousel.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#owl-demo").owlCarousel({
-                items: 1,
-                lazyLoad: true,
-                autoPlay: false,
-                navigation: true,
-                navigationText: true,
-                pagination: true,
-            });
-        });
-    </script>
-    <!--//required-js-files-->
-    <!-- start-smooth-scrolling -->
-    <script src="/static/js1/move-top.js"></script>
-    <script src="/static/js1/easing.js"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
+    });
+</script>
+<!--//required-js-files-->
+<!-- start-smooth-scrolling -->
+<script src="/static/js1/move-top.js"></script>
+<script src="/static/js1/easing.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
 
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 1000);
-            });
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
         });
-    </script>
-    <!-- //end-smooth-scrolling -->
-    <!-- smooth-scrolling-of-move-up -->
-    <script>
-        $(document).ready(function () {
-            /*
-         var defaults = {
-             containerID: 'toTop', // fading element id
-             containerHoverID: 'toTopHover', // fading element hover id
-             scrollSpeed: 1200,
-             easingType: 'linear'
-         };
-         */
+    });
+</script>
+<!-- //end-smooth-scrolling -->
+<!-- smooth-scrolling-of-move-up -->
+<script>
+    $(document).ready(function () {
+        /*
+     var defaults = {
+         containerID: 'toTop', // fading element id
+         containerHoverID: 'toTopHover', // fading element hover id
+         scrollSpeed: 1200,
+         easingType: 'linear'
+     };
+     */
 
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
+        $().UItoTop({
+            easingType: 'easeOutQuart'
         });
-    </script>
-    <script src="/static/js1/SmoothScroll.min.js"></script>
-    <!-- //smooth-scrolling-of-move-up -->
-    <!-- navigation  -->
-    <script src="/static/js1/main.js"></script>
-    <!-- //navigation -->
-    <!-- newsletter modal --><!-- popup-->
-    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content text-center">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <div class="col-md-9 col-sm-9 col-xs-9 sub-head">
-                        <h4 class="modal-title" id="myModalLabel">
-                            subscribe to our newsletter</h4>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3 sub-img">
-                        <img src="/static/img1/news.png" alt="" class="img-responsive"/>
-                    </div>
-                    <div class="clearfix"></div>
+
+    });
+</script>
+<script src="/static/js1/SmoothScroll.min.js"></script>
+<!-- //smooth-scrolling-of-move-up -->
+<!-- navigation  -->
+<script src="/static/js1/main.js"></script>
+<!-- //navigation -->
+<!-- newsletter modal --><!-- popup-->
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <div class="col-md-9 col-sm-9 col-xs-9 sub-head">
+                    <h4 class="modal-title" id="myModalLabel">
+                        subscribe to our newsletter</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="newsletter">
-                            <h6>signup to our newsletter and be the first to know about latest news,special
-                                offers,events and
-                                discounts.
-                            </h6>
-                            <form class="form-horizontal" method="post" action="#">
-                                <div class="form-group">
-                                    <div class="col-sm-8">
-                                        <input type="email" class="form-control" id="email1"
-                                               placeholder="Enter your Email"/>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            Submit
-                                        </button>
-                                    </div>
-                                    <div class="clearfix"></div>
-
+                <div class="col-md-3 col-sm-3 col-xs-3 sub-img">
+                    <img src="/static/img1/news.png" alt="" class="img-responsive"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="newsletter">
+                        <h6>signup to our newsletter and be the first to know about latest news,special
+                            offers,events and
+                            discounts.
+                        </h6>
+                        <form class="form-horizontal" method="post" action="#">
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="email1"
+                                           placeholder="Enter your Email"/>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        Submit
+                                    </button>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- //newsletter modal -->
-    <!-- Bootstrap core JavaScript
+<!-- //newsletter modal -->
+<!-- Bootstrap core JavaScript
 ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script>
 
 
+
+    //Hide Overflow of Body on DOM Ready //
+
+    $(document).ready(function () {
+
+        $("body").css("overflow", "hidden");
+
+    });
+
+
+
+    // Show Overflow of Body when Everything has Loaded
+
+    $(window).load(function () {
+        $("body").css("overflow", "visible");
+
+        var nice = $('html').niceScroll({
+
+            cursorborder: "5",
+
+            cursorcolor: "#00AFF0",
+
+            cursorwidth: "3px",
+
+            boxzoom: true,
+
+            autohidemode: true
+
+        });
+
+
+
+    });
+
+</script>
+<script>
+    /*filterSelection("all")*/
+    function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("column");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+    }
+
+    function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {
+                element.className += " " + arr2[i];
+            }
+        }
+    }
+
+    function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+        }
+        element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+</script>
 </body>
 </html>
-
-
-
-

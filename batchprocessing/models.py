@@ -443,4 +443,10 @@ class niftBanchMarkIndices(Document):
         Close =DecimalField(max_length=100,required=True)
         Adj_Close =DecimalField(required=False)
         Volume = LongField(required=False)     
-     
+
+class portfolioAsset(Document):
+        Portfolio_Name=  StringField(max_length=100,required=True)
+        Company_Type=   StringField(max_length=100,required=False)
+        Ticker_List =   ListField(StringField())
+        TotalAsset = LongField(required=False)
+        UnrealizedPS = LongField(required=False)

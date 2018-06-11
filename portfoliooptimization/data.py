@@ -30,7 +30,7 @@ def portfolio(symbols, allocations, api_key, start_date):
 
     quandl.ApiConfig.api_key = api_key
 
-    folders = [root_path+'/Daily Data', root_path+'/Daily Data/Portfolio', root_path+'/Daily Data/Benchmark']
+    folders = [root_path+'/Daily_Data', root_path+'/Daily_Data/Portfolio', root_path+'/Daily_Data/Benchmark']
     for folder in folders:
         if not os.path.exists(folder):
             os.mkdir(folder)
@@ -113,8 +113,7 @@ def benchmark(bench_symbol, start_date, api_key):
 
     #Benchmark Data
     bench_data = pd.read_csv(
-        'http://finance.google.com/finance/historical?q='+str(bench_symbol)+'&startdate='+ str(smonth) +'+'+ str(sday) +'+'+ str(syear) +'&enddate='+ str(emonth) +'+'+ str(eday) +'+'+ str(eyear) +'&output=csv',
-        index_col=0)["Close"]
+        'http://finance.google.com/finance/historical?q='+str(bench_symbol)+'&startdate='+ str(smonth) +'+'+ str(sday) +'+'+ str(syear) +'&enddate='+ str(emonth) +'+'+ str(eday) +'+'+ str(eyear) +'&output=csv',index_col=0)["Close"]
     bench_data.index = pd.to_datetime(bench_data.index)
 
     #Reverse Frame

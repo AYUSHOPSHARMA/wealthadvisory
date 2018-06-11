@@ -23,4 +23,5 @@ urlpatterns = [
         path('allocations/', views.allocations),
         path('positions/', views.positions),
         path('summary/', views.summary),
+        path('news/', views.news),
 ]

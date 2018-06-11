@@ -1,25 +1,22 @@
-import quandl
 import datetime as dt
+from datetime import date, datetime
 import calendar
 import os
 import pandas as pd
 import sys
+from mpld3._display import fig_to_html,save_json
 from batchprocessing.models import nift50Indices,nift100Indices,nift200Indices,nift500Indices,nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data,niftBanchMarkIndices
 from matplotlib import style
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import matplotlib.ticker as mtick
-from matplotlib import style
-import os
 import seaborn as sns
-import calendar
 import inspect
-from mpld3._display import display_d3,fig_to_html,save_json
-from mpld3 import plugins
 import screener.portfoliooptimization as po
+import matplotlib.ticker as tkr
 
-root_path = "C:/Portfolio Tracker"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+root_path = BASE_DIR+"/static/Portfolio_Tracker"
 #Dates
 end_date = dt.date.today()
 emo = end_date.month
@@ -29,14 +26,11 @@ emonth = calendar.month_abbr[emo]
 
 def optimizePortfolio(portfolio,start_date):
     portfolio=portfoliodetail(portfolio,start_date)
-    #portfolio.correlationData=fig_to_html(correlData(portfolio,start_date))
-    #portfolio.riskandreturnData=fig_to_html(risk_return(portfolio,start_date))
     return portfolio
 
 def portfoliodetail(portfolio,start_date):
     symbolss = portfolio.Ticker_List
     #Portfolio Data
-    print("Port Folio Data##########")
     merged_data_frame = pd.DataFrame()
     i=0
     for sysm in symbolss:
@@ -64,158 +58,112 @@ def portfoliodetail(portfolio,start_date):
         if c.isnull().all():
             print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
             sys.exit()
-    #print("########### merged_data_frame ########")
-    #print(merged_data_frame)
     allocations = []
     for tk in portfolio.Ticker_List:
         allocations.append(10)
     port_val = merged_data_frame * allocations
-    # Remove Rows With No Values
-
-    #FIX!!!!!!
-    #port_data.dropna(axis=0, how='any')
     port_val = port_val.fillna(port_val.mean())
 
     port_val['Portfolio Value'] = port_val.sum(axis=1)
-
-    # Calculate Portfolio Returns
     port_rets = port_val.pct_change()
     port_rets = port_rets.dropna(how='any')
-    
-    #Calculate Portfolio Weights
     assets = port_val.tail(1)
     s = port_val.iloc[-1:, -1]
     port_weights = assets / int(s)
     port_weights = port_weights.transpose()
     port_weights.columns = ["Weight"]
     port_weights = port_weights.drop(port_weights.index[len(port_weights) - 1])
-    #portfolio.correlationData=fig_to_html(correlData(merged_data_frame.astype(float)))
-    #portfolio.riskandreturnData=fig_to_html(risk_return(port_rets.astype(float)))
-    portfolio.banchmarkData=fig_to_html(benchmark(port_rets.astype(float),merged_data_frame.astype(float),port_val,start_date))
-    #num_portfolios = 25000
-    #portfolio.heatMapData=fig_to_html(po.portfolioOptimization(portfolio,start_date,end_date,num_portfolios))
-    #portfolio.violationData=fig_to_html(violin(port_rets.astype(float),start_date))
-    #portfolio.minvariance=fig_to_html(min_var(portfolio,port_rets.astype(float)))
-    #box_plot(port_rets.astype(float))
-    #calmap(port_rets.astype(float))
-    #portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
-    #portfolio.weightplotData=fig_to_html(weights_plot(port_weights.astype(float)))
+    portfolio.correlationData=fig_to_html(correlData(merged_data_frame.astype(float)))
+    portfolio.riskandreturnData=fig_to_html(risk_return(port_rets.astype(float)))
+    portfolio.banchmarkData=benchmark(portfolio,port_rets.astype(float),merged_data_frame.astype(float),port_val,start_date)
+    num_portfolios = 25000
+    portfolio.heatMapData=fig_to_html(po.portfolioOptimization(portfolio,start_date,end_date,num_portfolios))
+    portfolio.violationData=fig_to_html(violin(port_rets.astype(float),start_date))
+    portfolio.minvariance=fig_to_html(min_var(portfolio,port_rets.astype(float)))
+    portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
+    portfolio.weightplotData=fig_to_html(weights_plot(port_weights.astype(float)))
+    port_val.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Value.csv',index=True)
+    port_rets.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv' ,index=True)
+    merged_data_frame.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Daily_Prices.csv' ,index=True)
+    port_weights.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Weights.csv' ,index=True)
+
     return portfolio
     
-def benchmark(port_rets,port_data,port_val,start_date):
+def benchmark(portfolio,port_rets,port_data,port_val,start_date):
     
     bench_symbol ="%5Ensei"
-
-    #folders = [root_path + '/Daily Data', root_path + '/Daily Data/Benchmark', root_path + '/Daily Data/Portfolio' ]
-    #for folder in folders:
-    #    if not os.path.exists(folder):
-    #       os.mkdir(folder)
-
-    
-    #Benchmark Data
-    banchmarkData=niftBanchMarkIndices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=bench_symbol).values_list('Close','Date')
-    bench_data=pd.DataFrame(list(banchmarkData),columns=['Close','Date'])
-    #bench_data = bench_data.set_index('Date')
-    print("########### Before bench_data ############")
-    print(bench_data)
-    #bench_data.index = bench_data.index.to_pydatetime() 
-    bench_data.index = pd.to_datetime(bench_data.index)
-    #bench_data.index = bench_data.index.to_pydatetime() 
-    #bench_data.index = pd.to_datetime(bench_data.index)
-    print("########### bench_data ############")
-    print(bench_data)
-    #Reverse Frame
+    banchmarkData=niftBanchMarkIndices.objects.filter(Date__gte=start_date, Date__lte=end_date,Ticker=bench_symbol).values_list('Date','Close')
+    bench_data=pd.DataFrame(list(banchmarkData),columns=['Date','Close'])
     bench_rets = bench_data.iloc[::-1]
     bench_rets = bench_rets.dropna(how='any')
+    bench_rets['Close'] = bench_rets['Close'].astype(float).pct_change(1)
+    bench_rets = bench_rets.dropna(how='any')
     
-    print("########### Before bench_rets ############")
-    print(bench_rets)
-
-    bench_rets = bench_rets.pct_change()
-    print("########### bench_rets ############")
-    print(bench_rets)
-
-    #bench_data.to_csv(root_path+'/Daily Data/Benchmark/Benchmark Price Data.csv' ,index=True)
-    #bench_rets.to_csv(root_path+'/Daily Data/Benchmark/Benchmark Returns.csv' ,index=True)
-
-    print("Benchmark data has finished downloading.'")# -*- coding: utf-8 -*-
+    bench_data.to_csv(root_path+'/Daily_Data/Benchmark/Benchmark_Price_Data.csv' ,index=False)
+    bench_rets.to_csv(root_path+'/Daily_Data/Benchmark/Benchmark_Returns.csv' ,index=False)
     
-    portfolioBanchmark(port_rets,port_data,port_val,bench_rets,bench_data)
+    print("Benchmark data has finished downloading.'")
+
+    return portfolioBanchmark(portfolio,port_rets,port_data,port_val,bench_rets,bench_data)
 
 
 
 style.use('ggplot')
 
-def portfolioBanchmark(port_rets,port_data,port_val,bench_rets,bench_data):
-    #port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv')
-    #port_data = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Daily Prices.csv')
-    #port_val = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Value.csv')
-    #bench_rets = pd.read_csv(root_path + '/Daily Data/Benchmark/Benchmark Returns.csv')
-    #bench_data = pd.read_csv(root_path + '/Daily Data/Benchmark/Benchmark Price Data.csv')
+def portfolioBanchmark(portfolio,port_rets,port_data,port_val,bench_rets,bench_data):
     bench_rets.columns = ['Date', 'Return']
-    bench_data.columns = ['Date', 'Close']
+    bench_data.columns = ['Date','Close']
     if not os.path.exists(root_path + '/Figures'):
         os.mkdir(root_path + '/Figures')
 
         # ----------Plot Performance--------------#
         #port_val = port_val.set_index('Date')
-        port_values = port_val['Portfolio Value']
-        port_values = pd.DataFrame(port_values)
-        bench_values = bench_data.set_index('Date')
+    port_values = port_val['Portfolio Value']
+    port_values = pd.DataFrame(port_values)
+    bench_values = bench_data.set_index('Date')
 
-        #perf = port_values.to_frame().join(bench_data.to_frame())
-        perf = pd.merge(port_values, bench_values, left_index=True, right_index=True)
-        perf.index = pd.to_datetime(perf.index)
+    perf = pd.merge(port_values, bench_values, left_index=True, right_index=True)
 
-        port_data = perf["Portfolio Value"]
-        bench_d = perf["Close"]
+    port_data = perf["Portfolio Value"]
+    bench_d = perf["Close"]
 
-        fig = plt.figure()
-        ax = fig.add_subplot(111, axisbg='#576884')
-        lns1 = ax.plot(port_data, linestyle='-', color="white", label='Portfolio')
-
-        # Fill Under
-        x = port_data.index
-        y = port_data[0:len(port_data)]
-        q = bench_data.index
-        z = bench_data[0:len(bench_data)]
-
-        ax2 = ax.twinx()
-        ax2.grid(None)
-        lns2 = ax2.plot(bench_d, linestyle='-', color='#6aa527', label='SPY')
-
+    fig = plt.figure()
+    ax = fig.add_subplot(111, facecolor='#576884')
+    fig.set_size_inches(11.7, 8.27)
+    ax2 = ax.twinx()
+    ax2.grid(None)
+    print("########bench_d##########")
+    print(bench_d)
+    print("########port_data##########")
+    print(port_data)
+    lns1 = ax2.plot(bench_d, linestyle='-', color='#6aa527', label='Nifty50')
+    lns2 = ax.plot(port_data, linestyle='-', color="white", label='Portfolio')  
+    fig.add_axes(ax,ax2)              
         # added these three lines
-        lns = lns1 + lns2
-        labs = [l.get_label() for l in lns]
-        ax.legend(lns, labs, loc=0)
-        ax.grid(linestyle='--', alpha=0.2)
-
-        ax.get_yaxis().set_major_formatter(
-            tkr.FuncFormatter(lambda x, p: format(int(x), ',')))
+    lns = lns1 + lns2
+    labs = [l.get_label() for l in lns]
+    ax.legend(lns, labs, loc=0)
+    ax.grid(linestyle='--', alpha=0.2)
+    print(tkr.FuncFormatter(lambda x, p: format(int(x), ',')))
+    ax.get_yaxis().set_major_formatter(tkr.FuncFormatter(lambda x, p: format(int(x), ',')))
 
         #Annotate Last Price
-        bbox_props = dict(boxstyle='round', fc='w', ec='k', lw=1)
-        ax.annotate("{:0,.2f}".format(port_val["Portfolio Value"][-1]), (port_val.index[-1], port_val["Portfolio Value"][-1]),
-                     xytext=(port_val.index[-1], port_val["Portfolio Value"][-1]), bbox=bbox_props)
+    print(json_serial(port_val.index[-1]))    
+    bbox_props = dict(boxstyle='round', fc='w', ec='k', lw=1)
+    ax.annotate("{:0,.2f}".format(port_val["Portfolio Value"][-1]), (json_serial(port_val.index[-1]), port_val["Portfolio Value"][-1]),
+                     xytext=(json_serial(port_val.index[-1]), port_val["Portfolio Value"][-1]), bbox=bbox_props)
 
-        for spine in plt.gca().spines.values():
-            spine.set_visible(False)
+    for spine in plt.gca().spines.values():
+        spine.set_visible(False)
 
-        plt.title("Portfolio Performance vs. Benchmark")
-        plt.savefig(root_path + '/Figures/port_perf.png')
-
-        call_name = inspect.stack()[1][3]
-
-        if call_name != "perf":
-            print ("#-------------Fund Performance------------------#")
-            print ("Fund Performance on:"  + str(port_rets['Date'].iloc[-1]) + ": " + "{0:.2f}%".format(float(port_rets.iloc[-1:, -1]) * 100))
-            print ("Benchmark Performance on: " + str(bench_rets['Date'].iloc[-1]) + ": " + "{0:.2f}%".format(float(bench_rets.iloc[-1:, -1]) * 100))
-            print ("\n")
-
-        return fig
+    plt.title(portfolio.Portfolio_Name+" Portfolio Performance vs. Nifty 50 Benchmark")
+    plt.savefig(root_path + "/Figures/"+portfolio.Portfolio_Name+"_port_perf.png")
+   
+    plt.tight_layout()
+    fig.tight_layout()
+    return  "/static/Figures/"+portfolio.Portfolio_Name+"_port_perf.png"
 
 def correlData(pdata):
-        #pdata=getPortfolioCorrelationData(portfolio,start_date)
         cor = pdata.corr()
         print("########## cor ##########")
         print(cor)
@@ -439,4 +387,8 @@ def min_var(portfolio,port_rets):
         return fig
 
 
-  
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))

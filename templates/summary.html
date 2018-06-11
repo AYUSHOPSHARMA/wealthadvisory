@@ -241,24 +241,14 @@
                     </table>
                     <table>
                         <tbody>
+                        {% for portfolio in portfolioList %}
                         <tr style="background-color: #f4f4f4;">
-                            <td width="175"><span style="margin-left: 7px;">123411</span></td>
+                            <td width="175"><span style="margin-left: 7px;">{{portfolio.Portfolio_Name}}</span></td>
                             <td width="175">Managed</td>
-                            <td width="175">1,20,000</td>
-                            <td width="175" style="color: green;">+4,10,000.00</td>
+                            <td width="175">{{portfolio.TotalAsset}}</td>
+                            <td width="175" style="color: green;">+ {{portfolio.UnrealizedPS}}</td>
                         </tr>
-                        <tr>
-                            <td width="175"><span style="margin-left: 7px;">123422</span></td>
-                            <td width="175">Unmanaged</td>
-                            <td width="175">80,000</td>
-                            <td width="175" style="color: green;">+3,95,000.00</td>
-                        </tr>
-                        <tr style="background-color: #f4f4f4;">
-                            <td width="175"></td>
-                            <td width="175">Total</td>
-                            <td width="175">2,00,000</td>
-                            <td width="250" style="color: green;">+5,00,000.00</td>
-                        </tr>
+                        {%endfor%}
                         </tbody>
                     </table>
                 </div>

@@ -4,23 +4,23 @@ import pandas as pd
 import matplotlib.ticker as mtick
 from matplotlib import style
 import os
-from main import root_path
 import seaborn as sns
 import calendar
 import inspect
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+root_path = BASE_DIR+"/static/Portfolio_Tracker"
+
 style.use('ggplot')
 
-def correl(type='data'):
-
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv') and os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Daily Prices.csv'):
+def correl(portfolio,type='data'):
         type = type.lower()
         if type == "returns":
-            pdata = pd.read_csv(root_path+'/Daily Data/Portfolio/Portfolio Returns.csv' ,index_col=0)
+            pdata = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv',index_col=0)
             n = len(pdata.columns) - 1
             pdata = pdata.iloc[:,0:n]
         else:
-            pdata = pd.read_csv(root_path+'/Daily Data/Portfolio/Portfolio Daily Prices.csv' ,index_col=0)
+            pdata = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Daily_Prices.csv' ,index_col=0)
 
         cor = pdata.corr()
         data = cor.values
@@ -43,19 +43,15 @@ def correl(type='data'):
         plt.title('Portfolio Correlation', fontsize=15)
         plt.tight_layout()
 
-        plt.savefig(root_path + '/Figures/port_correl.png')
+        plt.savefig(root_path + '/Figures/'+portfolio.Portfolio_Name+'_port_correl.png')
 
         call_name = inspect.stack()[1][3]
 
         if call_name != "diversification":
             plt.show()
 
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
-
-def risk_return():
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv', index_col=0)
+def risk_return(portfolio):
+        port_rets = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv', index_col=0)
         x = (port_rets.std() * np.sqrt(252)) * 100
         x = x[:-1]
         y = (port_rets.mean() * 252) * 100
@@ -80,12 +76,9 @@ def risk_return():
         plt.xticks(fontsize=8)
         plt.yticks(fontsize=8)
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
 
-def violin(group=0):
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv')
+def violin(portfolio,group=0):
+        port_rets = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv')
         port_rets['month'] = pd.DatetimeIndex(port_rets['Date']).month
         port_rets['day'] = pd.DatetimeIndex(port_rets['Date']).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
@@ -104,12 +97,9 @@ def violin(group=0):
         ax.set_ylabel('')
         plt.suptitle(title)
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
 
-def box_plot(group=0):
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv')
+def box_plot(portfolio,group=0):
+        port_rets = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv')
         port_rets['month'] = pd.DatetimeIndex(port_rets['Date']).month
         port_rets['day'] = pd.DatetimeIndex(port_rets['Date']).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
@@ -131,12 +121,9 @@ def box_plot(group=0):
         ax.set_ylabel('')
         plt.suptitle(title)
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
 
-def calmap():
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv'):
-        port_rets = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Returns.csv',index_col=0)
+def calmap(portfolio):
+        port_rets = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv',index_col=0)
 
         import numpy as np;
         np.random.seed(sum(map(ord, 'calmap')))
@@ -152,12 +139,9 @@ def calmap():
                             fillcolor='grey', linewidth=0,
                             fig_kws=dict(figsize=(8, 4)))
         plt.show()
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")
 
-def weights_plot():
-    if os.path.exists(root_path + '/Daily Data/Portfolio/Portfolio Weights.csv'):
-        port_weights = pd.read_csv(root_path + '/Daily Data/Portfolio/Portfolio Weights.csv',index_col=0)
+def weights_plot(portfolio):
+        port_weights = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Weights.csv',index_col=0)
 
         plt.pie(
             port_weights["Weight"],
@@ -170,6 +154,3 @@ def weights_plot():
         plt.axis('equal')
         plt.suptitle('Portfolio Weights')
         plt.show()
-
-    else:
-        print ("You have not downloaded data for your portfolio yet in oder for the optimization module to be run. Please download the data by running the following function --- port_data.portfolio_daily_data()")

@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 import numpy as np
 import performance
 import plots
-from main import root_path, start_date, symbols, rate, method
+from main import start_date, symbols, rate, method
 import exposure
 import metrics
 
@@ -15,6 +15,9 @@ from reportlab.platypus import *
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm, inch
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+root_path = BASE_DIR+"/static/Portfolio_Tracker"
 
 #Create Reports Folder
 if not os.path.exists(root_path + '/Reports'):

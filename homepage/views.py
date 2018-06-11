@@ -1,5 +1,7 @@
 from django.shortcuts import render
-
+from batchprocessing.models import portfolio,portfolioAsset
+from screener import fundamentalData
+import numpy as np
 # Create your views here.
 
 
@@ -13,8 +15,15 @@ def positions(request):
     return render(request,"positions.html")
 
 def summary(request):
-    return render(request,"summary.html")
+    portfolioAssetList=portfolioAsset.objects.all()
+    totalcost= 0
+    for asset in portfolioAssetList:
+        totalcost = totalcost + asset.TotalAsset
+    return render(request,"summary.html", {"portfolioList":portfolioAssetList,"totalcost":totalcost})
 
 def homepage(request):
     return render(request,"homepage.html")
+
+def news(request):
+    return render(request,"news.html")
 
