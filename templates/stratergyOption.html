@@ -299,49 +299,57 @@
 
 <div id="about" class="wthree-about section-w3ls">
     <div class="container">
+        <h3 class="w3ls-title">
+            <span>C</span>heck <span>s</span>ome <span>s</span>tratergies <span>w</span>e <span>o</span>ffer</h3>
         <div class="row">
             <div class="title_sec">
-                <h1 style="text-align: center;">Check some stratergies we offer </h1>
+                <div>
+                    <h5>
+                        Choose your stock to test with stratergy
+                        <select>
+                            <option value="Company1">Company1</option>
+                            <option value="Company2">Company2</option>
+                            <option value="Company3">Company3</option>
+                            <option value="Company4">Company4</option>
+                        </select>
+                    </h5>
+                </div>
+
+                <div><h5>Choose start date from which the stratergy should use value of choosen stock <input
+                        type="date"></h5></div>
+
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="sngl_blg" style="background-color: #ffff;border: 1px solid black;">
                     <table class="grid styled">
                         <thead>
                         <tr>
-                            <th style="padding-left: 10px;padding-right: 10px;">ID</th>
-                            <th style="padding-left: 1em;">&nbsp; &nbsp; &nbsp; &nbsp;Stratergy</th>
-                            <th style="padding-left: 2em;">Markets Traded</th>
-                            <th style="padding-left: 1em;">Your portfolio</th>
-                            <th style="padding-left: 1em;">Returns</th>
-                            <th style="padding-left: 2em;">Returns on stratergy</th>
-                            <th style="padding-left: 5em;">Keywords</th>
-                            <th style="padding-left: 1em;">Live Trading</th>
-                            <th style="padding-left: 1em;">Stop loss trigger</th>
-                            <th style="padding-left: 1em;">Paper trading</th>
-                            <th style="padding-left: 2em;">Check analysis</th>
+                            <th style="padding-left: 10px;">ID</th>
+                            <th style="text-align: center;">Stratergy</th>
+                            <th style="text-align: center;">Markets Traded</th>
+                            <th style="padding-left: 1em;text-align: center;">Returns on stratergy</th>
+                            <th style="padding-left: 0em;text-align: center;" >Keywords</th>
+                            <th style="padding-left: 3em;text-align: left;">Live Trading</th>
+                            <th style="padding-left: 3em;text-align: left;">Stop loss trigger</th>
+                            <th style="padding-left: 1em;text-align: left;">Paper trading</th>
+                            <th style="padding-left: 1em;text-align: center;">Check analysis</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr id="1" style>
-                            <td>1</td>
-                            <td><span style="color:#337ab7">Moving Average Comparing stratergy</span></td>
-                            <td>&nbsp;&nbsp;equities</td>
-                            <td>
-                                <button id="portfoliobtn1" class="btn btn-success" style="width: 100px;font-size: 10px;">
-                                    Check Portfolios
-                                </button>
-                            </td>
-                            <td style="">11.27%*</td>
-                            <td style="">6.87%*</td>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Comparing stratergy</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
                                     <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
                                 <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
                                 </details>
                             </td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Set it</label></summary>
                                     <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
@@ -363,25 +371,19 @@
 
                         </tr>
                         <tr id="2" class="gridrow_alternate">
-                            <td>2</td>
-                            <td><span style="color:#337ab7">Bollinger Band Stratergy</span></td>
-                            <td>&nbsp;&nbsp;equities</td>
-                            <td>
-                                <button id="portfoliobtn2" class="btn btn-success" style="width: 100px;font-size: 10px;">
-                                    Check Portfolios
-                                </button>
-                            </td>
-                            <td style="">15.00%*</td>
-                            <td style="">9.60%*</td>
+                            <td style="padding-left: 10px;padding-right: 10px;">2</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Bollinger Band Stratergy</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">9.60%*</td>
                             <td>momentum, asset class picking, rotational system</td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
                                     <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
                                     <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
                                 </details>
                             </td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Set it</label></summary>
                                     <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
@@ -402,25 +404,19 @@
                             </td>
                         </tr>
                         <tr id="3" class="gridrow">
-                            <td>3</td>
-                            <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
-                            <td>&nbsp;&nbsp;equities</td>
-                            <td>
-                                <button id="portfoliobtn3" class="btn btn-success" style="width: 100px;font-size: 10px;">
-                                    Check Portfolios
-                                </button>
-                            </td>
-                            <td style="">13.94%*</td>
-                            <td style="">18.38%*</td>
+                            <td style="padding-left: 10px;padding-right: 10px;">3</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Asset Class Trend Following</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">18.38%*</td>
                             <td>momentum, sector picking, rotational system</td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
                                     <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
                                     <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
                                 </details>
                             </td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Set it</label></summary>
                                     <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
@@ -441,25 +437,19 @@
                             </td>
                         </tr>
                         <tr id="4" class="gridrow_alternate">
-                            <td>4</td>
-                            <td><span style="color:#337ab7">Asset Class Trend Following</span></td>
-                            <td>&nbsp;&nbsp;equities</td>
-                            <td>
-                                <button id="portfoliobtn4" class="btn btn-success" style="width: 100px;font-size: 10px;">
-                                    Check Portfolios
-                                </button>
-                            </td>
-                            <td style="">0.00%</td>
-                            <td style="">0.00%</td>
+                            <td style="padding-left: 10px;padding-right: 5px;">4</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Asset Class Trend Following</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">0.00%</td>
                             <td>-</td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
                                     <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
                                     <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
                                 </details>
                             </td>
-                            <td>
+                            <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Set it</label></summary>
                                     <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
