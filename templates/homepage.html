@@ -11,6 +11,12 @@
     <meta charset="utf-8"/>
     <link href="/static/cssA/style.css" type="text/css" rel="stylesheet" media="all">
     <style>
+        table td th {
+            padding-bottom: 1em;
+            padding-top: 2em;
+        }
+    </style>
+    <style>
         .animateLeftRight {
             position: relative;
             -webkit-animation: myfirst 5s 2; /* Safari 4.0 - 8.0 */
@@ -81,6 +87,8 @@
 
     <!-- banner slider -->
     <link rel="stylesheet" type="text/css" href="/static/cssA/zoomslider.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <!--gallery -->
     <link type="text/css" rel="stylesheet" href="/static/cssA/cm-overlay.css"/>
     <!-- //gallery -->
@@ -292,7 +300,7 @@
                                         <img src="/static/img1/up.jpg" class="img-responsive" alt="img">
                                     </div>
                                     <div class="info">
-                                        <p><a src="/screener/portfoliolist/">Portfolio</a></p>
+                                        <p>Portfolio</p>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +310,7 @@
                                         <img src="/static/img1/app.jpeg" class="img-responsive" alt="img">
                                     </div>
                                     <div class="info">
-                                        <p><a src="/screener/fundamentalportfolio/">Screener </a></p>
+                                        <p>Screener</p>
                                     </div>
                                 </div>
                             </div>
@@ -577,6 +585,97 @@
 
     <!-- //testimonials -->
 
+<div class=" w3ls-services section-w3ls">
+    <div class="container">
+        <h3 class="w3ls-title">
+            <span>A</span>llocations</h3>
+
+        <div class="row">
+            <div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 " style="border: 1px solid black;">
+                <div class="sngl_blg">
+                    <img style="height: 19px;width: 19px;margin-top: -6px;margin-left: 10px;"
+                         src="/static/img/rupee (2).png"> <span
+                        style="margin-left: 14px;color: #224B59;">Current Assets </span> <span style="font-size: 16px;">&nbsp; &nbsp; IND &#8377 2,00,00,000</span>
+                    <div>
+                        <canvas id="pie-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="sidebar">
+                    <table width="730" style="background-color: #E6E6E6;">
+                        <tbody>
+                        <tr>
+                            <td width="267"></td>
+                            <td width="267"><b>%Current Assets($)</b></td>
+                            <td width="267"><b>Value(&#8377)</b></td>
+                            <td width="267"><b>Unrealised P&amp;L(&#8377)</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table width="730">
+                        <tbody>
+                        <tr style="background-color: #f4f4f4;">
+                            <td width="264"><b>Precious Metals and Commodities</b></td>
+                            <td width="267"><b>10.00</b></td>
+                            <td width="267"><b>20,00,000.00</b></td>
+                            <td width="267"><b>+30,00,000.00</b></td>
+                        </tr>
+                        <tr>
+                            <td width="264">Real Estate</td>
+                            <td width="267">30.00</td>
+                            <td width="267">60,00,000.00</td>
+                            <td width="267">+80,00,000.00</td>
+                        </tr>
+                        <tr style="background-color: #f4f4f4;">
+                            <td width="264">Equities</td>
+                            <td width="267">25.00</td>
+                            <td width="267">50,00,000.00</td>
+                            <td width="267">+70,00,000.00</td>
+                        </tr>
+                        <tr style="background-color: #f4f4f4;">
+                            <td width="264">Others</td>
+                            <td width="267">25.00</td>
+                            <td width="267">50,00,000.00</td>
+                            <td width="267">+50,50,000.00</td>
+                        </tr>
+                        <tr>
+                            <td width="264">Cash/Liquid Investment</td>
+                            <td width="267">10.00</td>
+                            <td width="267">20,00,000.00</td>
+                            <td width="267">+20,50,000.00</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    new Chart(document.getElementById("pie-chart"), {
+        type: 'pie',
+        data: {
+            labels: ["Precious Metals and Commodities", "Real Estate", "Equities", "Others", "Cash & Liquid Investment"],
+            datasets: [{
+                label: "Assets",
+                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                data: [25, 30, 25, 10, 10]
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Tap on an Asset class on piechart to view Position'
+            }
+        }
+    });
+</script>
 
 
     <!-- footer -->
@@ -813,6 +912,11 @@
             strokeWidth: 0.03,
             color: '#ccc'
         },
+        pointer: {
+            length: 0.45,
+            strokeWidth: 0.03,
+            color: '#d66047'
+        },
         staticLabels: {
             font: "10px segoe ui",
             labels: [0, 10, 15, 20],
@@ -828,6 +932,7 @@
     gauge.maxValue = 20;
     gauge.animationSpeed = 32;
     gauge.set(15);
+    gauge.set(10);
 
 
 </script>
@@ -907,7 +1012,7 @@
         pointer: {
             length: 0.45,
             strokeWidth: 0.03,
-            color: '#ccc'
+            color: '#d66047'
         },
         staticLabels: {
             font: "10px segoe ui",
@@ -923,7 +1028,7 @@
     gauge.setOptions(opts);
     gauge.maxValue = 25;
     gauge.animationSpeed = 32;
-    gauge.set(5);
+    gauge.set(25);
 
 
 </script>
