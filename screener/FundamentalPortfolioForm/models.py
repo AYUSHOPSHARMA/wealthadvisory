@@ -43,18 +43,16 @@ class fundamentalportfolio(models.Model):
     )
     BETA_CHOICES = (
         ('Any','Any'),
-        ('lt_15', 'Low (<15)'),
-        ('gt_50', 'High (>50)'),
-        ('lt_5','Under 5'),
-        ('lt_10','Under 10'),
-        ('lt_25','Under 25'),
-        ('lt_45','Under 45'),
-        ('gt_5','Over 5'),
-        ('gt_10','Over 10'),
-        ('gt_15','Over 15'),
-        ('gt_25','Over 25'),
-        ('gt_35','Over 35'),
-        ('gt_45','Over 45'),
+        ('lt_0.5', 'Low (<0.5)'),
+        ('gt_0.5', 'High (>0.5)'),
+        ('lt_0.7','Under 0.7'),
+        ('lt_1','Under 1'),
+        ('lt_1.5','Under 1.5'),
+        ('lt_2','Under 2'),
+        ('gt_0.7','Over 0.7'),
+        ('gt_1','Over 1'),
+        ('gt_1.5','Over 1.5'),
+        ('gt_2','Over 2'),
     )
     PEG_CHOICES = (
        ('Any','Any'),
