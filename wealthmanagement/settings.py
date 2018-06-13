@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'batchprocessing',
     'charts',
     'homepage',
+    'portfoliooptimization',
 ]
 
 MIDDLEWARE = [
