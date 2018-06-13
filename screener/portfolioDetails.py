@@ -4,13 +4,15 @@ import screener.portfoliooptimization as po
 from mpld3._display import display_d3,fig_to_html,save_json
 import portfoliooptimization.dataportfolio as dataportfolio
 import datetime as datetime
-from batchprocessing.models import nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data,niftBanchMarkIndices
+from batchprocessing.models import nifty_50_fundamental_data,nifty_100_fundamental_data,nifty_200_fundamental_data,nifty_500_fundamental_data,niftBanchMarkIndices
+from portfoliooptimization import generatereport
+import datetime as dt
 
 def getPortfolioDetails(request):
     return render(request,"portfolio.html")
 
 def getPortfolioList(request):
-     portfolioList=portfolio.objects.all()
+     portfolioList=portfolio.objects.all() #.filter(Portfolio_Name='Nifty50_Zero_Debt_Equity')
      allportfolio= []
      for portfolioobj in portfolioList:
          portfolioDetailobj=portfolioDetail()
@@ -23,24 +25,26 @@ def getPortfolioList(request):
          if portfolioobj.Company_Type =="nifty50":
              fundamentaldata = nifty_50_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
          elif portfolioobj.Company_Type =="nifty100":
-             fundamentaldata = nifty_100_companies_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
+             fundamentaldata = nifty_100_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
          elif portfolioobj.Company_Type =="nifty200":
-             fundamentaldata = nifty_200_companies_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
+             fundamentaldata = nifty_200_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
          elif portfolioobj.Company_Type =="banchMark":
              fundamentaldata = niftBanchMarkIndices.objects.filter(Ticker ="%5Ensei")
          else:
-             fundamentaldata = nifty_500_companies_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
-         print("###########SYMBOL##############")
-         print(fundamentaldata)
+             fundamentaldata = nifty_500_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
+         #print("###########SYMBOL##############")
+         #print(fundamentaldata)
          portfolioDetailobj.fundamentalDataList.append(fundamentaldata)    
          allportfolio.append(portfolioDetailobj)
-         print("################# FUNDAMENTAL############")
-         print(portfolioDetailobj.fundamentalDataList)
+         generatereport.report.generateReport(portfolioobj)
+         date = str(dt.date.today())
+         #print("################# FUNDAMENTAL############")
+         #print(portfolioDetailobj.fundamentalDataList)
          #result_HTML=fig_to_html(po.portfolioOptimization(portfolio,st,ed,num_portfolios))
          #result_corr_HTML = fig_to_html(dataportfolio.correlData(portfolio,begin))
          #result_riskreturn_HTML = fig_to_html(dataportfolio.risk_return(portfolio,begin))
          #result_violin_HTML = fig_to_html(dataportfolio.violin(portfolio,begin))
-     return render(request,"portfolioList.html", {"portfolioList":allportfolio})
+     return render(request,"portfolioList.html", {"portfolioList":allportfolio,"date":date})
     
     
     

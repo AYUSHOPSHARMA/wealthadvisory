@@ -19,9 +19,12 @@ from mpld3._display import display_d3,fig_to_html,save_json
 from mpld3 import plugins
 import json
 from django.views.decorators.cache import cache_page
-from batchprocessing.models import nift50Indices,nift100Indices,nift200Indices,nift500Indices,nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data
+from batchprocessing.models import nift50Indices,nift100Indices,nift200Indices,nift500Indices,nifty_50_fundamental_data,nifty_100_fundamental_data,nifty_200_fundamental_data,nifty_500_fundamental_data
 import datetime as dt
 import sys
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+root_path = BASE_DIR+"/static/Portfolio_Tracker"
 
 def portfolioOptimization(portfolio, st,ed,num_portfolios):
     #list of stocks in portfolio
@@ -47,12 +50,12 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
         }
         """
     stocks = portfolio.Ticker_List
-    yf.pdr_override() # <== that's all it takes :-)
+    #yf.pdr_override() # <== that's all it takes :-)
     
     #indices= nift200Indices.objects(Ticker__in=["ACC.NS","AMZN.NS"], Date__lte=ed, Date__gte=st)
 
     #=nift200Indices.objects(Ticker ='AAPL.NS')
-    yf.pdr_override() # <== that's all it takes :-)
+    #yf.pdr_override() # <== that's all it takes :-)
 
     begin = datetime.date(2017,1,1)
 
@@ -83,30 +86,29 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
             data = pd.merge(
                 data, data_frame, right_index=True, left_index=True, how='outer')
         i+=1
-    temp_data = data.iloc[:,0:len(data.columns)].apply(pd.to_numeric)
-    for column in temp_data.columns:
-        c = temp_data[column]
-        if c.isnull().all():
-            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
-            sys.exit()   
+    #temp_data = data.iloc[:,0:len(data.columns)].apply(pd.to_numeric)
+     
         
     #download daily price data for each of the stocks in the portfolio
     #data = web.DataReader(stocks,data_source='yahoo',start='01/01/2010')['Adj Close']
+    #print("########## data ##########")
+    #print(portfolio.Portfolio_Name)
+    #print(data)
     data.sort_index(inplace=True)
      
     #convert daily stock prices into daily returns
     returns = data.pct_change()
-    print("#########returns#########")
+    #print("#########returns#########")
     returns = returns.dropna(how='any')
-    print(returns)
+    #print(returns)
     #calculate mean daily return and covariance of daily returns
     mean_daily_returns = returns.mean()
     cov_matrix = returns.astype(float).cov()
     
-    print("#########DATA##########")
-    print(data)
-    print("##########cov_matrix##########")
-    print(cov_matrix)
+    #print("#########DATA##########")
+    #print(data)
+    #print("##########cov_matrix##########")
+    #print(cov_matrix)
     num_portfolios = 500
      
     #set up array to hold results
@@ -145,8 +147,8 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
     for st in stocks:
         columnst.append(st)
         #convert results array to Pandas DataFrame
-    print("###########columst#########")
-    print(columnst)      
+    #print("###########columst#########")
+    #print(columnst)      
     results_frame = pd.DataFrame(results.T,columns=columnst)
     for i in range(num_portfolios):
         label = results_frame.ix[[i], :].T
@@ -162,6 +164,7 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
         #create scatter plot coloured by Sharpe Ratio
     plt.xlabel('Volatility')
     plt.ylabel('returns')
+    results_frame.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_HeatMAp.csv')
     points = plt.scatter(results_frame.standard_deviation,results_frame.returns,c=results_frame.sharpe_ratio,cmap='RdYlBu')
     #label = results_frame
     #label.columns = results_frame
@@ -194,5 +197,5 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
        # display_d3(fig1)
        # fig1.savefig(byte_file, format='png')
         #image_file= byte_file.getvalue()
-    save_json(fig,"test.json")
+    save_json(fig,"heatmap.json")
     return fig

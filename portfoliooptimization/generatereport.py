@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import wealthmanagementreport
+import portfoliooptimization.wealthmanagementreport as wealthmanagementreport
 import os
 from batchprocessing.models import portfolio
 import datetime as dt
@@ -16,7 +16,7 @@ end_date = dt.date.today()
 class report():
    
     def generateReport(poobj):
-        filename = root_path + '/Reports/'+poobj.Portfolio_Name+'_ Daily Report ' + str(end_date) + '.pdf'
+        filename = root_path + '/Reports/'+poobj.Portfolio_Name+'_ Daily_Report_' + str(end_date) + '.pdf'
         print(filename)
         reportObj= wealthmanagementreport.rep(fname=filename,fund_name="Wealth Advisory",portfolioobj=poobj,logo_path=0)
         reportObj.cover()

@@ -7,7 +7,7 @@ import os
 import requests
 import inspect
 import re
-from batchprocessing.models import nifty_50_fundamental_data,nifty_100_companies_fundamental_data,nifty_200_companies_fundamental_data,nifty_500_companies_fundamental_data
+from batchprocessing.models import nifty_50_fundamental_data,nifty_100_fundamental_data,nifty_200_fundamental_data,nifty_500_fundamental_data
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 root_path = BASE_DIR+"/static/Portfolio_Tracker"
@@ -25,11 +25,11 @@ def fundis(rate, method,portfolioobj):
             if portfolioobj.Company_Type =="nifty50":
                 objnf50=nifty_50_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
             elif portfolioobj.Company_Type =="nifty100":
-                objnf50=nifty_100_companies_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
+                objnf50=nifty_100_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
             elif portfolioobj.Company_Type =="nifty200":
-                objnf50=nifty_200_companies_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
+                objnf50=nifty_200_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
             else:
-                objnf50=nifty_500_companies_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
+                objnf50=nifty_500_fundamental_data.objects.filter(Ticker=symbol).values_list('Ticker','Trailing_P_E','Forward_P_E','PEG_Ratio','Price_Book','Beta','Trailing_Annual_Dividend_Yield','Year_5_Average_Dividend_Yield')
                 
             for obj in objnf50:
                     print(obj[0])

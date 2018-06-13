@@ -36,7 +36,7 @@ def top200IndicesData(request,companyType):
     limitQuery(request,151,200,companyType)
 
 def top500IndicesData(request,companyType):
-    limitQuery(request,0,75,companyType)
+    #limitQuery(request,0,75,companyType)
     limitQuery(request,76,150,companyType)
     limitQuery(request,151,225,companyType)
     limitQuery(request,225,300,companyType)
@@ -76,10 +76,11 @@ def limitQuery(request,start,limit,companyType):
          result =[]
          result.append("%5Ensei")
      now= datetime.datetime.now().strftime("%Y-%m-%d")    
-     begin = datetime.date(2010,1,1)
+     begin = datetime.date(2013,1,1)
      #timestamp format and get apple stock.
      st=begin.strftime('%Y-%m-%d')
      ed=now
+     print("############# companyType ############")
      print(result)
      i=0
      for companyname in result:

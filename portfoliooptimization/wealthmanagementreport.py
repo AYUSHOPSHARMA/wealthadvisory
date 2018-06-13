@@ -2,17 +2,17 @@ import pandas as pd
 import os
 import datetime as dt
 import numpy as np
-import plots
+import portfoliooptimization.plots as plots
 #Reportlab dependencies
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import *
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm, inch
-import performance
+import portfoliooptimization.performance as performance
 from dateutil.relativedelta import relativedelta
-import exposure
-import metrics
+import portfoliooptimization.exposure as exposure
+import portfoliooptimization.metrics as metrics
 
 #RF Syntax: 6 MO, 2 YR etc.
 rate = '1 YR'

@@ -84,8 +84,15 @@ def limitQuery(request,start,limit,companyType):
 
 def createPortfolio(request):
     portfolioobj = portfolio()
-    portfolioobj.Portfolio_Name = 'Nifty100_Portfolio'
-    portfolioobj.Company_Type = 'nifty100'
-    portfolioobj.Ticker_List = ['TATASTEEL.NS', 'ZEEL.NS', 'YESBANK.NS','WIPRO.NS','PNB.NS','ULTRACEMCO.NS','TECHM.NS','TCS.NS','ONGC.NS','SAIL.NS']
+    portfolioobj.Portfolio_Name = 'Nifty50_Zero_Debt_Equity'
+    portfolioobj.Company_Type = 'nifty50'
+    portfolioobj.Ticker_List = ['BAJAJ-AUTO.NS', 'BAJAJFINSV.NS', 'INFRATEL.NS', 'HEROMOTOCO.NS', 'HINDUNILVR.NS', 'ITC.NS', 'IOC.NS', 'INFY.NS', 'MARUTI.NS']
     portfolioobj.save()
     return HttpResponse("Portfolio Created")
+
+def savePortfolio(tickerList,Portfolio_Name,companyType):
+     portfolioobj = portfolio()
+     portfolioobj.Portfolio_Name = Portfolio_Name
+     portfolioobj.Company_Type = companyType
+     portfolioobj.Ticker_List = tickerList
+     portfolioobj.save()

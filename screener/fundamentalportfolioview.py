@@ -2,14 +2,18 @@ from django.shortcuts import render
 from screener.FundamentalPortfolioForm.models import *
 from screener.models import *
 from screener.FundamentalPortfolioForm.forms import *
-from batchprocessing.models import nifty_500_companies_fundamental_data
-from batchprocessing.models import nifty_200_companies_fundamental_data
-from batchprocessing.models import nifty_100_companies_fundamental_data
+from batchprocessing.models import nifty_500_fundamental_data
+from batchprocessing.models import nifty_200_fundamental_data
+from batchprocessing.models import nifty_100_fundamental_data
 from batchprocessing.models import nifty_50_fundamental_data
 from batchprocessing.models import portfolio
+from batchprocessing import views as batchprocessingview
 from django.http import *
 from batchprocessing import *
 from mongoengine import Q
+from mongoengine import *
+
+connect('wealth_management_indices')
 
 def fundamentalportfolio(request):
     print("READING FORM")
@@ -25,22 +29,24 @@ def fundamentalportfolio(request):
        print(form['PB'].value())
        print(form['Price_Cash'].value())
        if form.is_valid():
+           companyType = form['companyType'].value()
            if form['companyType'].value() == "nifty50":
                n50=nifty_50_fundamental_data
                print("######### N50##########")
                print(n50)
                result=filterFormData(form,n50)
            elif form['companyType'].value() == "nifty100":
-               result=filterFormData(form,nifty_100_companies_fundamental_data.objects.all())
+               result=filterFormData(form,nifty_100_fundamental_data.objects.all())
            elif form['companyType'].value() == "nifty200":
-               result=filterFormData(form,nifty_200_companies_fundamental_data.objects.all())
+               result=filterFormData(form,nifty_200_fundamental_data.objects.all())
            elif form['companyType'].value() == "nifty500":
-               result=filterFormData(form,nifty_500_companies_fundamental_data.objects.all())
+               result=filterFormData(form,nifty_500_fundamental_data.objects.all())
            print("########SAVE#########")
            tickerList = getTicker(form,result)
            print("##############submitvalue#############")
            if request.POST.get("submit_button"):
-               savePortfolio(tickerList)
+               Portfolio_Name = request.POST.get("Portfolio_Name")
+               batchprocessingview.savePortfolio(tickerList,Portfolio_Name,companyType)
            ##form.save()
            print("################DATA SAVED#############")
            return render(request,"fundamentalportfolio.html",{"fundamentalportfolioform":form,"list":result})
@@ -51,11 +57,11 @@ def fundamentalportfolio(request):
        if form['companyType'].value() == "nifty50":
            result=nifty_50_fundamental_data.objects[0:50]
        elif form['companyType'].value() == "nifty100":
-           result=nifty_100_companies_fundamental_data.objects[0:100]
+           result=nifty_100_fundamental_data.objects[0:100]
        elif form['companyType'].value() == "nifty200":
-           result=nifty_200_companies_fundamental_data.objects[0:200]
+           result=nifty_200_fundamental_data.objects[0:200]
        elif form['companyType'].value() == "nifty500":
-           result=nifty_500_companies_fundamental_data.objects[0:500]
+           result=nifty_500_fundamental_data.objects[0:500]
        print("inside form")
        return render(request,"fundamentalportfolio.html",{"fundamentalportfolioform":form,"list":result})
 
@@ -84,6 +90,8 @@ def parseValue(form,resultdbobj):
     return mylist;
 
 def getParsedValue(field,form):
+    print("### DEBT VALUE##")
+    print(form['Debt_Equity'].value())
     if field.label =="Trailing P E" :
         if form['Trailing_P_E'].value() != "Any":
             if isLE(field):
@@ -198,6 +206,11 @@ def getParsedValue(field,form):
             elif isGT(field):
                 value = comparewithValue(field)
                 return Q(Total_Debt__gte=value)
+            elif isEQ(field):
+                print("#### DEBT EQ")
+                value = comparewithValue(field)
+                print(value)
+                return Q(Total_Debt=value)
     elif field.label =="Gross Margin" :
         if form['Gross_Margin'].value() != "Any":
             if isLE(field):
@@ -256,6 +269,12 @@ def isGT(field):
         return True;
     else:
         return False
+def isEQ(field):
+    print("###########CHECKING GT##########")
+    if "eq_" in field.value():
+        return True;
+    else:
+        return False
 
 def comparewithValue(field):
     print("Field valueee#########")
@@ -283,16 +302,8 @@ def getTicker(form,result):
     tickerList=[]
     for element in result:
         tickerList.append(element.Ticker)
-    return tickerList
+    print(tickerList)
+    print(list(tickerList))
+    return list(tickerList)
     
 
-def savePortfolio(tickerList):
-    print("In SavePortfolio Method#########")
-    print(tickerList)
-    portfolioobj = portfolio()
-    portfolioobj.Portfolio_Name = 'My_Portfolio'
-    portfolioobj.Company_Type = 'nifty50'
-    portfolioobj.Ticker_List = tickerList
-    portfolioobj.save()
-    print("Data saved#########")
-    return 100
