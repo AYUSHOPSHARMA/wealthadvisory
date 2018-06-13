@@ -72,6 +72,34 @@
         }
     </style>
 
+    <style>
+        .tooltip1 {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip1 .tooltiptext {
+
+            visibility: hidden;
+            width: 300px;
+            height: 350px;
+            background-color: #eee;
+            color: #0c0d0d;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            top: -400px;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltip1:hover .tooltiptext {
+            visibility: visible;
+        }
+    </style>
+
 
     <script>
         addEventListener("load", function () {
@@ -630,7 +658,12 @@
                             <td width="267">+80,00,000.00</td>
                         </tr>
                         <tr style="background-color: #f4f4f4;">
-                            <td width="264">Equities</td>
+                            <td width="264" class="tooltip1">Equities
+                                <span class="tooltiptext">
+                                    put your code in here
+
+                                </span>
+                            </td>
                             <td width="267">25.00</td>
                             <td width="267">50,00,000.00</td>
                             <td width="267">+70,00,000.00</td>
