@@ -18,6 +18,7 @@ from django.urls import path, include,re_path
 from screener import views, fundamentaldataView,portfolio,fundamentalportfolioview,portfolioDetails,strategy
 from django.views.decorators.cache import cache_page
 from screener.FundamentalPortfolioForm import views as fundamentalview
+from screener.StrategyForm import views as strategyview
 
 urlpatterns = [
         path('fundamentalData/<str:ticker>/', views.getfundamentalData),
@@ -32,4 +33,5 @@ urlpatterns = [
          path('portfoliodetails/', portfolioDetails.getPortfolioDetails),
          path('portfoliolist/', portfolioDetails.getPortfolioList),
          path('strategy/', strategy.getStrategy),
+         path('inteligentstrategy/', strategyview.strategy),
 ]

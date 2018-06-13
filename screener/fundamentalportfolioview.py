@@ -17,6 +17,7 @@ def fundamentalportfolio(request):
        print("########POST METHODDD###########")
        form = fundamental_form(request.POST)
        print(form['companyType'].value())
+       print(form['companyType'].value())
        print(form['Trailing_P_E'].value())
        print(form['Forward_P_E'].value())
        print(form['PEG'].value())
@@ -263,10 +264,10 @@ def comparewithValue(field):
         print("INSIDE IF FIND###############")
         splitedvalue=field.value().split("_")
         if is_number_tryexcept(splitedvalue[1]) == True:
-            return int(splitedvalue[1])
+            return float(splitedvalue[1])
         else:
-             return 1000
-    return 1000     
+             return float(1000)
+    return float(1000)     
  
 
 def is_number_tryexcept(s):

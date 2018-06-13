@@ -10,6 +10,7 @@ import fix_yahoo_finance as yf
 import talib
 import io
 import mpld3
+from batchprocessing.models import nifty_200_companies
 
 from PIL import Image
 
@@ -27,6 +28,7 @@ def getSMAStrategy(request,backtestyear):
     st=begin.strftime('%Y-%m-%d')
     ed=end.strftime('%Y-%m-%d')
     yf.pdr_override()
+    #result=nifty_200_companies.objects.filter(Symbol=sysm).values_list('Symbol')
     data = pdr.get_data_yahoo('SBIN.NS',st,ed)
     
     data['Close'].plot(figsize=(10, 6));
