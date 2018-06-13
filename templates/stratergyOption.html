@@ -155,9 +155,14 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-        function change() {
-        document.getElementById("strategyform").submit();
-    }
+        function change(d) {
+            document.getElementById("strategyform").submit();
+        }
+
+        function saveForm() {
+            $('strategyform')
+            $.post("/screener/inteligentstrategy/", {"savevalue": "save"});
+        }
     </script>
     <!-- Custom Theme files -->
     <link href="/static/cssA/bootstrap.css" type="text/css" rel="stylesheet" media="all">
@@ -311,10 +316,8 @@
                 <div>
                     <h5>
                         {% for field in strategyform %}
-                          ABSSSS  {{field.label}} {{field}}
+                            {{field.label}} {{field}}
                        {%endfor%}
-                        Start date :
-                        <input id="start_date" name="start_date" type="date" value="06/12/2018">
                         <div id="submit_button" class="btn btn-success"
                                 style="margin-top: -7px;width: 196px;" onclick="change()">Apply Strategy
                         </div>
