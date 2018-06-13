@@ -21,13 +21,13 @@ from screener.FundamentalPortfolioForm import views as fundamentalview
 from screener.StrategyForm import views as strategyview
 
 urlpatterns = [
-        path('fundamentalData/<str:ticker>/', views.getfundamentalData),
+         path('fundamentalData/<str:ticker>/', views.getfundamentalData),
          path('staticVR/VR/', views.getStaticVr),
          path('fundamentalDataHome/', views.fundamentalDataHome),
          #re_path(r'^fundamentalDataHome/*', fundamentaldataView.fundamentalDataHome),
          path('portfolioOptimization/', cache_page(60 * 15)(portfolio.getPortfolioChart)),
          path('portfolio/', cache_page(60 * 15)(portfolio.getportfolio)),
-          path('portfolioPDF/', cache_page(60 * 15)(portfolio.getportfolioPDF)),
+         path('portfolioPDF/', cache_page(60 * 15)(portfolio.getportfolioPDF)),
          path('downloadPortfolioPDF/', portfolio.downloadPortfolioPDF),
          path('fundamentalportfolio/', fundamentalportfolioview.fundamentalportfolio),
          path('portfoliodetails/', portfolioDetails.getPortfolioDetails),
