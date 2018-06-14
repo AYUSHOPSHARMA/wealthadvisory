@@ -22,6 +22,72 @@
             opacity: 0.7;
             z-index: 9999;
         }
+        #white-backgroundR{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        #white-backgroundMLS{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        #white-backgroundSO{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        #white-backgroundMACD{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        #white-backgroundROC{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        #white-backgroundEMA{
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: #fefefe;
+            opacity: 0.7;
+            z-index: 9999;
+        }
         #white-backgroundB{
             display: none;
             width: 100%;
@@ -79,8 +145,46 @@
             border-radius: 10px;
             background-color: #7c7d7e;
             top: -230px !important;
-
-
+        }
+        #dlgboxEMA{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+        }
+        #dlgboxROC{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+        }
+        #dlgboxMACD{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+        }
+        #dlgboxSO{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
         }
 
         .dlg-header{
@@ -396,9 +500,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MSA')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MSA')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -430,9 +534,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;" onclick="showDialog('BE')">
+                                <div id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;" onclick="showDialog('BE')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
                         </tr>
                         <tr id="1" style>
@@ -463,9 +567,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('RSI')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('RSI')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -497,9 +601,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MLS')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MLS')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -531,9 +635,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('EMA')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('EMA')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -565,9 +669,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('ROC')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('ROC')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -599,9 +703,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MACD')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MACD')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -633,9 +737,9 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('SO')">
+                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('SO')">
                                     Strategy result
-                                </button>
+                                </div>
                             </td>
 
                         </tr>
@@ -648,7 +752,7 @@
                         <div class="dlg-header">Find the graphs below using Moving Average Comparing strategy on {{company}}</div>
                         <div class="dlg-body">{{smadata|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('MSA')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('MSA')">Cancel</div>
                         </div>
                     </div>
                     <div id="white-backgroundB">
@@ -657,49 +761,61 @@
                         <div class="dlg-header">Find the graphs below using Bollinger Band Strategy strategy on {{company}}</div>
                         <div class="dlg-body">{{bbbandGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('BE')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('BE')">Cancel</div>
                         </div>
+                    </div>
+                    <div id="white-backgroundR">
                     </div>
                     <div id="dlgboxRSI">
                         <div class="dlg-header">Find the graphs below using Relative Strength Index strategy on {{company}}</div>
                         <div class="dlg-body">{{rsiStretagyGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('RSI')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('RSI')">Cancel</div>
                         </div>
+                    </div>
+                    <div id="white-backgroundMLS">
                     </div>
                     <div id="dlgboxMLS">
                         <div class="dlg-header">Find the graphs below using Machine Learning strategy on {{company}}</div>
                         <div class="dlg-body">{{machineLearningGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('MLS')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('MLS')">Cancel</div>
                         </div>
+                    </div>
+                    <div id="white-backgroundEMA">
                     </div>
                     <div id="dlgboxEMA">
                         <div class="dlg-header">Find the graphs below using Exponetial moving average strategy on {{company}}</div>
                         <div class="dlg-body">{{emaStretagyGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('EMA')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('EMA')">Cancel</div>
                         </div>
+                    </div>
+                    <div id="white-backgroundROC">
                     </div>
                     <div id="dlgboxROC">
                         <div class="dlg-header">Find the graphs below using Rate of change strategy on {{company}}</div>
                         <div class="dlg-body">{{rocStretagyGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('ROC')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('ROC')">Cancel</div>
                         </div>
+                    </div>
+                    <div id="white-backgroundMACD">
                     </div>
                     <div id="dlgboxMACD">
                         <div class="dlg-header">Find the graphs below using Moving Average Crossover Divergence strategy on {{company}}</div>
                         <div class="dlg-body">{{macdStretagyGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('MACD')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('MACD')">Cancel</div>
                         </div>
+                    </div>
+                    <div id="white-backgroundSO">
                     </div>
                     <div id="dlgboxSO">
                         <div class="dlg-header">Find the graphs below using Stochastic Oscillator strategy on {{company}}</div>
                         <div class="dlg-body">{{soStretagyGraph|safe|escape}}</div>
                         <div class="dlg-footer">
-                            <button onclick="dlgCancel('SO')">Cancel</button>
+                            <div class="btn btn-success" onclick="dlgCancel('SO')">Cancel</div>
                         </div>
                     </div>
                     
@@ -934,6 +1050,30 @@
             var dlg = document.getElementById("dlgboxBE");
             var whitebg = document.getElementById("white-backgroundB");
         }
+        if(ast == "RSI"){
+            var dlg = document.getElementById("dlgboxRSI");
+            var whitebg = document.getElementById("white-backgroundR");
+        }
+        if(ast == "MLS"){
+            var dlg = document.getElementById("dlgboxMLS");
+            var whitebg = document.getElementById("white-backgroundMLS");
+        }
+        if(ast == "MACD"){
+            var dlg = document.getElementById("dlgboxMACD");
+            var whitebg = document.getElementById("white-backgroundMACD");
+        }
+        if(ast == "EMA"){
+            var dlg = document.getElementById("dlgboxEMA");
+            var whitebg = document.getElementById("white-backgroundEMA");
+        }
+        if(ast == "ROC"){
+            var dlg = document.getElementById("dlgboxROC");
+            var whitebg = document.getElementById("white-backgroundROC");
+        }
+        if(ast == "SO"){
+            var dlg = document.getElementById("dlgboxSO");
+            var whitebg = document.getElementById("white-backgroundSO");
+        }
         whitebg.style.display = "none";
         dlg.style.display = "none";
     }
@@ -949,13 +1089,28 @@
         }
         if(ast == "RSI"){
             var dlg = document.getElementById("dlgboxRSI");
-            var whitebg = document.getElementById("white-backgroundB");
+            var whitebg = document.getElementById("white-backgroundR");
         }
         if(ast == "MLS"){
             var dlg = document.getElementById("dlgboxMLS");
-            var whitebg = document.getElementById("white-backgroundB");
+            var whitebg = document.getElementById("white-backgroundMLS");
         }
-
+        if(ast == "MACD"){
+            var dlg = document.getElementById("dlgboxMACD");
+            var whitebg = document.getElementById("white-backgroundMACD");
+        }
+        if(ast == "EMA"){
+            var dlg = document.getElementById("dlgboxEMA");
+            var whitebg = document.getElementById("white-backgroundEMA");
+        }
+        if(ast == "ROC"){
+            var dlg = document.getElementById("dlgboxROC");
+            var whitebg = document.getElementById("white-backgroundROC");
+        }
+        if(ast == "SO"){
+            var dlg = document.getElementById("dlgboxSO");
+            var whitebg = document.getElementById("white-backgroundSO");
+        }
         whitebg.style.display = "block";
         dlg.style.display = "block";
 
