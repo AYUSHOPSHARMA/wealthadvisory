@@ -164,7 +164,6 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
         #create scatter plot coloured by Sharpe Ratio
     plt.xlabel('Volatility')
     plt.ylabel('returns')
-    results_frame.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_HeatMAp.csv')
     points = plt.scatter(results_frame.standard_deviation,results_frame.returns,c=results_frame.sharpe_ratio,cmap='RdYlBu')
     #label = results_frame
     #label.columns = results_frame

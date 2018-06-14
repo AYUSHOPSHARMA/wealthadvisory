@@ -718,3 +718,16 @@ class nifty_50_fundamental_data(Document):
         Ex_Dividend_Date= DateTimeField(default=datetime.datetime.utcnow)
         Last_Split_Factor_new_per_old= StringField(max_length=100,required=False)
         Last_Split_Date= DateTimeField(default=datetime.datetime.utcnow)
+
+class strategy(Document):
+        Date = DateTimeField(default=datetime.datetime.utcnow)
+        strategy=  StringField(max_length=100,required=True)
+        Returns = StringField(max_length=100,required=False)
+        Industry = StringField(max_length=100,required=False)
+        Market_Cap= DecimalField(max_length=100,required=False)
+        Enterprise_Value= StringField(max_length=100,required=False)
+        Trailing_P_E= DecimalField(required=False)
+        Forward_P_E= DecimalField(required=False)
+        PEG_Ratio= DecimalField(required=False)
+        Price_Sales= DecimalField(required=False)
+        Price_Book= DecimalField(required=False)

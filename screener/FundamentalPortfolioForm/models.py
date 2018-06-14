@@ -214,6 +214,7 @@ class fundamentalportfolio(models.Model):
     )
     DEBT_EQUITY_CHOICES = (
        ('Any','Any'),
+       ('eq_0','Equal(0)'),
        ('gt_0.5','High (>0.5)'),
        ('lt_0.1','Low (<0.1)'),
        ('lt_1','Under 1'),

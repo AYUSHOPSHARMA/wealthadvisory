@@ -58,6 +58,30 @@
 
 
         }
+        #dlgboxRSI{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+
+
+        }
+        #dlgboxMLS{
+            /*initially dialog box is hidden*/
+            display: none;
+            left: -87px !important;
+            position: absolute;
+            z-index: 9999;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+            top: -230px !important;
+
+
+        }
 
         .dlg-header{
             background-color: #e96147;
@@ -333,9 +357,9 @@
                         <thead>
                         <tr>
                             <th style="padding-left: 10px;">ID</th>
-                            <th style="text-align: center;">Stratergy</th>
+                            <th style="text-align: center;">Strategy</th>
                             <th style="text-align: center;">Markets Traded</th>
-                            <th style="padding-left: 1em;text-align: center;">Returns on stratergy</th>
+                            <th style="padding-left: 1em;text-align: center;">Returns on strategy</th>
                             <th style="padding-left: 0em;text-align: center;" >Keywords</th>
                             <th style="padding-left: 3em;text-align: left;">Live Trading</th>
                             <th style="padding-left: 3em;text-align: left;">Stop loss trigger</th>
@@ -346,7 +370,7 @@
                         <tbody>
                         <tr id="1" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Comparing stratergy</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Comparing strategy</td>
                             <td>equities</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
@@ -373,14 +397,14 @@
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
                                 <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MSA')">
-                                    Stratergy result
+                                    Strategy result
                                 </button>
                             </td>
 
                         </tr>
                         <tr id="2" class="gridrow_alternate">
                             <td style="padding-left: 10px;padding-right: 10px;">2</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Bollinger Band Stratergy</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Bollinger Band Strategy</td>
                             <td>equities</td>
                             <td style="padding-left: 1em;">9.60%*</td>
                             <td>momentum, asset class picking, rotational system</td>
@@ -407,21 +431,21 @@
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
                                 <button id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;" onclick="showDialog('BE')">
-                                    Stratergy result
+                                    Strategy result
                                 </button>
                             </td>
                         </tr>
-                        <tr id="3" class="gridrow">
-                            <td style="padding-left: 10px;padding-right: 10px;">3</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Asset Class Trend Following</td>
+                        <tr id="1" style>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Relative Strength Index Strategy</td>
                             <td>equities</td>
-                            <td style="padding-left: 1em;">18.38%*</td>
-                            <td>momentum, sector picking, rotational system</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
+                            <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
-                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
-                                    <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
                                 </details>
                             </td>
                             <td style="padding-left: 1em;">
@@ -432,29 +456,30 @@
                                         <option value="10">10,00,000</option>
                                         <option value="15">15,00,000</option>
                                     </select>
-                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">stop loss trigger</button>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
                                 </details>
                             </td>
                             <td>
-                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button id="result03" class="btn btn-success" style="width: 100px;font-size: 10px;">
-                                    Stratergy result
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('RSI')">
+                                    Strategy result
                                 </button>
                             </td>
+
                         </tr>
-                        <tr id="4" class="gridrow_alternate">
-                            <td style="padding-left: 10px;padding-right: 5px;">4</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Asset Class Trend Following</td>
+                        <tr id="1" style>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Machine Learning Strategy</td>
                             <td>equities</td>
-                            <td style="padding-left: 1em;">0.00%</td>
-                            <td>-</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
+                            <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
-                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">Yes</button>
-                                    <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 5px;" value="Submit">No</button>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
                                 </details>
                             </td>
                             <td style="padding-left: 1em;">
@@ -465,17 +490,154 @@
                                         <option value="10">10,00,000</option>
                                         <option value="15">15,00,000</option>
                                     </select>
-                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">stop loss trigger</button>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
                                 </details>
                             </td>
                             <td>
-                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <button id="result04" class="btn btn-success" style="width: 100px;font-size: 10px;">
-                                    Stratergy result
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MLS')">
+                                    Strategy result
                                 </button>
                             </td>
+
+                        </tr>
+                        <tr id="1" style>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Exponetial moving average Strategy</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
+                            <td>momentum, asset class picking, trendfollowing</td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td style="padding-left: 1em;padding-top: 1em;">
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('EMA')">
+                                    Strategy result
+                                </button>
+                            </td>
+
+                        </tr>
+                        <tr id="1" style>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Rate of change Strategy</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
+                            <td>momentum, asset class picking, trendfollowing</td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td style="padding-left: 1em;padding-top: 1em;">
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('ROC')">
+                                    Strategy result
+                                </button>
+                            </td>
+
+                        </tr>
+                        <tr id="1" style>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Crossover Divergence Strategy</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
+                            <td>momentum, asset class picking, trendfollowing</td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td style="padding-left: 1em;padding-top: 1em;">
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MACD')">
+                                    Strategy result
+                                </button>
+                            </td>
+
+                        </tr>
+                        <tr id="1" style>
+                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Stochastic Oscillator Strategy</td>
+                            <td>equities</td>
+                            <td style="padding-left: 1em;">6.87%*</td>
+                            <td>momentum, asset class picking, trendfollowing</td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Try</label></summary>
+                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
+                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
+                                </details>
+                            </td>
+                            <td style="padding-left: 1em;">
+                                <details>
+                                    <summary><label>Set it</label></summary>
+                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
+                                    <select style="margin-top: 10px;">
+                                        <option value="10">10,00,000</option>
+                                        <option value="15">15,00,000</option>
+                                    </select>
+                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
+                                </details>
+                            </td>
+                            <td>
+                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
+                            </td>
+                            <td style="padding-left: 1em;padding-top: 1em;">
+                                <button class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('SO')">
+                                    Strategy result
+                                </button>
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>
@@ -483,7 +645,7 @@
                     <div id="white-backgroundM">
                     </div>
                     <div id="dlgboxMSA">
-                        <div class="dlg-header">Find the graphs below using stratergy on your portfolio</div>
+                        <div class="dlg-header">Find the graphs below using Moving Average Comparing strategy on {{company}}</div>
                         <div class="dlg-body">{{smadata|safe|escape}}</div>
                         <div class="dlg-footer">
                             <button onclick="dlgCancel('MSA')">Cancel</button>
@@ -492,12 +654,55 @@
                     <div id="white-backgroundB">
                     </div>
                     <div id="dlgboxBE">
-                        <div class="dlg-header">Find the graphs below using stratergy on your portfolio</div>
+                        <div class="dlg-header">Find the graphs below using Bollinger Band Strategy strategy on {{company}}</div>
                         <div class="dlg-body">{{bbbandGraph|safe|escape}}</div>
                         <div class="dlg-footer">
                             <button onclick="dlgCancel('BE')">Cancel</button>
                         </div>
                     </div>
+                    <div id="dlgboxRSI">
+                        <div class="dlg-header">Find the graphs below using Relative Strength Index strategy on {{company}}</div>
+                        <div class="dlg-body">{{rsiStretagyGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('RSI')">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="dlgboxMLS">
+                        <div class="dlg-header">Find the graphs below using Machine Learning strategy on {{company}}</div>
+                        <div class="dlg-body">{{machineLearningGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('MLS')">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="dlgboxEMA">
+                        <div class="dlg-header">Find the graphs below using Exponetial moving average strategy on {{company}}</div>
+                        <div class="dlg-body">{{emaStretagyGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('EMA')">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="dlgboxROC">
+                        <div class="dlg-header">Find the graphs below using Rate of change strategy on {{company}}</div>
+                        <div class="dlg-body">{{rocStretagyGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('ROC')">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="dlgboxMACD">
+                        <div class="dlg-header">Find the graphs below using Moving Average Crossover Divergence strategy on {{company}}</div>
+                        <div class="dlg-body">{{macdStretagyGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('MACD')">Cancel</button>
+                        </div>
+                    </div>
+                    <div id="dlgboxSO">
+                        <div class="dlg-header">Find the graphs below using Stochastic Oscillator strategy on {{company}}</div>
+                        <div class="dlg-body">{{soStretagyGraph|safe|escape}}</div>
+                        <div class="dlg-footer">
+                            <button onclick="dlgCancel('SO')">Cancel</button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             <!--<div class="col-lg-4 col-md-4 col-sm-4">
@@ -740,6 +945,14 @@
         }
         if(ast == "BE"){
             var dlg = document.getElementById("dlgboxBE");
+            var whitebg = document.getElementById("white-backgroundB");
+        }
+        if(ast == "RSI"){
+            var dlg = document.getElementById("dlgboxRSI");
+            var whitebg = document.getElementById("white-backgroundB");
+        }
+        if(ast == "MLS"){
+            var dlg = document.getElementById("dlgboxMLS");
             var whitebg = document.getElementById("white-backgroundB");
         }
 

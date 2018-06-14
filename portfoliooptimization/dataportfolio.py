@@ -184,13 +184,13 @@ def correlData(pdata):
 
         #plt.savefig(root_path + '/Figures/port_correl.png')
 
-        call_name = inspect.stack()[1][3]
+        #call_name = inspect.stack()[1][3]
         #print("call_name########")
         #print(call_name)      
 
         #if call_name != "diversification":
          #   plt.show()
-        save_json(fig,"correlation.json")
+        #save_json(fig,"correlation.json")
         return fig
 
 
@@ -223,7 +223,7 @@ def risk_return(port_rets):
         plt.ylabel("Return", fontsize=10)
         plt.xticks(fontsize=8)
         plt.yticks(fontsize=8)
-        save_json(fig,"risk_return.json")
+        #save_json(fig,"risk_return.json")
         return fig
    
 def violin(port_rets,start_date):
@@ -250,7 +250,7 @@ def violin(port_rets,start_date):
         #ax.set_xlabel('')
         #ax.set_ylabel('')
         plt.title(title,fontsize=15)
-        save_json(fig,"violation.json")
+        #save_json(fig,"violation.json")
         return fig
         
 def box_plot(port_rets,group):

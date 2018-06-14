@@ -36,16 +36,18 @@ def fundamentalportfolio(request):
                print(n50)
                result=filterFormData(form,n50)
            elif form['companyType'].value() == "nifty100":
-               result=filterFormData(form,nifty_100_fundamental_data.objects.all())
+               result=filterFormData(form,nifty_100_fundamental_data)
            elif form['companyType'].value() == "nifty200":
-               result=filterFormData(form,nifty_200_fundamental_data.objects.all())
+               result=filterFormData(form,nifty_200_fundamental_data)
            elif form['companyType'].value() == "nifty500":
-               result=filterFormData(form,nifty_500_fundamental_data.objects.all())
+               result=filterFormData(form,nifty_500_fundamental_data)
            print("########SAVE#########")
            tickerList = getTicker(form,result)
            print("##############submitvalue#############")
            if request.POST.get("submit_button"):
                Portfolio_Name = request.POST.get("Portfolio_Name")
+               print("############Portfolio_Name#######")
+               print(Portfolio_Name)      
                batchprocessingview.savePortfolio(tickerList,Portfolio_Name,companyType)
            ##form.save()
            print("################DATA SAVED#############")
@@ -303,7 +305,7 @@ def getTicker(form,result):
     for element in result:
         tickerList.append(element.Ticker)
     print(tickerList)
-    print(list(tickerList))
-    return list(tickerList)
+    print(str(tickerList))
+    return str(tickerList)
     
 

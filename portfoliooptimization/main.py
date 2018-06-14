@@ -21,8 +21,8 @@ root_path = "C:/Portfolio Tracker"
 
 #------------Run Program----------------------#
 if __name__ == '__main__':
-    import generatereport
-    from batchprocessing.models import portfolio
+    #import generatereport
+    #from batchprocessing.models import portfolio
     #import rebalance
     #import dataportfolio
     #import data
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #data.portfolio(symbols,allocations,api_key,start_date)
     
     #dataportfolio.portfolio(symbols,allocations,api_key,start_date)
-    print(symbols[:3])
+    #print(symbols[:3])
     #dataportfolio.benchmark(bench_symbol,start_date,api_key)
     #data.benchmark(bench_symbol,start_date,api_key)
     #rebalance.rebalance(allocations=allocations)
@@ -54,6 +54,6 @@ if __name__ == '__main__':
     #r.savePDF()
    # plots.correl()
    
-portfolioList= portfolio.objects.all()
-for poobj in portfolioList:
-    generatereport.report.generateReport(poobj)
+#portfolioList= portfolio.objects.all()
+#for poobj in portfolioList:
+ #   generatereport.report.generateReport(poobj)
