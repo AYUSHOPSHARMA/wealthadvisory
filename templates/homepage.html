@@ -369,30 +369,87 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <h3 class="w3ls-title">
-                <span>a</span>bout us</h3>
-            <h5>Where technlogy meets analysis !</h5>
-            <div class="col-md-7  w3ls-about-left">
-                <p>Our goal is to break all barriers that traders and investors face in India in terms of cost, support,
-                    and technology. </p>
-                <p class="about-bottom">We give you the best stratergies, allow you to use and modify them and choose
-                    best investment portfolios for yourself.</p>
-            </div>
-            <div class="col-md-5 w3ls-row">
-                <div class="col-md-6 col-sm-6 wthree-about-left" style="margin-right: 10px;">
-                    <img src="/static/img1/raw.jpg" class="img-responsive" alt=""/>
-                </div>
-                <div class="col-md-6 col-sm-6 w3ls-row alert wthree-about-right">
-                    <img src="/static/img1/pie-chart.jpg" class="img-responsive" alt=""/>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
         </div>
     </div>
     <!-- //about -->
+    <div class=" w3ls-services section-w3ls">
+    <div class="container">
+        <h3 class="w3ls-title">
+            <span>A</span>llocations</h3>
 
+        <div class="row">
+            <div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 " style="border: 1px solid black;">
+                <div class="sngl_blg">
+                    <img style="height: 19px;width: 19px;margin-top: -6px;margin-left: 10px;"
+                         src="/static/img/rupee (2).png"> <span
+                        style="margin-left: 14px;color: #224B59;">Current Assets </span> <span style="font-size: 16px;">&nbsp; &nbsp; IND &#8377 2,00,00,000</span>
+                    <div>
+                        <canvas id="pie-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="sidebar">
+                    <table width="730" style="background-color: #E6E6E6;">
+                        <tbody>
+                        <tr>
+                            <td width="267"></td>
+                            <td width="267"><b>%Current Assets($)</b></td>
+                            <td width="267"><b>Value(&#8377)</b></td>
+                            <td width="267"><b>Unrealised P&amp;L(&#8377)</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table width="730">
+                        <tbody>
+                        <tr style="background-color: #f4f4f4;">
+                            <td width="264"><b>Precious Metals and Commodities</b></td>
+                            <td width="267"><b>10.00</b></td>
+                            <td width="267"><b>20,00,000.00</b></td>
+                            <td width="267"><b>+30,00,000.00</b></td>
+                        </tr>
+                        <tr>
+                            <td width="264">Real Estate</td>
+                            <td width="267">30.00</td>
+                            <td width="267">60,00,000.00</td>
+                            <td width="267">+80,00,000.00</td>
+                        </tr>
+                        {% for asset in portfolioList %}
+                        <tr style="background-color: #f4f4f4;">
+                            <td width="264" class="tooltip1">{{asset.Portfolio_Name}}
+                                <span class="tooltiptext">
+                                        <img style="height: 300px;width: 300px;margin-top: -6px;margin-left: 10px;"
+                                         src="/static/Portfolio_Tracker/Figures/{{asset.Portfolio_Name}}_port_correl.png">
+                                </span>
+                            </td>
+                            <td width="267">25.00</td>
+                            <td width="267">50,00,000.00</td>
+                            <td width="267">+70,00,000.00</td>
+                        </tr>
+                         {%endfor%}
+                        <tr style="background-color: #f4f4f4;">
+                            <td width="264">Others</td>
+                            <td width="267">25.00</td>
+                            <td width="267">50,00,000.00</td>
+                            <td width="267">+50,50,000.00</td>
+                        </tr>
+                        <tr>
+                            <td width="264">Cash/Liquid Investment</td>
+                            <td width="267">10.00</td>
+                            <td width="267">20,00,000.00</td>
+                            <td width="267">+20,50,000.00</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
@@ -613,80 +670,7 @@
 
     <!-- //testimonials -->
 
-<div class=" w3ls-services section-w3ls">
-    <div class="container">
-        <h3 class="w3ls-title">
-            <span>A</span>llocations</h3>
-
-        <div class="row">
-            <div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 " style="border: 1px solid black;">
-                <div class="sngl_blg">
-                    <img style="height: 19px;width: 19px;margin-top: -6px;margin-left: 10px;"
-                         src="/static/img/rupee (2).png"> <span
-                        style="margin-left: 14px;color: #224B59;">Current Assets </span> <span style="font-size: 16px;">&nbsp; &nbsp; IND &#8377 2,00,00,000</span>
-                    <div>
-                        <canvas id="pie-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <div class="sidebar">
-                    <table width="730" style="background-color: #E6E6E6;">
-                        <tbody>
-                        <tr>
-                            <td width="267"></td>
-                            <td width="267"><b>%Current Assets($)</b></td>
-                            <td width="267"><b>Value(&#8377)</b></td>
-                            <td width="267"><b>Unrealised P&amp;L(&#8377)</b></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table width="730">
-                        <tbody>
-                        <tr style="background-color: #f4f4f4;">
-                            <td width="264"><b>Precious Metals and Commodities</b></td>
-                            <td width="267"><b>10.00</b></td>
-                            <td width="267"><b>20,00,000.00</b></td>
-                            <td width="267"><b>+30,00,000.00</b></td>
-                        </tr>
-                        <tr>
-                            <td width="264">Real Estate</td>
-                            <td width="267">30.00</td>
-                            <td width="267">60,00,000.00</td>
-                            <td width="267">+80,00,000.00</td>
-                        </tr>
-                        <tr style="background-color: #f4f4f4;">
-                            <td width="264" class="tooltip1">Equities
-                                <span class="tooltiptext">
-                                    put your code in here
-
-                                </span>
-                            </td>
-                            <td width="267">25.00</td>
-                            <td width="267">50,00,000.00</td>
-                            <td width="267">+70,00,000.00</td>
-                        </tr>
-                        <tr style="background-color: #f4f4f4;">
-                            <td width="264">Others</td>
-                            <td width="267">25.00</td>
-                            <td width="267">50,00,000.00</td>
-                            <td width="267">+50,50,000.00</td>
-                        </tr>
-                        <tr>
-                            <td width="264">Cash/Liquid Investment</td>
-                            <td width="267">10.00</td>
-                            <td width="267">20,00,000.00</td>
-                            <td width="267">+20,50,000.00</td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+<
 
 
 </div>
