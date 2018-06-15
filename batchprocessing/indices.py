@@ -23,7 +23,7 @@ import datetime
 
 # Create your views here.
 def top50IndicesData(request,companyType):
-    limitQuery(request,0,50,companyType)
+    limitQuery(request,30,40,companyType)
     
 
 def top100IndicesData(request,companyType):
@@ -76,7 +76,7 @@ def limitQuery(request,start,limit,companyType):
          result =[]
          result.append("%5Ensei")
      now= datetime.datetime.now().strftime("%Y-%m-%d")    
-     begin = datetime.date(2013,1,1)
+     begin = datetime.date(2016,1,1)
      #timestamp format and get apple stock.
      st=begin.strftime('%Y-%m-%d')
      ed=now

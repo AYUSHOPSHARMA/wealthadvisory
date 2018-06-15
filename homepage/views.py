@@ -22,7 +22,11 @@ def summary(request):
     return render(request,"summary.html", {"portfolioList":portfolioAssetList,"totalcost":totalcost})
 
 def homepage(request):
-    return render(request,"homepage.html")
+    portfolioAssetList=portfolioAsset.objects.all()
+    totalcost= 0
+    for asset in portfolioAssetList:
+        totalcost = totalcost + asset.TotalAsset
+    return render(request,"homepage.html", {"portfolioList":portfolioAssetList,"totalcost":totalcost})
 
 def news(request):
     return render(request,"news.html")

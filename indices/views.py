@@ -5,6 +5,7 @@ from django.template import RequestContext
 import datetime
 import pandas as pd
 
+
 #from pandas.plotting import scatter_matrix
 
 import scipy.stats as stats

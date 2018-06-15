@@ -18,8 +18,16 @@ def portfolio(portobj):
     port_val = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portobj.Portfolio_Name+'_Portfolio_Value.csv')
     bench_rets = pd.read_csv(root_path+'/Daily_Data/Benchmark/Benchmark_Returns.csv')
     bench_data = pd.read_csv(root_path+'/Daily_Data/Benchmark/Benchmark_Price_Data.csv')
-    bench_rets.columns = ['Return','Date']
-    bench_data.columns = ['Close','Date']
+    bench_rets.columns = ['Date','Return']
+    bench_data.columns = ['Date','Close']
+    bench_rets=bench_rets.set_index('Date')
+    bench_data=bench_data.set_index('Date')
+    port_rets=port_rets.set_index('Date')
+    port_data=port_data.set_index('Date')
+    print("######## inside portfolio port_rets #######")
+    print(port_rets)
+    print("######## inside portfolio bench_rets#######")
+    print(bench_rets)       
     return port_rets, bench_rets
 
     

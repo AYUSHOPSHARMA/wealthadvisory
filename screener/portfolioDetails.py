@@ -36,7 +36,7 @@ def getPortfolioList(request):
          #print(fundamentaldata)
          portfolioDetailobj.fundamentalDataList.append(fundamentaldata)    
          allportfolio.append(portfolioDetailobj)
-         generatereport.report.generateReport(portfolioobj)
+         #generatereport.report.generateReport(portfolioobj)
          date = str(dt.date.today())
          #print("################# FUNDAMENTAL############")
          #print(portfolioDetailobj.fundamentalDataList)

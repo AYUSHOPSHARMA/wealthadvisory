@@ -52,14 +52,19 @@ def portfoliodetail(portfolio,start_date):
             merged_data_frame = pd.merge(
                 merged_data_frame, data_frame, right_index=True, left_index=True, how='outer')
         i+=1
+    temp_data = merged_data_frame.iloc[:,0:len(merged_data_frame.columns)].apply(pd.to_numeric)
+    for column in temp_data.columns:
+        c = temp_data[column]
+        if c.isnull().all():
+            print ("WARNING:  The following symbol: '+str(column)+' has no timeseries data. This could be due to an invalid ticker, or an entry not supported by Quandl. \n You will not be able to proceed with any function in the script until all of the symbols provided are downloaded.")
+            sys.exit()
     allocations = []
     for tk in portfolio.Ticker_List:
         allocations.append(10)
     port_val = merged_data_frame * allocations
     port_val = port_val.fillna(port_val.mean())
-
-    port_val['Portfolio Value'] = port_val.sum(axis=1)
-    port_rets = port_val.pct_change()
+    port_val['Portfolio Value'] = port_val.astype(float).sum(axis=1,skipna=True,numeric_only=True)
+    port_rets = port_val.astype(float).pct_change()
     port_rets = port_rets.dropna(how='any')
     assets = port_val.tail(1)
     s = port_val.iloc[-1:, -1]
@@ -90,7 +95,8 @@ def benchmark(portfolio,port_rets,port_data,port_val,start_date):
     bench_data=pd.DataFrame(list(banchmarkData),columns=['Date','Close'])
     bench_rets = bench_data.iloc[::-1]
     bench_rets = bench_rets.dropna(how='any')
-    bench_rets['Close'] = bench_rets['Close'].astype(float).pct_change(1)
+    #bench_rets['Close'] = bench_rets['Close'].astype(float).pct_change(1)
+    bench_rets['Close'] = np.log(bench_rets['Close'].astype(float).shift(1)) - np.log(bench_rets['Close'].astype(float))
     bench_rets = bench_rets.dropna(how='any')
     
     bench_data.to_csv(root_path+'/Daily_Data/Benchmark/Benchmark_Price_Data.csv' ,index=False)
@@ -126,10 +132,10 @@ def portfolioBanchmark(portfolio,port_rets,port_data,port_val,bench_rets,bench_d
     fig.set_size_inches(11.7, 8.27)
     ax2 = ax.twinx()
     ax2.grid(None)
-    #print("########bench_d##########")
-    #print(bench_d)
-    #print("########port_data##########")
-    #print(port_data)
+    print("########bench_d##########")
+    print(bench_d)
+    print("########port_data##########")
+    print(port_data)
     lns1 = ax2.plot(bench_d, linestyle='-', color='#6aa527', label='Nifty50')
     lns2 = ax.plot(port_data, linestyle='-', color="white", label='Portfolio')  
     fig.add_axes(ax,ax2)              
@@ -138,11 +144,11 @@ def portfolioBanchmark(portfolio,port_rets,port_data,port_val,bench_rets,bench_d
     labs = [l.get_label() for l in lns]
     ax.legend(lns, labs, loc=0)
     ax.grid(linestyle='--', alpha=0.2)
-    #print(tkr.FuncFormatter(lambda x, p: format(int(x), ',')))
+    print(tkr.FuncFormatter(lambda x, p: format(int(x), ',')))
     ax.get_yaxis().set_major_formatter(tkr.FuncFormatter(lambda x, p: format(int(x), ',')))
 
         #Annotate Last Price
-    #print(json_serial(port_val.index[-1]))    
+    print(json_serial(port_val.index[-1]))    
     bbox_props = dict(boxstyle='round', fc='w', ec='k', lw=1)
     ax.annotate("{:0,.2f}".format(port_val["Portfolio Value"][-1]), (json_serial(port_val.index[-1]), port_val["Portfolio Value"][-1]),
                      xytext=(json_serial(port_val.index[-1]), port_val["Portfolio Value"][-1]), bbox=bbox_props)
@@ -159,11 +165,11 @@ def portfolioBanchmark(portfolio,port_rets,port_data,port_val,bench_rets,bench_d
 
 def correlData(pdata):
         cor = pdata.corr()
-        #print("########## cor ##########")
-        #print(cor)
+        print("########## cor ##########")
+        print(cor)
         data = cor.values
-        #print("########## data ##########")
-        #print(data)
+        print("########## data ##########")
+        print(data)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         fig.set_size_inches(11.7, 8.27)
@@ -184,13 +190,13 @@ def correlData(pdata):
 
         #plt.savefig(root_path + '/Figures/port_correl.png')
 
-        #call_name = inspect.stack()[1][3]
-        #print("call_name########")
-        #print(call_name)      
+        call_name = inspect.stack()[1][3]
+        print("call_name########")
+        print(call_name)      
 
         #if call_name != "diversification":
          #   plt.show()
-        #save_json(fig,"correlation.json")
+        save_json(fig,"correlation.json")
         return fig
 
 
@@ -205,10 +211,10 @@ def risk_return(port_rets):
         fig.set_size_inches(11.7, 8.27)
         ax = fig.add_subplot(1, 1, 1)
         t = x
-        #print("############x#############")
-        #print(x)
-        #print("############Y#############")
-        #print(y)
+        print("############x#############")
+        print(x)
+        print("############Y#############")
+        print(y)
         ax.scatter(x, y, c=t, cmap='jet')
 
         fmt = '%.2f%%'  # Format you want the ticks, e.g. '40%'
@@ -223,7 +229,7 @@ def risk_return(port_rets):
         plt.ylabel("Return", fontsize=10)
         plt.xticks(fontsize=8)
         plt.yticks(fontsize=8)
-        #save_json(fig,"risk_return.json")
+        save_json(fig,"risk_return.json")
         return fig
    
 def violin(port_rets,start_date):
@@ -250,15 +256,15 @@ def violin(port_rets,start_date):
         #ax.set_xlabel('')
         #ax.set_ylabel('')
         plt.title(title,fontsize=15)
-        #save_json(fig,"violation.json")
+        save_json(fig,"violation.json")
         return fig
         
 def box_plot(port_rets,group):
         port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
         port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
-        #print("############ port_rets['month'] #######")
-        #print(port_rets)
+        print("############ port_rets['month'] #######")
+        print(port_rets)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         if group == "day":
@@ -361,11 +367,11 @@ def min_var(portfolio,port_rets):
         fig, ax = plt.subplots()
         #print(results_frame)
 
-        #print ("-------------Max Sharpe Portfolio------------")
-        #print(max_sharpe_port)
-        #print ("\n")
-        #print ("-------------Minimum Variance Portfolio------------")
-        #print(min_vol_port)
+        print ("-------------Max Sharpe Portfolio------------")
+        print(max_sharpe_port)
+        print ("\n")
+        print ("-------------Minimum Variance Portfolio------------")
+        print(min_vol_port)
 
         plt.scatter(results_frame.stdev, results_frame.ret, c=results_frame.sharpe, cmap='plasma')
         plt.title('Efficient Froniter of a ' + str(len(symbols)) + ' Asset Portfolio', fontsize=14, fontweight='bold', y=1.02)

@@ -13,6 +13,7 @@ import portfoliooptimization.performance as performance
 from dateutil.relativedelta import relativedelta
 import portfoliooptimization.exposure as exposure
 import portfoliooptimization.metrics as metrics
+import matplotlib.pyplot as plt
 
 #RF Syntax: 6 MO, 2 YR etc.
 rate = '1 YR'
@@ -69,11 +70,16 @@ class rep():
         c = self.c
         logo = self.logo_path
         portobj= poobj
-        print("###########Company Type#########")
+        print("###########PERFORMANCE Company Type#########")
         print(portobj.Company_Type)
         #Get Data from module
         port_rets, bench_rets = performance.portfolio(portobj)
-
+        port_rets= port_rets.sort_index(axis=0,ascending=True)
+        bench_rets= bench_rets.sort_index(axis=0,ascending=True)
+        print("############# port_rets ######")
+        print(port_rets) 
+        print("############# bench_rets ######")
+        print(bench_rets) 
         #Header
         c.setFontSize(size=18)
         c.setFillColor(aColor=colors.cadetblue)
@@ -95,11 +101,12 @@ class rep():
         port_val = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+portobj.Portfolio_Name+'_Portfolio_Value.csv',index_col=0)
         bench_data = pd.read_csv(root_path+'/Daily_Data/Benchmark/Benchmark_Price_Data.csv' ,index_col=0)
         bench_data = bench_data.iloc[::-1]
-
+        bench_data= bench_data.sort_index(axis=0,ascending=True)
         port_val = port_val['Portfolio Value']
         port_val.index = pd.to_datetime(port_val.index)
         bench_data.index = pd.to_datetime(bench_data.index)
-
+        print("########port_val###########3")
+        print(port_val)      
         praw = "{0:.2f}%".format((port_val.iloc[-1] / port_val.iloc[0] - 1) * 100)
         pytd = "{0:.2f}%".format((port_val.iloc[-1] / float(port_val[port_val.index.isin(dates)]) - 1) * 100)
         braw = "{0:.2f}%".format((float(bench_data.iloc[-1]) / float(bench_data.iloc[0]) - 1) * 100)
@@ -115,7 +122,7 @@ class rep():
             prets.append("{0:.2f}%".format(pret * 100))
             bret = float(bench_data.iloc[bench_data.index.get_loc(month_add, method='nearest')]) / float(bench_data.iloc[0]) - 1
             brets.append("{0:.2f}%".format(bret * 100))
-
+        print(brets)
         #Labels for Asset Returns
         c.setFontSize(size=12)
         c.setFillColor(aColor=colors.black)
@@ -246,7 +253,7 @@ class rep():
 
         #Draw Sector Table
         df = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+poobj.Portfolio_Name+'_Industrial_Weights.csv')
-
+        
         if len(df) > 22:
             df = df[:22]
 
@@ -277,7 +284,16 @@ class rep():
         #draw table
         t.wrapOn(self.c, self.width, self.height)
         t.drawOn(c, x=72, y=x)
+        #c.drawImage(root_path + '/Figures/'+poobj.Portfolio_Name+'_ind_weight.png',x=72, y=200,width=250,height=350,preserveAspectRatio=1)
         c.showPage()
+        
+        plt.table(cellText=data,
+                      rowColours=None,
+                      colLabels=None,
+                      loc='bottom')
+        
+        figure=plt.gcf()
+        figure.savefig(root_path + '/Figures/'+poobj.Portfolio_Name+'_ind_weight.png')
         #Draw industry table
         #df = pd.read_csv(root_path+'/Daily Data/Portfolio/Asset Exposure.csv',index_col=0)
         #df.reset_index(level=0, inplace=True)

@@ -23,8 +23,9 @@ from keras.metrics import categorical_accuracy
 import random
 random.seed(42)
 import talib as ta
+from mpld3 import plugins
 
-def getSMAStrategy(request,company,begin):
+def getSMAStrategy(company,begin):
     # import cufflinks
     smafig = []
     plt.style.use('seaborn')
@@ -41,7 +42,7 @@ def getSMAStrategy(request,company,begin):
     print(st)
     print(ed)
     symbol= company+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close'])
     print(dataframe)
@@ -108,11 +109,11 @@ def getSMAStrategy(request,company,begin):
 
 
 def getStrategy(request):
-     smafig = getSMAStrategy(request,9)
-     bbbandGraph=view_indices_chart(request,"SBIN.NS",9)
+     #smafig = getSMAStrategy(9)
+     #bbbandGraph=view_indices_chart("SBIN.NS",9)
      return render(request,"stratergyOption.html",{"smadata":smafig,"bbbandGraph":bbbandGraph})
 
-def view_indices_chart(request,companyname,begin):
+def view_indices_chart(companyname,begin):
      #from pandas.plotting import scatter_matrix
 	#end = datetime.date(2018,5,5)
 	#begin = datetime.date(2017,1,1)
@@ -130,9 +131,10 @@ def view_indices_chart(request,companyname,begin):
     
     #data = pdr.get_data_yahoo(companyname,st,ed)
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Date','Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
-    dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
+    dataframe=pd.DataFrame(list(datanifty),columns=['Date','Close','Open','High','Low'])
+    dataframe=dataframe.set_index('Date')
     print(dataframe)
     data=dataframe.astype(float)
     print(data)
@@ -162,9 +164,9 @@ def view_indices_chart(request,companyname,begin):
         plt.figure(figsize=(500,500))
         graph =data.plot(y= ['Close','Open','High','Low'], title=companyname+' BBBANDS',figsize=(10,10),grid=True)
         fig_html = mpld3.fig_to_html(graph)
-    return fig_html
+    return fig_html , data
 
-def machineLearningChart(request,companyname,begin):
+def machineLearningChart(companyname,begin):
     
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
@@ -175,7 +177,7 @@ def machineLearningChart(request,companyname,begin):
     ed=end.strftime('%Y-%m-%d')
     
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
     print(dataframe)
@@ -278,7 +280,28 @@ def machineLearningChart(request,companyname,begin):
     fig_html = mpld3.fig_to_html(fig)
     return fig_html
 
-def rsiStretagy(request,companyname,begin):
+def rsiStretagy(companyname,begin):
+    css = """
+        table
+        {
+          border-collapse: collapse;
+        }
+        th
+        {
+          color: #ffffff;
+          background-color: #000000;
+        }
+        td
+        {
+          background-color: #cccccc;
+        }
+        table, th, td
+        {
+          font-family:Arial, Helvetica, sans-serif;
+          border: 1px solid black;
+          text-align: right;
+        }
+        """
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
 	#timestamp format and get apple stock.
@@ -287,21 +310,33 @@ def rsiStretagy(request,companyname,begin):
 
     ed=end.strftime('%Y-%m-%d')
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
-    print(dataframe)
+    labels = []
+    #for i in range(len(datanifty)):
+     #   label = dataframe.ix[[i], :].T
+      #  label.columns = ['Statistics']
+    # .to_html() is unicode; so make leading 'u' go away with str()
+      #  labels.append(str(label.to_html()))
+    #print("######### LABELS#######")    
+    #print(labels)
     data=dataframe.astype(float)
     #data = pdr.get_data_yahoo('RELIANCE.NS',st,ed)
     
     #RSI
     data['RSI_14'] = talib.RSI(np.asarray(data['Close']), 14)
-    graph=data.plot(y= ['RSI_14'], title=companyname+' RSI with 14 day cycle')
+    points=data.plot(y= ['RSI_14'], title=companyname+' RSI with 14 day cycle')
+    #tooltip = plugins.PointHTMLTooltip(points, labels,
+     #                              voffset=10, hoffset=10, css=css)
     graph = plt.gcf()
+   #plugins.connect(graph, tooltip)
+
+    
     fig_html = mpld3.fig_to_html(graph)
     return fig_html
     
-def emaStretagy(request,companyname,begin):
+def emaStretagy(companyname,begin):
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
 	#timestamp format and get apple stock.
@@ -310,7 +345,7 @@ def emaStretagy(request,companyname,begin):
 
     ed=end.strftime('%Y-%m-%d')
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
     print(dataframe)
@@ -324,7 +359,7 @@ def emaStretagy(request,companyname,begin):
     fig_html = mpld3.fig_to_html(graph)
     return fig_html
     
-def rocStretagy(request,companyname,begin):
+def rocStretagy(companyname,begin):
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
 	#timestamp format and get apple stock.
@@ -333,7 +368,7 @@ def rocStretagy(request,companyname,begin):
 
     ed=end.strftime('%Y-%m-%d')
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
     print(dataframe)
@@ -347,7 +382,7 @@ def rocStretagy(request,companyname,begin):
     fig_html = mpld3.fig_to_html(graph)
     return fig_html
     
-def macdStretagy(request,companyname,begin):
+def macdStretagy(companyname,begin):
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
 	#timestamp format and get apple stock.
@@ -356,7 +391,7 @@ def macdStretagy(request,companyname,begin):
 
     ed=end.strftime('%Y-%m-%d')
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
     print(dataframe)
@@ -371,7 +406,7 @@ def macdStretagy(request,companyname,begin):
     return fig_html
     
     
-def soStretagy(request,companyname,begin):
+def soStretagy(companyname,begin):
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
 	#timestamp format and get apple stock.
@@ -380,7 +415,7 @@ def soStretagy(request,companyname,begin):
 
     ed=end.strftime('%Y-%m-%d')
     symbol= companyname+".NS"
-    datanifty=nift50Indices.objects.filter(Ticker=symbol).values_list('Close','Open','High','Low')
+    datanifty=nift50Indices.objects.filter(Ticker=symbol,Date__gte=st).values_list('Close','Open','High','Low')
     #data = pdr.get_data_yahoo(company,st,ed)
     dataframe=pd.DataFrame(list(datanifty),columns=['Close','Open','High','Low'])
     print(dataframe)

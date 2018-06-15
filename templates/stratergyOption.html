@@ -217,6 +217,12 @@
             padding: 5px;
             border: 0px;
         }
+        .tableSt{
+            /*initially dialog box is hidden*/
+            border: 1;
+            border-radius: 10px;
+            background-color: #7c7d7e;
+        }
     </style>
     <style>
         .animateLeftRight {
@@ -442,19 +448,21 @@
         <div class="row">
             <div class="title_sec">
                 <div>
-                    <h5>
+                    <div style="margin-left: 92px;margin-top: 23px;font-size: larger;">
                         {% for field in strategyform %}
                             {{field.label}} {{field}}
                        {%endfor%}
                         <div id="submit_button" class="btn btn-success"
-                                style="margin-top: -7px;width: 196px;" onclick="change()">Apply Strategy
+                                style="margin-top: -7px;width: 196px;margin-left: 52px;" onclick="change()">Apply Strategy
                         </div>
-                    </h5>
+                    </div>
                 </div>
 
                 <div><h5></h5></div>
 
             </div>
+           </div>
+    </form> 
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="sngl_blg" style="background-color: #ffff;border: 1px solid black;">
                     <table class="grid styled">
@@ -463,6 +471,7 @@
                             <th style="padding-left: 10px;">ID</th>
                             <th style="text-align: center;">Strategy</th>
                             <th style="text-align: center;">Markets Traded</th>
+                            <th style="padding-left: 1em;text-align: center;">Volatility</th>
                             <th style="padding-left: 1em;text-align: center;">Returns on strategy</th>
                             <th style="padding-left: 0em;text-align: center;" >Keywords</th>
                             <th style="padding-left: 3em;text-align: left;">Live Trading</th>
@@ -476,6 +485,7 @@
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Moving Average Comparing strategy</td>
                             <td>equities</td>
+                            <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -510,6 +520,7 @@
                             <td style="padding-left: 10px;padding-right: 10px;">2</td>
                             <td style="color:#337ab7;padding-left: 1em;">Bollinger Band Strategy</td>
                             <td>equities</td>
+                            <td></td>
                             <td style="padding-left: 1em;">9.60%*</td>
                             <td>momentum, asset class picking, rotational system</td>
                             <td style="padding-left: 1em;">
@@ -539,10 +550,11 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr id="1" style>
+                        <tr id="3" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Relative Strength Index Strategy</td>
                             <td>equities</td>
+                             <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -573,10 +585,11 @@
                             </td>
 
                         </tr>
-                        <tr id="1" style>
+                        <tr id="4" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Machine Learning Strategy</td>
                             <td>equities</td>
+                             <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -607,10 +620,11 @@
                             </td>
 
                         </tr>
-                        <tr id="1" style>
+                        <tr id="5" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Exponetial moving average Strategy</td>
                             <td>equities</td>
+                             <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -641,10 +655,11 @@
                             </td>
 
                         </tr>
-                        <tr id="1" style>
+                        <tr id="6" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Rate of change Strategy</td>
                             <td>equities</td>
+                             <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -675,10 +690,11 @@
                             </td>
 
                         </tr>
-                        <tr id="1" style>
+                        <tr id="7" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Moving Average Crossover Divergence Strategy</td>
                             <td>equities</td>
+                             <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -709,10 +725,11 @@
                             </td>
 
                         </tr>
-                        <tr id="1" style>
+                        <tr id="8" style>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Stochastic Oscillator Strategy</td>
                             <td>equities</td>
+                             <td></td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -760,6 +777,25 @@
                     <div id="dlgboxBE">
                         <div class="dlg-header">Find the graphs below using Bollinger Band Strategy strategy on {{company}}</div>
                         <div class="dlg-body">{{bbbandGraph|safe|escape}}</div>
+                         <div id="screener-content">
+                        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td width="100%"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table border="1" width="100%" cellspacing="1" cellpadding="3">
+                                        <tbody>
+                                             {{indicesdata|safe|escape}}
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                         <div class="dlg-footer">
                             <div class="btn btn-success" onclick="dlgCancel('BE')">Cancel</div>
                         </div>
@@ -769,7 +805,7 @@
                     <div id="dlgboxRSI">
                         <div class="dlg-header">Find the graphs below using Relative Strength Index strategy on {{company}}</div>
                         <div class="dlg-body">{{rsiStretagyGraph|safe|escape}}</div>
-                        <div class="dlg-footer">
+                                                <div class="dlg-footer">
                             <div class="btn btn-success" onclick="dlgCancel('RSI')">Cancel</div>
                         </div>
                     </div>
