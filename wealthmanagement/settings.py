@@ -139,6 +139,7 @@ STATICFILES_DIRS = [
     '/static/css1',
     '/static/img1',
     '/static/js2',
+    '/static/homepageslide',
 ]
 
 CACHES = {
