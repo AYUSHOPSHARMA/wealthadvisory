@@ -283,9 +283,9 @@
         <h3 class="w3ls-title">
             <span>P</span>ortfolios</h3>
         <div class="row" style="background-color: #E6E6E6;">
-            <div id="myBtnContainer">
+            <div id="myBtnContainer" style="margin-left: 69px">
                 {% for portfolio in portfolioList %}
-                <button class="btn  {%if forloop.first %} active{%endif%}"
+                <button class="btn  {%if forloop.first %} active{%endif%}" style="margin-left: 20px"
                         onclick="filterSelection('{{portfolio.Portfolio_Name}}')">{{portfolio.Portfolio_Name}}
                 </button>
                 {%endfor%}
@@ -293,7 +293,7 @@
             <!-- Portfolio Gallery Grid -->
             <div class="row">
                 {% for portfolio in portfolioList %}
-                <div class="column {{portfolio.Portfolio_Name}} {%if forloop.first %} show {%endif%}">
+                <div class="column {{portfolio.Portfolio_Name}} {%if forloop.first %} show {%endif%}" style="background-color: white;">
                     <div class="content">
                         <!-- <img src="/w3images/mountains.jpg" alt="Mountains" style="width:100%">-->
                         <h1 style="padding-left:10px">{{portfolio.Portfolio_Name}}</h1>
