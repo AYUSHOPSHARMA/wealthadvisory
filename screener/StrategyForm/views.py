@@ -31,7 +31,7 @@ def strategy(request):
             indicesdata.columns = ['UpperBand','MiddleBand','LowerBand','Close','Buy','Sell']
             print("##########3INDICES DATA###########3")
             print(indicesdata)      
-            return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"bbbandGraph":bbbandGraph,"rsiStretagyGraph":rsiStretagyGraph,"emaStretagyGraph":emaStretagyGraph,"rocStretagyGraph":rocStretagyGraph,"macdStretagyGraph":macdStretagyGraph,"soStretagyGraph":soStretagyGraph,"indicesdata":indicesdata.to_html(bold_rows=True,index=False,index_names=False,colSpace=125,col_space=125,bold_rows=False,classes='tableSt')})
+            return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"bbbandGraph":bbbandGraph,"rsiStretagyGraph":rsiStretagyGraph,"emaStretagyGraph":emaStretagyGraph,"rocStretagyGraph":rocStretagyGraph,"macdStretagyGraph":macdStretagyGraph,"soStretagyGraph":soStretagyGraph,"indicesdata":indicesdata.to_html(bold_rows=True,index=False)})
     else:
         form= strategy_form()
         print("inside form")
