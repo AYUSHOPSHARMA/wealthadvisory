@@ -17,6 +17,9 @@ resultcorrheatmap<!doctype html>
             box-sizing: border-box;
         }
 
+       table, th, td {
+       text-align: left !important;
+       }
         body {
             background-color: #f1f1f1;
             /*padding: 20px;*/
@@ -405,44 +408,41 @@ resultcorrheatmap<!doctype html>
                             </tr>
 
                             {%endfor%}
-
-                            {%endfor%}
-
-                            </tbody>
-
-                        </table>
-
-                        <!--pLEAE FIND THE FUNDAMENTAL DATA VALUES HERE-->
-                        <div style="margin-top: 30px;font-size: large"> Please find the values you selected on Fundamental screen while making above portfolio :</div>
-                        <table border="0" width="100%" cellspacing="1" cellpadding="3" style="margin-top: 20px;">
+                            
+                            <tr>
+                               
+                        <table border="0" width="100%" cellspacing="1" cellpadding="3" style="margin-top: 20px;text-align: center;">
                             <tbody>
+                            <tr>
+                             <div style="margin-top: 30px;font-size: large"> Please find the values you selected on Fundamental screen while making above portfolio :</div>
+                            </tr>
                             <tr style="border: 1px solid black;">
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">CompanyType
                                 </td>
-                                <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: #FFFF00;">
+                                     {{portfolio.portfolioobj.Company_Type}}
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Trailing P E
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Trailing_P_E}}
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Forward P E
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Forward_P_E}}
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Beta
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Beta}}
                                 </td>
                             </tr>
                             <tr>
@@ -452,106 +452,99 @@ resultcorrheatmap<!doctype html>
                                     PEG
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.PEG}}
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     P/S
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.PS}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     P/B
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.PB}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Price/Cash
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Price_Cash}}
                                 </td>
                             </tr>
                             <tr>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
-                                    Price
+                                    Price Cash Flow
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
-                                </td>
-                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
-                                    Cash Flow
-                                </td>
-
-                                <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Price_Free_Cash_Flow}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     EPS growth this year
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.EPS_growth_this_year}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Return on Assets
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Return_on_Assets}}
                                 </td>
-
-                            </tr>
-
-                            <tr>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Return on Equity
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Return_on_Equity}}
                                 </td>
+                            </tr>
+
+                            <tr>
+                                
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Current Ratio
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Current_Ratio}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Quick Ratio
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Quick_Ratio}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Lt Debt Equity
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Lt_Debt_Equity}}
                                 </td>
-
-                            </tr>
-
-                            <tr>
-                                <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
+                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Debt Equity
                                 </td>
 
-                                <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                <td style="padding-left: 16px;border: 1px solid black;background-color: #FFFF00;">
+                                     Equal(0)
                                 </td>
+                            </tr>
+
+                            <tr>
+                               
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Gross Margin
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Gross_Margin}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Net Profit Margin
@@ -559,37 +552,47 @@ resultcorrheatmap<!doctype html>
 
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Net_Profit_Margin}}
                                 </td>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Payout Ratio
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Payout_Ratio}}
                                 </td>
-
-                            </tr>
-                            <tr>
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Insider Ownership
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Insider_Ownership}}
                                 </td>
+
+                            </tr>
+                            <tr>
+                                
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: white;">
                                     Institutional Ownership
                                 </td>
 
                                 <td style="padding-left: 16px;border: 1px solid black;background-color: #f4f4f4;">
-                                    {VALUE}
+                                     {{portfolio.portfolioobj.Institutional_Ownership}}
                                 </td>
                             </tr>
                             </tbody>
 
                         </table>
+                            
+                            </tr>
 
+                            {%endfor%}
+
+                            </tbody>
+
+                        </table>
+
+                        <!--pLEAE FIND THE FUNDAMENTAL DATA VALUES HERE-->
                        <!-- PLEASE FIND GRAPH VALUE HERE -->
 
                         <table border="0" width="100%" cellspacing="1" cellpadding="3">

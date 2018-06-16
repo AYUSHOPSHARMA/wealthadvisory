@@ -465,6 +465,7 @@ class portfolioDetail(Document):
         Volume = LongField(required=False)
         Company_Name = StringField(max_length=100,required=False)
         fundamentalDataList=ListField()
+        portfolioobj = portfolio()
         
 class niftBanchMarkIndices(Document):
         Date = DateTimeField(default=datetime.datetime.utcnow)
