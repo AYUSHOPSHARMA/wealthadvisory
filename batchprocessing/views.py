@@ -7,6 +7,8 @@ from django.http import HttpResponse
 import screener.views as fdview
 import batchprocessing.fundamentaldata as fdt
 
+from mongoengine import *
+
 # Create your views here.
 def top50FundamentalData(request,companyType):
     limitQuery(request,0,50,companyType)
@@ -90,9 +92,31 @@ def createPortfolio(request):
     portfolioobj.save()
     return HttpResponse("Portfolio Created")
 
-def savePortfolio(tickerList,Portfolio_Name,companyType):
+def savePortfolio(tickerList,Portfolio_Name,companyType,fundamental_form):
+     print("#########inside Save Portfolio Method########")
+     print(tickerList)      
      portfolioobj = portfolio()
      portfolioobj.Portfolio_Name = Portfolio_Name
      portfolioobj.Company_Type = companyType
      portfolioobj.Ticker_List = tickerList
+     portfolioobj.Trailing_P_E=fundamental_form['Trailing_P_E'].value()
+     portfolioobj.Forward_P_E=fundamental_form['Forward_P_E'].value()
+     portfolioobj.Beta=fundamental_form['Beta'].value()
+     portfolioobj.PEG=fundamental_form['PEG'].value()
+     portfolioobj.PS=fundamental_form['PS'].value()
+     portfolioobj.PB=fundamental_form['PB'].value()
+     portfolioobj.Price_Cash=fundamental_form['Price_Cash'].value()
+     portfolioobj.Price_Free_Cash_Flow=fundamental_form['Price_Free_Cash_Flow'].value()
+     portfolioobj.EPS_growth_this_year=fundamental_form['EPS_growth_this_year'].value()
+     portfolioobj.Return_on_Assets=fundamental_form['Return_on_Assets'].value()
+     portfolioobj.Return_on_Equity=fundamental_form['Return_on_Equity'].value()
+     portfolioobj.Current_Ratio=fundamental_form['Current_Ratio'].value()
+     portfolioobj.Quick_Ratio=fundamental_form['Quick_Ratio'].value()
+     portfolioobj.Lt_Debt_Equity=fundamental_form['Lt_Debt_Equity'].value()
+     portfolioobj.Debt_Equity=fundamental_form['Debt_Equity'].value()
+     portfolioobj.Gross_Margin=fundamental_form['Gross_Margin'].value()
+     portfolioobj.Net_Profit_Margin=fundamental_form['Net_Profit_Margin'].value()
+     portfolioobj.Payout_Ratio=fundamental_form['Payout_Ratio'].value()
+     portfolioobj.Insider_Ownership=fundamental_form['Insider_Ownership'].value()
+     portfolioobj.Institutional_Ownership=fundamental_form['Institutional_Ownership'].value()
      portfolioobj.save()

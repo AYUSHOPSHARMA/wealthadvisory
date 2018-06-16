@@ -25,5 +25,6 @@ class report():
         print(poobj.Company_Type)
         reportObj.perf(poobj)
         reportObj.diversification(poobj)
+        reportObj.exposurePieChart(poobj)
         reportObj.mets(poobj)
         reportObj.savePDF()

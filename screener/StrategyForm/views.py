@@ -21,7 +21,7 @@ def strategy(request):
         if form.is_valid():
             smafig = strategylogic.getSMAStrategy(company,backdate)
             bbbandGraph, indicesdata=strategylogic.view_indices_chart(company,backdate)
-            #machineLearningGraph=strategylogic.machineLearningChart(company,backdate)
+            machineLearningGraph=strategylogic.machineLearningChart(company,backdate)
             rsiStretagyGraph=strategylogic.rsiStretagy(company,backdate)
             emaStretagyGraph=strategylogic.emaStretagy(company,backdate)
             rocStretagyGraph=strategylogic.rocStretagy(company,backdate)
@@ -31,7 +31,7 @@ def strategy(request):
             indicesdata.columns = ['UpperBand','MiddleBand','LowerBand','Close','Buy','Sell']
             print("##########3INDICES DATA###########3")
             print(indicesdata)      
-            return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"bbbandGraph":bbbandGraph,"rsiStretagyGraph":rsiStretagyGraph,"emaStretagyGraph":emaStretagyGraph,"rocStretagyGraph":rocStretagyGraph,"macdStretagyGraph":macdStretagyGraph,"soStretagyGraph":soStretagyGraph,"indicesdata":indicesdata.to_html(bold_rows=True,index=False)})
+            return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"bbbandGraph":bbbandGraph,"rsiStretagyGraph":rsiStretagyGraph,"emaStretagyGraph":emaStretagyGraph,"rocStretagyGraph":rocStretagyGraph,"macdStretagyGraph":macdStretagyGraph,"soStretagyGraph":soStretagyGraph,"machineLearningGraph":machineLearningGraph,"indicesdata":indicesdata.to_html(bold_rows=True,index=False)})
     else:
         form= strategy_form()
         print("inside form")

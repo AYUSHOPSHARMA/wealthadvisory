@@ -229,7 +229,12 @@ class rep():
         t.drawOn(c, x=635, y=x)
 
         c.showPage()
-
+    def exposurePieChart(self,poobj):
+        c = self.c
+        exposure.info(poobj)
+        c.drawImage(root_path + '/Figures/'+poobj.Portfolio_Name+'_ind_pie.png',x=372, y=200,width=250,height=350,preserveAspectRatio=1)
+        c.showPage()
+        
     def diversification(self,poobj):
         c = self.c
         logo = self.logo_path
@@ -249,7 +254,7 @@ class rep():
         c.drawImage(root_path + '/Figures/'+poobj.Portfolio_Name+'_port_correl.png',x=72, y=200,width=250,height=350,preserveAspectRatio=1)
 
         #Get exposure plots/data
-        exposure.info(poobj)
+        #exposure.info(poobj)
 
         #Draw Sector Table
         df = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+poobj.Portfolio_Name+'_Industrial_Weights.csv')
@@ -285,7 +290,6 @@ class rep():
         t.wrapOn(self.c, self.width, self.height)
         t.drawOn(c, x=72, y=x)
         #c.drawImage(root_path + '/Figures/'+poobj.Portfolio_Name+'_ind_weight.png',x=72, y=200,width=250,height=350,preserveAspectRatio=1)
-        c.showPage()
         
         plt.table(cellText=data,
                       rowColours=None,
@@ -424,7 +428,6 @@ class rep():
 
         t.wrapOn(self.c, self.width, self.height)
         t.drawOn(c, x=72, y=x)
-
         c.showPage()
  
 

@@ -30,11 +30,13 @@
     function Onclick(d) {
         if(d == "Yes") {
             var whitebg = document.getElementById("submit_button");
+            document.getElementById("submitvalue").value = "True"
             whitebg.name = "submit_button";
             document.getElementById("portfolioform").submit();
         } else{
             var whitebg = document.getElementById("white-background");
             var dlg = document.getElementById("dlgbox");
+            document.getElementById("submitvalue").value = "False"
             whitebg.style.display = "none";
             dlg.style.display = "none";
         }
@@ -151,7 +153,8 @@
 
                         <div id="submit_button" class="btn btn-success"
                                 style="float:right;margin-top: -7px;width: 196px;" onclick="showDialog()">Submit portfolio
-                        </div>
+                           <input type="hidden" id="submitvalue" name="submitvalue" value="False">
+                        </div> 
                     </tr>
                 </table>
                 <br/>

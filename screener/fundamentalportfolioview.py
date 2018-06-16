@@ -44,11 +44,12 @@ def fundamentalportfolio(request):
            print("########SAVE#########")
            tickerList = getTicker(form,result)
            print("##############submitvalue#############")
-           if request.POST.get("submit_button"):
+           print(request.POST.get("submitvalue"))
+           if request.POST.get("submitvalue")== "True":
                Portfolio_Name = request.POST.get("Portfolio_Name")
-               print("############Portfolio_Name#######")
+               print("############ Saving Portfolio_Name#######")
                print(Portfolio_Name)      
-               batchprocessingview.savePortfolio(tickerList,Portfolio_Name,companyType)
+               batchprocessingview.savePortfolio(tickerList,Portfolio_Name,companyType,form)
            ##form.save()
            print("################DATA SAVED#############")
            return render(request,"fundamentalportfolio.html",{"fundamentalportfolioform":form,"list":result})
@@ -304,8 +305,6 @@ def getTicker(form,result):
     tickerList=[]
     for element in result:
         tickerList.append(element.Ticker)
-    print(tickerList)
-    print(str(tickerList))
-    return str(tickerList)
+    return tickerList
     
 

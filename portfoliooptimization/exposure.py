@@ -36,6 +36,7 @@ def info(portfolioobj):
        dat1.columns = ["Industry", "Weight"]
        t = dat1.groupby(["Industry"]).sum()
        t.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolioobj.Portfolio_Name+'_Industrial_Weights.csv', index=True)
+       fig= plt.figure()
        plt.pie(
         t["Weight"],
         labels=t.index,
@@ -46,7 +47,7 @@ def info(portfolioobj):
 
        plt.axis('equal')
        plt.suptitle('Industrial Weights')
-       plt.savefig(root_path + '/Figures/sec_ind.png')
+       fig.savefig(root_path + '/Figures/'+portfolioobj.Portfolio_Name+'_ind_pie.png')
 
        call_name = inspect.stack()[1][3]
 
