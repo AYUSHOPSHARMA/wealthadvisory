@@ -456,15 +456,17 @@
 
             </div>
            </div>
-    </form> 
+
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="sngl_blg" style="background-color: #ffff;border: 1px solid black;">
                     <table class="grid styled">
                         <thead>
                         <tr>
+                            <th style="padding-left: 5px;">Select</th>
                             <th style="padding-left: 10px;">ID</th>
                             <th style="text-align: center;">Strategy</th>
                             <th style="text-align: center;">Markets Traded</th>
+                            <th style="text-align: center;">Volatility</th>
                             <th style="padding-left: 1em;text-align: center;">Returns on strategy</th>
                             <th style="padding-left: 0em;text-align: center;" >Keywords</th>
                             <th style="padding-left: 3em;text-align: left;">Live Trading</th>
@@ -475,10 +477,13 @@
                         </thead>
                         <tbody>
                         <tr id="1" style>
+                            <td><input type="radio" name="inputRadio" value="MAS"></td>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Comparing strategy</td>
+                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
+
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
                                 <details>
@@ -509,9 +514,11 @@
 
                         </tr>
                         <tr id="2" class="gridrow_alternate">
+                            <td><input type="radio" name="inputRadio" value="BBS"></td>
                             <td style="padding-left: 10px;padding-right: 10px;">2</td>
                             <td style="color:#337ab7;padding-left: 1em;">Bollinger Band Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">9.60%*</td>
                             <td>momentum, asset class picking, rotational system</td>
                             <td style="padding-left: 1em;">
@@ -542,9 +549,11 @@
                             </td>
                         </tr>
                         <tr id="3" style>
-                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td><input type="radio" name="inputRadio" value="RSI"></td>
+                            <td style="padding-left: 10px;padding-right: 10px;">3</td>
                             <td style="color:#337ab7;padding-left: 1em;">Relative Strength Index Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -576,9 +585,11 @@
 
                         </tr>
                         <tr id="4" style>
-                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td><input type="radio" name="inputRadio" value="MLS"></td>
+                            <td style="padding-left: 10px;padding-right: 10px;">4</td>
                             <td style="color:#337ab7;padding-left: 1em;">Machine Learning Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -610,9 +621,11 @@
 
                         </tr>
                         <tr id="5" style>
-                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td><input type="radio" name="inputRadio" value="EMA"></td>
+                            <td style="padding-left: 10px;padding-right: 10px;">5</td>
                             <td style="color:#337ab7;padding-left: 1em;">Exponetial moving average Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -644,9 +657,11 @@
 
                         </tr>
                         <tr id="6" style>
-                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td><input type="radio" name="inputRadio" value="ROC"></td>
+                            <td style="padding-left: 10px;padding-right: 10px;">6</td>
                             <td style="color:#337ab7;padding-left: 1em;">Rate of change Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -678,9 +693,11 @@
 
                         </tr>
                         <tr id="7" style>
-                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td><input type="radio" name="inputRadio" value="MACD"></td>
+                            <td style="padding-left: 10px;padding-right: 10px;">7</td>
                             <td style="color:#337ab7;padding-left: 1em;">Moving Average Crossover Divergence Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -712,9 +729,11 @@
 
                         </tr>
                         <tr id="8" style>
-                            <td style="padding-left: 10px;padding-right: 10px;">1</td>
+                            <td><input type="radio" name="inputRadio" value="SOS"></td>
+                            <td style="padding-left: 10px;padding-right: 10px;">8</td>
                             <td style="color:#337ab7;padding-left: 1em;">Stochastic Oscillator Strategy</td>
                             <td>equities</td>
+                            <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
                             <td>momentum, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
@@ -747,7 +766,8 @@
                         </tr>
                         </tbody>
                     </table>
-                    <!-- The Modal -->
+</form>
+<!-- The Modal -->
                     <div id="white-backgroundM">
                     </div>
                     <div id="dlgboxMSA">
