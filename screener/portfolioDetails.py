@@ -11,6 +11,7 @@ import datetime as dt
 def getPortfolioDetails(request):
     return render(request,"portfolio.html")
 
+
 def getPortfolioList(request):
      portfolioList=portfolio.objects.all() #.filter(Portfolio_Name='Nifty50_Zero_Debt_Equity')
      allportfolio= []
@@ -20,6 +21,15 @@ def getPortfolioList(request):
          portfolioDetailobj.Portfolio_Name=  portfolioobj.Portfolio_Name
          portfolioDetailobj.Company_Type=  portfolioobj.Company_Type
          portfolioDetailobj.Ticker_List =  portfolioobj.Ticker_List
+         if portfolioobj.Trailing_P_E != "Any":
+                     if isLE(portfolioobj.Trailing_P_E):
+                         value = comparewithValue(portfolioobj.Trailing_P_E)
+                         print("Returning Trailing PE LT")
+                         portfolioobj.Trailing_P_E = "Under" + value
+                     elif isGT(portfolioobj.Trailing_P_E):
+                         value = comparewithValue(portfolioobj.Trailing_P_E)
+                         print("Returning Trailing PE GT")
+                         portfolioobj.Trailing_P_E = "Over" + value
          #num_portfolios = 25000
          portfolioDetailobj = dataportfolio.optimizePortfolio(portfolioDetailobj,begin)
          if portfolioobj.Company_Type =="nifty50":
@@ -49,6 +59,30 @@ def getPortfolioList(request):
          #result_violin_HTML = fig_to_html(dataportfolio.violin(portfolio,begin))
      return render(request,"portfolioList.html", {"portfolioList":allportfolio,"date":date})
     
-    
+def comparewithValue(field):
+    print("Field valueee#########")
+    print(field.value())
+    if  "_" in field.value():
+        print("INSIDE IF FIND###############")
+        splitedvalue=field.value().split("_")
+        if is_number_tryexcept(splitedvalue[1]) == True:
+            return float(splitedvalue[1])
+        else:
+             return float(1000)
+    return float(1000)
+
+def isLE(field):
+    print("###########CHECKING LT##########")
+    if  "lt_" in field.value():
+        return True
+    else:
+        return False
+
+def isGT(field):
+    print("###########CHECKING GT##########")
+    if "gt_" in field.value():
+        return True;
+    else:
+        return False
     
 
