@@ -19,20 +19,25 @@ def strategy(request):
         print(backdate)
         print(company)
         if form.is_valid():
-            smafig = strategylogic.getSMAStrategy(company,backdate)
-            bbbandGraph, indicesdata=strategylogic.view_indices_chart(company,backdate)
-            machineLearningGraph=strategylogic.machineLearningChart(company,backdate)
-            rsiStretagyGraph=strategylogic.rsiStretagy(company,backdate)
-            emaStretagyGraph=strategylogic.emaStretagy(company,backdate)
-            rocStretagyGraph=strategylogic.rocStretagy(company,backdate)
-            macdStretagyGraph=strategylogic.macdStretagy(company,backdate)
-            soStretagyGraph=strategylogic.soStretagy(company,backdate)
-            indicesdata=indicesdata.dropna(how='any')
-            indicesdata.columns = ['UpperBand','MiddleBand','LowerBand','Close','Buy','Sell']
-            print("##########3INDICES DATA###########3")
-            print(indicesdata)      
-            return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"bbbandGraph":bbbandGraph,"rsiStretagyGraph":rsiStretagyGraph,"emaStretagyGraph":emaStretagyGraph,"rocStretagyGraph":rocStretagyGraph,"macdStretagyGraph":macdStretagyGraph,"soStretagyGraph":soStretagyGraph,"machineLearningGraph":machineLearningGraph,"indicesdata":indicesdata.to_html(bold_rows=True,index=False)})
+            submitvalue= request.POST.get("submitvalue")
+            print(submitvalue)
+            if submitvalue == "MSARd":
+                smafig = strategylogic.getSMAStrategy(company,backdate)
+                return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"submitvalue":submitvalue})
+            elif submitvalue == "BBSRd":
+                bbbandGraph=strategylogic.view_indices_chart(company,backdate)
+                return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"submitvalue":submitvalue,"bbbandGraph":bbbandGraph})
+            elif submitvalue == "MLSRd":
+                machineLearningGraph=strategylogic.machineLearningChart(company,backdate)
+                return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"submitvalue":submitvalue,"machineLearningGraph":machineLearningGraph})
+            elif submitvalue == "RSIRd":
+                rsiStretagyGraph=strategylogic.rsiStretagy(company,backdate)
+                return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"submitvalue":submitvalue,"rsiStretagyGraph":rsiStretagyGraph})
+            #indicesdata.columns = ['UpperBand','MiddleBand','LowerBand','Close','Buy','Sell']
+            #print("##########3INDICES DATA###########3")
+            #print(indicesdata)      
+            #return render(request,"stratergyOption.html",{"strategyform":form,"company":company,"date":backdate,"smadata":smafig,"bbbandGraph":bbbandGraph,"rsiStretagyGraph":rsiStretagyGraph,"emaStretagyGraph":emaStretagyGraph,"rocStretagyGraph":rocStretagyGraph,"macdStretagyGraph":macdStretagyGraph,"soStretagyGraph":soStretagyGraph,"indicesdata":indicesdata.to_html(bold_rows=True,index=False)})
     else:
         form= strategy_form()
         print("inside form")
-    return render(request,"stratergyOption.html",{"strategyform":form})
+    return render(request,"stratergyOption.html",{"strategyform":form,"submitvalue":"MSARd"})

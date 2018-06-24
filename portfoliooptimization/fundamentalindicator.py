@@ -13,7 +13,9 @@ st=begin.strftime('%Y-%m-%d')
 ed=end.strftime('%Y-%m-%d')
 yf.pdr_override() # <== that's all it takes :-)
  
-data = pdr.get_data_yahoo('RELIANCE.NS',st,ed)
+data = pdr.get_data_yahoo('F00000V4O0.BO',st,ed)
+print("#########3Mutual Fund Data##########3")
+print(data)
 
 #SIMPLE MOVING AVERAGE
 data['SMA_20'] = talib.SMA(np.asarray(data['Close']), 20)

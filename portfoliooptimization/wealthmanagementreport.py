@@ -254,7 +254,7 @@ class rep():
         c.drawImage(root_path + '/Figures/'+poobj.Portfolio_Name+'_port_correl.png',x=72, y=200,width=250,height=350,preserveAspectRatio=1)
 
         #Get exposure plots/data
-        #exposure.info(poobj)
+        exposure.info(poobj)
 
         #Draw Sector Table
         df = pd.read_csv(root_path+'/Daily_Data/Portfolio/'+poobj.Portfolio_Name+'_Industrial_Weights.csv')

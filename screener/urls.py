@@ -19,19 +19,22 @@ from screener import views, fundamentaldataView,portfolio,fundamentalportfoliovi
 from django.views.decorators.cache import cache_page
 from screener.FundamentalPortfolioForm import views as fundamentalview
 from screener.StrategyForm import views as strategyview
+from screener.MutualFund import views as mutualfundview
 
 urlpatterns = [
          path('fundamentalData/<str:ticker>/', views.getfundamentalData),
          path('staticVR/VR/', views.getStaticVr),
          path('fundamentalDataHome/', views.fundamentalDataHome),
          #re_path(r'^fundamentalDataHome/*', fundamentaldataView.fundamentalDataHome),
-         path('portfolioOptimization/', cache_page(60 * 15)(portfolio.getPortfolioChart)),
-         path('portfolio/', cache_page(60 * 15)(portfolio.getportfolio)),
-         path('portfolioPDF/', cache_page(60 * 15)(portfolio.getportfolioPDF)),
+         path('portfolioOptimization/', portfolio.getPortfolioChart),
+         path('portfolio/', portfolio.getportfolio),
+         path('portfolioPDF/', portfolio.getportfolioPDF),
          path('downloadPortfolioPDF/', portfolio.downloadPortfolioPDF),
          path('fundamentalportfolio/', fundamentalportfolioview.fundamentalportfolio),
          path('portfoliodetails/', portfolioDetails.getPortfolioDetails),
          path('portfoliolist/', portfolioDetails.getPortfolioList),
-         path('strategy/', strategy.getStrategy),
+         #path('strategy/', strategy.getStrategy),
          path('inteligentstrategy/', strategyview.strategy),
+         path('mutualfund/', mutualfundview.mutualfund),
+          path('mutualfundajax/', mutualfundview.loadSchemeNames),
 ]

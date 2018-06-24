@@ -54,6 +54,6 @@ if __name__ == '__main__':
     #r.savePDF()
    # plots.correl()
    
-portfolioList= portfolio.objects.all()
-for poobj in portfolioList:
-    generatereport.report.generateReport(poobj)
+#portfolioList= portfolio.objects.all()
+#for poobj in portfolioList:
+#    generatereport.report.generateReport(poobj)

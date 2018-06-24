@@ -23,7 +23,24 @@ import datetime
 
 # Create your views here.
 def top50IndicesData(request,companyType):
-    limitQuery(request,30,40,companyType)
+    limitQuery(request,1,3,companyType)
+    limitQuery(request,4,6,companyType)
+    limitQuery(request,7,9,companyType)
+    limitQuery(request,10,12,companyType)
+    limitQuery(request,13,15,companyType)
+    limitQuery(request,16,18,companyType)
+    limitQuery(request,19,21,companyType)
+    limitQuery(request,22,24,companyType)
+    limitQuery(request,25,27,companyType)
+    limitQuery(request,28,30,companyType)
+    limitQuery(request,31,33,companyType)
+    limitQuery(request,34,36,companyType)
+    limitQuery(request,37,39,companyType)
+    limitQuery(request,40,42,companyType)
+    limitQuery(request,43,45,companyType)
+    limitQuery(request,46,48,companyType)
+    limitQuery(request,49,50,companyType)
+    
     
 
 def top100IndicesData(request,companyType):
@@ -76,7 +93,7 @@ def limitQuery(request,start,limit,companyType):
          result =[]
          result.append("%5Ensei")
      now= datetime.datetime.now().strftime("%Y-%m-%d")    
-     begin = datetime.date(2016,1,1)
+     begin = datetime.date(2013,1,1)
      #timestamp format and get apple stock.
      st=begin.strftime('%Y-%m-%d')
      ed=now

@@ -9,7 +9,6 @@ from mpld3._display import display_d3,fig_to_html,save_json
 import io
 import portfoliooptimization.dataportfolio as dataportfolio
 
-@cache_page(60 * 15)
 def getportfolio(request):
     stocks = ['AAPL','AMZN','MSFT','ACC']
     end = datetime.date(2018,5,27)
@@ -31,11 +30,9 @@ def getportfolio(request):
     
     return render(request,"portfolio.html",{"data":result_HTML,"result_corr_HTML":result_corr_HTML,"result_riskreturn_HTML":result_riskreturn_HTML,"result_violin_HTML":result_violin_HTML})
 
-@cache_page(60 * 15)
 def getportfolioPDF(request):
     return render(request,"portfolioPDF.html")
 
-@cache_page(60 * 15)
 def getPortfolioChart(request):
     stocks = ['AAPL','AMZN','MSFT','ACC']
     end = datetime.date(2018,5,27)

@@ -21,15 +21,6 @@ def getPortfolioList(request):
          portfolioDetailobj.Portfolio_Name=  portfolioobj.Portfolio_Name
          portfolioDetailobj.Company_Type=  portfolioobj.Company_Type
          portfolioDetailobj.Ticker_List =  portfolioobj.Ticker_List
-         if portfolioobj.Trailing_P_E != "Any":
-                     if isLE(portfolioobj.Trailing_P_E):
-                         value = comparewithValue(portfolioobj.Trailing_P_E)
-                         print("Returning Trailing PE LT")
-                         portfolioobj.Trailing_P_E = "Under" + value
-                     elif isGT(portfolioobj.Trailing_P_E):
-                         value = comparewithValue(portfolioobj.Trailing_P_E)
-                         print("Returning Trailing PE GT")
-                         portfolioobj.Trailing_P_E = "Over" + value
          #num_portfolios = 25000
          portfolioDetailobj = dataportfolio.optimizePortfolio(portfolioDetailobj,begin)
          if portfolioobj.Company_Type =="nifty50":
@@ -44,11 +35,9 @@ def getPortfolioList(request):
              fundamentaldata = nifty_500_fundamental_data.objects.filter(Ticker__in=portfolioobj.Ticker_List)
          #print("###########SYMBOL##############")
          #print(fundamentaldata)
-         portfolioDetailobj.fundamentalDataList.append(fundamentaldata)    
+         portfolioDetailobj.fundamentalDataList.append(fundamentaldata)
          allportfolio.append(portfolioDetailobj)
          portfolioDetailobj.portfolioobj = portfolioobj
-         print("############## Debt_Equity ########")
-         print(portfolioDetailobj.portfolioobj.Debt_Equity)
          #generatereport.report.generateReport(portfolioobj)
          date = str(dt.date.today())
          #print("################# FUNDAMENTAL############")
@@ -73,16 +62,23 @@ def comparewithValue(field):
 
 def isLE(field):
     print("###########CHECKING LT##########")
-    if  "lt_" in field.value():
+    if  "lt_" in field:
         return True
     else:
         return False
 
 def isGT(field):
     print("###########CHECKING GT##########")
-    if "gt_" in field.value():
+    if "gt_" in field:
         return True;
     else:
         return False
     
+def is_number_tryexcept(s):
+    """ Returns True is string is a number. """
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False     
 

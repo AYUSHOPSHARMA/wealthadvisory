@@ -24,13 +24,17 @@ import random
 random.seed(42)
 import talib as ta
 from mpld3 import plugins
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+root_path = BASE_DIR+"/static/Portfolio_Tracker"
 
 def getSMAStrategy(company,begin):
+    filepath= root_path + "/Figures/"+company+"_SMA.png"
+    if os.path.exists(filepath):
+        return filepath
     # import cufflinks
-    smafig = []
     plt.style.use('seaborn')
     ##%matplotlib inline
-    
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
     
@@ -104,16 +108,21 @@ def getSMAStrategy(company,begin):
     data[['Returns', 'Strategy']].dropna().cumsum(
                     ).apply(np.exp).plot(figsize=(10, 6));
     
-    smafig.append(fig_to_html(plt.gcf()))
-    return fig_to_html(plt.gcf())
+    plt.title(company+" SMA")
+    plt.savefig(filepath)
+    
+    return filepath
 
 
-def getStrategy(request):
-     #smafig = getSMAStrategy(9)
+#def getStrategy(request):
+ #    smafig = getSMAStrategy(9)
      #bbbandGraph=view_indices_chart("SBIN.NS",9)
-     return render(request,"stratergyOption.html",{"smadata":smafig,"bbbandGraph":bbbandGraph})
+  #   return render(request,"stratergyOption.html",{"smadata":smafig,"bbbandGraph":bbbandGraph})
 
 def view_indices_chart(companyname,begin):
+    filepath= root_path + "/Figures/"+companyname+"_BBAND.png"
+    if os.path.exists(filepath):
+        return filepath
      #from pandas.plotting import scatter_matrix
 	#end = datetime.date(2018,5,5)
 	#begin = datetime.date(2017,1,1)
@@ -140,15 +149,16 @@ def view_indices_chart(companyname,begin):
     print(data)
     if len(data) > 0:
         data = data.dropna()
-        data['Open'],data['High'],data['Low'] = talib.BBANDS(np.asarray(data['Close']), timeperiod=30,nbdevup=1,nbdevdn=1,matype=0)
-        data['Buy'] = data.apply(lambda x : 1 if x['Close'] < x['Low']  else 0, axis=1)
-        data['Sell'] = data.apply(lambda y : 1 if y['Close'] > y['Open']  else 0, axis=1)
-        data.plot(y= ['Close','Open','High','Low'], title=companyname+' BBBANDS',figsize=(10,10),grid=True)
+        data['upperBB'],data['middleBB'],data['lowerBB'] = talib.BBANDS(np.asarray(data['Close']), timeperiod=30,nbdevup=1,nbdevdn=1,matype=0)
+        data['Buy'] = data.apply(lambda x : 1 if x['Close'] < x['lowerBB']  else 0, axis=1)
+        data['Sell'] = data.apply(lambda y : 1 if y['Close'] > y['upperBB']  else 0, axis=1)
+        data.plot(y= ['Close','upperBB','middleBB','lowerBB'], title=companyname+' BBBANDS',figsize=(10,10),grid=True)
         
-        fig1 = plt.gcf()
+        #fig1 = plt.gcf()
 
-        
-        fig_html = mpld3.fig_to_html(fig1)
+        plt.savefig(filepath)
+        return filepath
+        #fig_html = mpld3.fig_to_html(fig1)
         #fig1.savefig(byte_file, format='png')
         #image_file= byte_file.getvalue()
         # fig, ax = plt.subplots(figsize=(500,500))
@@ -158,15 +168,18 @@ def view_indices_chart(companyname,begin):
         #ax.set_title('ax1 title')
     
     else:
-        data['Open'],data['High'],data['Low'] = talib.BBANDS(np.asarray(data['Close']), timeperiod=30,nbdevup=1,nbdevdn=1,matype=0)
-        data['Buy'] = data.apply(lambda x : 1 if x['Close'] < x['Low']  else 0, axis=1)
-        data['Sell'] = data.apply(lambda y : 1 if y['Close'] > y['Open']  else 0, axis=1)
+        data['upperBB'],data['middleBB'],data['lowerBB']= talib.BBANDS(np.asarray(data['Close']), timeperiod=30,nbdevup=1,nbdevdn=1,matype=0)
+        data['Buy'] = data.apply(lambda x : 1 if x['Close'] < x['lowerBB']  else 0, axis=1)
+        data['Sell'] = data.apply(lambda y : 1 if y['Close'] > y['upperBB']  else 0, axis=1)
         plt.figure(figsize=(500,500))
-        graph =data.plot(y= ['Close','Open','High','Low'], title=companyname+' BBBANDS',figsize=(10,10),grid=True)
-        fig_html = mpld3.fig_to_html(graph)
-    return fig_html , data
+        data.plot(y= ['Close','upperBB','middleBB','lowerBB'], title=companyname+' BBBANDS',figsize=(10,10),grid=True)
+        plt.savefig(filepath)
+        return filepath
 
 def machineLearningChart(companyname,begin):
+    filepath= root_path + "/Figures/"+companyname+"_MLearning.png"
+    if os.path.exists(filepath):
+        return filepath
     
     end = datetime.date.today()
     #begin=end-pd.DateOffset(365*backtestyear)
@@ -275,12 +288,18 @@ def machineLearningChart(companyname,begin):
     pplt.plot(trade_dataset['Cumulative Strategy Returns'], color='g', label='Strategy Returns')
     #plt.plot(trade_dataset['Tomorrows Returns'], color='b', label='Tom Returns')
     pplt.legend()
-    fig = pplt.gcf()
+    #fig = pplt.gcf()
     #pplt.show()
-    fig_html = mpld3.fig_to_html(fig)
-    return fig_html
+    #fig_html = mpld3.fig_to_html(fig)
+    #return fig_html
+    plt.title(companyname+" Machine Learning Strategy")
+    plt.savefig(filepath)
+    return filepath
 
 def rsiStretagy(companyname,begin):
+    filepath= root_path + "/Figures/"+companyname+"_RSI.png"
+    if os.path.exists(filepath):
+        return filepath
     css = """
         table
         {
@@ -326,15 +345,18 @@ def rsiStretagy(companyname,begin):
     
     #RSI
     data['RSI_14'] = talib.RSI(np.asarray(data['Close']), 14)
-    points=data.plot(y= ['RSI_14'], title=companyname+' RSI with 14 day cycle')
+    data.plot(y= ['RSI_14'], title=companyname+' RSI with 14 day cycle')
     #tooltip = plugins.PointHTMLTooltip(points, labels,
      #                              voffset=10, hoffset=10, css=css)
-    graph = plt.gcf()
+    #graph = plt.gcf()
    #plugins.connect(graph, tooltip)
 
     
-    fig_html = mpld3.fig_to_html(graph)
-    return fig_html
+    #fig_html = mpld3.fig_to_html(graph)
+    #return fig_html
+    plt.title(companyname+' RSI with 14 day cycle')
+    plt.savefig(filepath)
+    return filepath
     
 def emaStretagy(companyname,begin):
     end = datetime.date.today()

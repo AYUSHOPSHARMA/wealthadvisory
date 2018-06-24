@@ -77,9 +77,9 @@ def portfoliodetail(portfolio,start_date):
     portfolio.banchmarkData=benchmark(portfolio,port_rets.astype(float),merged_data_frame.astype(float),port_val,start_date)
     num_portfolios = 25000
     portfolio.heatMapData=fig_to_html(po.portfolioOptimization(portfolio,start_date,end_date,num_portfolios))
-    portfolio.violationData=fig_to_html(violin(port_rets.astype(float),start_date))
-    portfolio.minvariance=fig_to_html(min_var(portfolio,port_rets.astype(float)))
-    portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
+    #portfolio.violationData=fig_to_html(violin(port_rets.astype(float),start_date))
+    #portfolio.minvariance=fig_to_html(min_var(portfolio,port_rets.astype(float)))
+    #portfolio.boxplotData= fig_to_html(box_plot(port_rets.astype(float),0))
     portfolio.weightplotData=fig_to_html(weights_plot(port_weights.astype(float)))
     port_val.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Value.csv',index=True)
     port_rets.to_csv(root_path+'/Daily_Data/Portfolio/'+portfolio.Portfolio_Name+'_Portfolio_Returns.csv' ,index=True)
@@ -263,8 +263,6 @@ def box_plot(port_rets,group):
         port_rets['month'] = pd.DatetimeIndex(port_rets.index).month
         port_rets['day'] = pd.DatetimeIndex(port_rets.index).weekday_name
         port_rets['month'] = port_rets['month'].apply(lambda x: calendar.month_abbr[x])
-        print("############ port_rets['month'] #######")
-        print(port_rets)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         if group == "day":

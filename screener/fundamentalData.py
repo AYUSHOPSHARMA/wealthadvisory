@@ -115,6 +115,24 @@ def get_fundamental_data(ticker,statics):
         return None
     return result
 
+def get_mutualfund_code(ticker,statics,offset,count):
+    try:
+        tickers = [ticker]
+        result = pd.DataFrame(index = tickers, columns = statics)
+        url = 'https://in.finance.yahoo.com/mutualfunds/?offset='+offset+'&count='+count+''
+        print(url)
+        resp = urlopen(url)
+        soup = BeautifulSoup(resp.read(), 'html.parser')
+        allTd = soup.find_all('td',attrs={'class':'Fz(s) Fw(500) Ta(end)'})
+            #
+        for static in statics:
+            result.ix[ticker, static] = getValue(allTd, static)
+    except:
+        print("Error in url Opening")
+        print(ticker)
+        return None
+    return result
+
 def get_balance_sheet_data(ticker,static):
     try:
         url = 'http://finance.yahoo.com/quote/'+ticker+'/balance-sheet/'

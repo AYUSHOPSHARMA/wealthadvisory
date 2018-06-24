@@ -182,9 +182,22 @@ def portfolioOptimization(portfolio, st,ed,num_portfolios):
         #fig1 = plt.gcf()
         #print(fig1)
     byte_file = io.BytesIO()
+    point1= []
+    pointsst1label = max_sharpe_port.ix[0:]
+    pointsst1label=pointsst1label.to_frame()
+    pointsst1label.columns = ['Statistics']
+    print("######## pointsst1label######")
+    print(pointsst1label) 
+    point1.append(str(pointsst1label.to_html()))
+    point2=[]
+    pointsst2label = min_vol_port.ix[0:]
+    pointsst2label=pointsst2label.to_frame()
+    pointsst2label.columns = ['Statistics']
+         
+    point2.append(str(pointsst2label.to_html()))
     tooltip = plugins.PointHTMLTooltip(points, labels,voffset=10, hoffset=10, css=css)
-    tooltipstr1 = plugins.PointHTMLTooltip(pointsst1, labels,voffset=10, hoffset=10, css=css)
-    tooltipstr2 = plugins.PointHTMLTooltip(pointsst2, labels,voffset=10, hoffset=10, css=css)
+    tooltipstr1 = plugins.PointHTMLTooltip(pointsst1, point1,voffset=10, hoffset=10, css=css)
+    tooltipstr2 = plugins.PointHTMLTooltip(pointsst2, point2,voffset=10, hoffset=10, css=css)
     plugins.connect(fig, tooltip)
     plugins.connect(fig, tooltipstr1)
     plugins.connect(fig, tooltipstr2)

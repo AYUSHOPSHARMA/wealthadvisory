@@ -21,4 +21,5 @@ urlpatterns = [
         path('uploadCompany/<str:companyType>/', views.uploadCompany),
         path('createPortfolio/', views.createPortfolio),
         path('uploadIndices/<str:companyType>/', indices.uploadIndices),
+        path('uploadMutualFund/', views.uploadMutualFund),
        ]

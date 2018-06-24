@@ -6,6 +6,9 @@ from batchprocessing.models import portfolio
 from django.http import HttpResponse
 import screener.views as fdview
 import batchprocessing.fundamentaldata as fdt
+import re
+from bs4 import BeautifulSoup
+from urllib.request import urlopen, URLError
 
 from mongoengine import *
 
@@ -31,6 +34,7 @@ def top500FundamentalData(request,companyType):
     limitQuery(request,301,375,companyType)
     limitQuery(request,376,450,companyType)
     limitQuery(request,451,500,companyType)
+
     
 def callBatch(request,companyType):
     if(companyType == "nifty50"):
@@ -41,6 +45,8 @@ def callBatch(request,companyType):
         top200FundamentalData(request,companyType)
     elif(companyType == "nifty500"):
         top500FundamentalData(request,companyType)
+    elif(companyType == "mutualfund"):
+        loadMutualFundData(request,companyType)
         
     
 def uploadCompany(request,companyType):
@@ -120,3 +126,31 @@ def savePortfolio(tickerList,Portfolio_Name,companyType,fundamental_form):
      portfolioobj.Insider_Ownership=fundamental_form['Insider_Ownership'].value()
      portfolioobj.Institutional_Ownership=fundamental_form['Institutional_Ownership'].value()
      portfolioobj.save()
+     
+
+def uploadMutualFund(request):
+    callBatch(request,"mutualfund")
+    return HttpResponse("Read All Data")
+
+def loadMutualFundData(request,companyType):
+    limitMutualFundQuery(request,0,75,companyType)
+
+def limitMutualFundQuery(request,offset,count,companyType):
+    try:
+        #tickers = ['F00000GUQS.BO',' F00000GUQR.BO',' F000001A8O.BO',' F0GBR06RVN.BO',' F00000Q9VS.BO',' F00000PSMK.BO','F00000PSRX.BO','F000001A8F.BO','F00000Q03F.BO','F00000Q47F.BO',' F000001A9K.BO',' F000002R3N.BO',' F00000NX9B.BO',' F00000UET8.BO',' F00000UETC.BO',' F00000NUJJ.BO',' F0GBR06SC1.BO',' F00000PPPW.BO',' F00000PSRW.BO',' F00000PSRP.BO',' F00000PSRQ.BO',' F0GBR06R6U.BO',' F000001A8G.BO',' F000003WEI.BO',' F00000Q15M.BO',' F00000UET9.BO',' F0GBR06SCV.BO',' F00000U4WQ.BO' ]
+        #for tk in tickers:
+         #result = pd.DataFrame(index = tk, columns = statics)
+         url = 'https://in.finance.yahoo.com/mutualfunds/?offset=0&count=100&guccounter=1'
+         print(url)
+         resp = urlopen(url)
+         soup = BeautifulSoup(resp.read(), 'html.parser')
+         allTd = soup.find_all('td',attrs={'class':'Va(m) Fz(s) Ta(start) Pstart(6px) Pend(10px)'})
+         print("All Ids")
+         print(allTd) 
+         #
+         #for static in statics:
+         #    result.ix[ticker, static] = getValue(allTd, static)
+    except:
+        print("Error in url Opening")
+        return None
+    return HttpResponse("Read All Data")

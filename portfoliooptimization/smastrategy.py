@@ -63,7 +63,7 @@ data['Strategy'] = data['Position'].shift(1) * data['Returns']
 
 data.tail()
 
-data[['Returns', 'Strategy']].dropna().cumsum(
-                ).apply(np.exp).plot(figsize=(10, 6));
+#data[['Returns', 'Strategy']].dropna().cumsum(
+#                ).apply(np.exp).plot(figsize=(10, 6));
 
 plt.show()

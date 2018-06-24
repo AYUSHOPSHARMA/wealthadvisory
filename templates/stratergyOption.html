@@ -44,50 +44,6 @@
             opacity: 0.7;
             z-index: 9999;
         }
-        #white-backgroundSO{
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            background-color: #fefefe;
-            opacity: 0.7;
-            z-index: 9999;
-        }
-        #white-backgroundMACD{
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            background-color: #fefefe;
-            opacity: 0.7;
-            z-index: 9999;
-        }
-        #white-backgroundROC{
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            background-color: #fefefe;
-            opacity: 0.7;
-            z-index: 9999;
-        }
-        #white-backgroundEMA{
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            background-color: #fefefe;
-            opacity: 0.7;
-            z-index: 9999;
-        }
         #white-backgroundB{
             display: none;
             width: 100%;
@@ -146,47 +102,6 @@
             background-color: #7c7d7e;
             top: -230px !important;
         }
-        #dlgboxEMA{
-            /*initially dialog box is hidden*/
-            display: none;
-            left: -87px !important;
-            position: absolute;
-            z-index: 9999;
-            border-radius: 10px;
-            background-color: #7c7d7e;
-            top: -230px !important;
-        }
-        #dlgboxROC{
-            /*initially dialog box is hidden*/
-            display: none;
-            left: -87px !important;
-            position: absolute;
-            z-index: 9999;
-            border-radius: 10px;
-            background-color: #7c7d7e;
-            top: -230px !important;
-        }
-        #dlgboxMACD{
-            /*initially dialog box is hidden*/
-            display: none;
-            left: -87px !important;
-            position: absolute;
-            z-index: 9999;
-            border-radius: 10px;
-            background-color: #7c7d7e;
-            top: -230px !important;
-        }
-        #dlgboxSO{
-            /*initially dialog box is hidden*/
-            display: none;
-            left: -87px !important;
-            position: absolute;
-            z-index: 9999;
-            border-radius: 10px;
-            background-color: #7c7d7e;
-            top: -230px !important;
-        }
-
         .dlg-header{
             background-color: #e96147;
             color: white;
@@ -286,11 +201,46 @@
         function change(d) {
             document.getElementById("strategyform").submit();
         }
-
+        
         function saveForm() {
             $('strategyform')
             $.post("/screener/inteligentstrategy/", {"savevalue": "save"});
         }
+        
+         function updateRdHidden(ivalue){
+         var $radios = $('input:radio[name="{{submitvalue}}"]');
+         if($radios.is(':checked') === true) {
+            $radios.prop('checked', false);
+            }
+         document.getElementById("submitvalue").value =ivalue;
+        }
+        function updateHidden(){
+        ivalue = "{{submitvalue}}"
+        alert(ivalue)
+        document.getElementById("submitvalue").value =ivalue;
+            
+        if(ivalue == "MSA"){
+            var dlg = document.getElementById("dlgboxMSA");
+            var whitebg = document.getElementById("white-backgroundR");
+        }
+        if(ivalue == "BE"){
+           var dlg = document.getElementById("dlgboxBE");
+            var whitebg = document.getElementById("white-backgroundR");
+        }
+        if(ivalue == "RSI"){
+            var dlg = document.getElementById("dlgboxRSI");
+            var whitebg = document.getElementById("white-backgroundR");
+        }
+        if(ivalue == "MLS"){
+            var dlg = document.getElementById("dlgboxMLS");
+            var whitebg = document.getElementById("white-backgroundMLS");
+        }
+        whitebg.style.display = "block";
+        dlg.style.display = "block";
+
+        }
+
+
     </script>
     <!-- Custom Theme files -->
     <link href="/static/cssA/bootstrap.css" type="text/css" rel="stylesheet" media="all">
@@ -449,6 +399,7 @@
                         <div id="submit_button" class="btn btn-success"
                                 style="margin-top: -7px;width: 196px;margin-left: 52px;" onclick="change()">Apply Strategy
                         </div>
+                        <input type="hidden" id="submitvalue" name="submitvalue" value="{{submitvalue}}">
                     </div>
                 </div>
 
@@ -477,7 +428,7 @@
                         </thead>
                         <tbody>
                         <tr id="1" style>
-                            <td><input type="radio" name="inputRadio" value="MAS"></td>
+                            <td><input type="radio" name="MSARd" onclick="updateRdHidden('MSARd')"></td>
                             <td style="padding-left: 10px;padding-right: 10px;">1</td>
                             <td style="color:#337ab7;padding-left: 1em;">Moving Average Strategy</td>
                             <td>equities</td>
@@ -507,20 +458,20 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MSA')">
+                                <div class="btn btn-success" id="MSA" name="MSA"  style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MSA')">
                                     Strategy result
                                 </div>
                             </td>
 
                         </tr>
                         <tr id="2" class="gridrow_alternate">
-                            <td><input type="radio" name="inputRadio" value="BBS"></td>
+                            <td><input type="radio" name="BBSRd"  onclick="updateRdHidden('BBSRd')" ></td>
                             <td style="padding-left: 10px;padding-right: 10px;">2</td>
                             <td style="color:#337ab7;padding-left: 1em;">Bollinger Band Strategy</td>
                             <td>equities</td>
                             <td>9.07%</td>
                             <td style="padding-left: 1em;">9.60%*</td>
-                            <td>momentum, asset class picking, rotational system</td>
+                            <td>Mean Reverting, asset class picking, rotational system</td>
                             <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
@@ -543,19 +494,19 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;font-size: 10px;margin-top: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <div id="result02" class="btn btn-success" style="width: 100px;font-size: 10px;" onclick="showDialog('BE')">
+                                <div id="result02" class="btn btn-success" id="BE" name="BE"   style="width: 100px;font-size: 10px;" onclick="showDialog('BE')">
                                     Strategy result
                                 </div>
                             </td>
                         </tr>
                         <tr id="3" style>
-                            <td><input type="radio" name="inputRadio" value="RSI"></td>
+                            <td><input type="radio" name="RSIRd"  onclick="updateRdHidden('RSIRd')"  ></td>
                             <td style="padding-left: 10px;padding-right: 10px;">3</td>
                             <td style="color:#337ab7;padding-left: 1em;">Relative Strength Index Strategy</td>
                             <td>equities</td>
                             <td>9.07%</td>
                             <td style="padding-left: 1em;">6.87%*</td>
-                            <td>momentum, asset class picking, trendfollowing</td>
+                            <td>Mean Reverting, asset class picking, trendfollowing</td>
                             <td style="padding-left: 1em;">
                                 <details>
                                     <summary><label>Try</label></summary>
@@ -578,14 +529,14 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('RSI')">
+                                <div class="btn btn-success" id="RSI" name="RSI" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('RSI')">
                                     Strategy result
                                 </div>
                             </td>
 
                         </tr>
                         <tr id="4" style>
-                            <td><input type="radio" name="inputRadio" value="MLS"></td>
+                            <td><input type="radio" name="MLSRd"   onclick="updateRdHidden('MLSRd')" ></td>
                             <td style="padding-left: 10px;padding-right: 10px;">4</td>
                             <td style="color:#337ab7;padding-left: 1em;">Machine Learning Strategy</td>
                             <td>equities</td>
@@ -614,151 +565,7 @@
                                 <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
                             </td>
                             <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MLS')">
-                                    Strategy result
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr id="5" style>
-                            <td><input type="radio" name="inputRadio" value="EMA"></td>
-                            <td style="padding-left: 10px;padding-right: 10px;">5</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Exponetial moving average Strategy</td>
-                            <td>equities</td>
-                            <td>9.07%</td>
-                            <td style="padding-left: 1em;">6.87%*</td>
-                            <td>momentum, asset class picking, trendfollowing</td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Try</label></summary>
-                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
-                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
-                                </details>
-                            </td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Set it</label></summary>
-                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
-                                    <select style="margin-top: 10px;">
-                                        <option value="10">10,00,000</option>
-                                        <option value="15">15,00,000</option>
-                                    </select>
-                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
-                                </details>
-                            </td>
-                            <td>
-                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
-                            </td>
-                            <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('EMA')">
-                                    Strategy result
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr id="6" style>
-                            <td><input type="radio" name="inputRadio" value="ROC"></td>
-                            <td style="padding-left: 10px;padding-right: 10px;">6</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Rate of change Strategy</td>
-                            <td>equities</td>
-                            <td>9.07%</td>
-                            <td style="padding-left: 1em;">6.87%*</td>
-                            <td>momentum, asset class picking, trendfollowing</td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Try</label></summary>
-                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
-                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
-                                </details>
-                            </td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Set it</label></summary>
-                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
-                                    <select style="margin-top: 10px;">
-                                        <option value="10">10,00,000</option>
-                                        <option value="15">15,00,000</option>
-                                    </select>
-                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
-                                </details>
-                            </td>
-                            <td>
-                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
-                            </td>
-                            <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('ROC')">
-                                    Strategy result
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr id="7" style>
-                            <td><input type="radio" name="inputRadio" value="MACD"></td>
-                            <td style="padding-left: 10px;padding-right: 10px;">7</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Moving Average Crossover Divergence Strategy</td>
-                            <td>equities</td>
-                            <td>9.07%</td>
-                            <td style="padding-left: 1em;">6.87%*</td>
-                            <td>momentum, asset class picking, trendfollowing</td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Try</label></summary>
-                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
-                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
-                                </details>
-                            </td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Set it</label></summary>
-                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
-                                    <select style="margin-top: 10px;">
-                                        <option value="10">10,00,000</option>
-                                        <option value="15">15,00,000</option>
-                                    </select>
-                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
-                                </details>
-                            </td>
-                            <td>
-                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
-                            </td>
-                            <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MACD')">
-                                    Strategy result
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr id="8" style>
-                            <td><input type="radio" name="inputRadio" value="SOS"></td>
-                            <td style="padding-left: 10px;padding-right: 10px;">8</td>
-                            <td style="color:#337ab7;padding-left: 1em;">Stochastic Oscillator Strategy</td>
-                            <td>equities</td>
-                            <td>9.07%</td>
-                            <td style="padding-left: 1em;">6.87%*</td>
-                            <td>momentum, asset class picking, trendfollowing</td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Try</label></summary>
-                                    <button type="submit" name="Livetrading_yes"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">Yes</button>
-                                <button type="submit" name="Livetrading_no"  class="btn btn-success" style="width: 100px;margin-top: 5px;font-size: 10px;" value="Submit">No</button>
-                                </details>
-                            </td>
-                            <td style="padding-left: 1em;">
-                                <details>
-                                    <summary><label>Set it</label></summary>
-                                    <label style="margin-top: 10px;">Choose amount at which you want to stop your transaction</label>
-                                    <select style="margin-top: 10px;">
-                                        <option value="10">10,00,000</option>
-                                        <option value="15">15,00,000</option>
-                                    </select>
-                                    <button type="submit" name="stoploss_yes"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">stop loss trigger</button>
-                                </details>
-                            </td>
-                            <td>
-                                <button type="submit" name="submit_button"  class="btn btn-success" style="width: 100px;margin-top: 10px;font-size: 10px;" value="Submit">Try Paper trading</button>
-                            </td>
-                            <td style="padding-left: 1em;padding-top: 1em;">
-                                <div class="btn btn-success" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('SO')">
+                                <div class="btn btn-success" id="MLS" name="MLS" style="width: 100px;font-size: 10px;font-size: 10px;" onclick="showDialog('MLS')">
                                     Strategy result
                                 </div>
                             </td>
@@ -772,7 +579,7 @@
                     </div>
                     <div id="dlgboxMSA">
                         <div class="dlg-header">Find the graphs below using Moving Average Comparing strategy on {{company}}</div>
-                        <div class="dlg-body">{{smadata|safe|escape}}</div>
+                        <div class="dlg-body"><img src="/static/Portfolio_Tracker/Figures/{{company}}_SMA.png" alt=""/></div>
                         <div class="dlg-footer">
                             <div class="btn btn-success" onclick="dlgCancel('MSA')">Cancel</div>
                         </div>
@@ -781,7 +588,7 @@
                     </div>
                     <div id="dlgboxBE">
                         <div class="dlg-header">Find the graphs below using Bollinger Band Strategy strategy on {{company}}</div>
-                        <div class="dlg-body">{{bbbandGraph|safe|escape}}</div>
+                        <div class="dlg-body"><img src="/static/Portfolio_Tracker/Figures/{{company}}_BBAND.png" alt=""/></div>
                          <div id="screener-content">
                          </div>
 
@@ -793,7 +600,8 @@
                     </div>
                     <div id="dlgboxRSI">
                         <div class="dlg-header">Find the graphs below using Relative Strength Index strategy on {{company}}</div>
-                        <div class="dlg-body">{{rsiStretagyGraph|safe|escape}}</div>
+                        <div class="dlg-body">
+                        <img src="/static/Portfolio_Tracker/Figures/{{company}}_RSI.png" alt=""/></div>
                                                 <div class="dlg-footer">
                             <div class="btn btn-success" onclick="dlgCancel('RSI')">Cancel</div>
                         </div>
@@ -802,48 +610,11 @@
                     </div>
                     <div id="dlgboxMLS">
                         <div class="dlg-header">Find the graphs below using Machine Learning strategy on {{company}}</div>
-                        <div class="dlg-body">{{machineLearningGraph|safe|escape}}</div>
+                        <div class="dlg-body"><img src="/static/Portfolio_Tracker/Figures/{{company}}_MLearning.png" alt=""/></div>
                         <div class="dlg-footer">
                             <div class="btn btn-success" onclick="dlgCancel('MLS')">Cancel</div>
                         </div>
                     </div>
-                    <div id="white-backgroundEMA">
-                    </div>
-                    <div id="dlgboxEMA">
-                        <div class="dlg-header">Find the graphs below using Exponetial moving average strategy on {{company}}</div>
-                        <div class="dlg-body">{{emaStretagyGraph|safe|escape}}</div>
-                        <div class="dlg-footer">
-                            <div class="btn btn-success" onclick="dlgCancel('EMA')">Cancel</div>
-                        </div>
-                    </div>
-                    <div id="white-backgroundROC">
-                    </div>
-                    <div id="dlgboxROC">
-                        <div class="dlg-header">Find the graphs below using Rate of change strategy on {{company}}</div>
-                        <div class="dlg-body">{{rocStretagyGraph|safe|escape}}</div>
-                        <div class="dlg-footer">
-                            <div class="btn btn-success" onclick="dlgCancel('ROC')">Cancel</div>
-                        </div>
-                    </div>
-                    <div id="white-backgroundMACD">
-                    </div>
-                    <div id="dlgboxMACD">
-                        <div class="dlg-header">Find the graphs below using Moving Average Crossover Divergence strategy on {{company}}</div>
-                        <div class="dlg-body">{{macdStretagyGraph|safe|escape}}</div>
-                        <div class="dlg-footer">
-                            <div class="btn btn-success" onclick="dlgCancel('MACD')">Cancel</div>
-                        </div>
-                    </div>
-                    <div id="white-backgroundSO">
-                    </div>
-                    <div id="dlgboxSO">
-                        <div class="dlg-header">Find the graphs below using Stochastic Oscillator strategy on {{company}}</div>
-                        <div class="dlg-body">{{soStretagyGraph|safe|escape}}</div>
-                        <div class="dlg-footer">
-                            <div class="btn btn-success" onclick="dlgCancel('SO')">Cancel</div>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
             <!--<div class="col-lg-4 col-md-4 col-sm-4">
@@ -1018,6 +789,10 @@
             navigationText: true,
             pagination: true,
         });
+        var $radios = $('input:radio[name="{{submitvalue}}"]');
+        if($radios.is(':checked') === false) {
+            $radios.prop('checked', true);
+        }
     });
 </script>
 <!--//required-js-files-->
@@ -1083,24 +858,8 @@
             var dlg = document.getElementById("dlgboxMLS");
             var whitebg = document.getElementById("white-backgroundMLS");
         }
-        if(ast == "MACD"){
-            var dlg = document.getElementById("dlgboxMACD");
-            var whitebg = document.getElementById("white-backgroundMACD");
-        }
-        if(ast == "EMA"){
-            var dlg = document.getElementById("dlgboxEMA");
-            var whitebg = document.getElementById("white-backgroundEMA");
-        }
-        if(ast == "ROC"){
-            var dlg = document.getElementById("dlgboxROC");
-            var whitebg = document.getElementById("white-backgroundROC");
-        }
-        if(ast == "SO"){
-            var dlg = document.getElementById("dlgboxSO");
-            var whitebg = document.getElementById("white-backgroundSO");
-        }
-        whitebg.style.display = "none";
         dlg.style.display = "none";
+        whitebg.style.display = "none";
     }
 
     function showDialog(ast){
@@ -1119,22 +878,6 @@
         if(ast == "MLS"){
             var dlg = document.getElementById("dlgboxMLS");
             var whitebg = document.getElementById("white-backgroundMLS");
-        }
-        if(ast == "MACD"){
-            var dlg = document.getElementById("dlgboxMACD");
-            var whitebg = document.getElementById("white-backgroundMACD");
-        }
-        if(ast == "EMA"){
-            var dlg = document.getElementById("dlgboxEMA");
-            var whitebg = document.getElementById("white-backgroundEMA");
-        }
-        if(ast == "ROC"){
-            var dlg = document.getElementById("dlgboxROC");
-            var whitebg = document.getElementById("white-backgroundROC");
-        }
-        if(ast == "SO"){
-            var dlg = document.getElementById("dlgboxSO");
-            var whitebg = document.getElementById("white-backgroundSO");
         }
         whitebg.style.display = "block";
         dlg.style.display = "block";

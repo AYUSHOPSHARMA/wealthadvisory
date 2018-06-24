@@ -754,3 +754,29 @@ class strategy(Document):
         PEG_Ratio= DecimalField(required=False)
         Price_Sales= DecimalField(required=False)
         Price_Book= DecimalField(required=False)
+
+class mutualfund_company(Document):
+        Company_Name = StringField(max_length=100,required=False)
+        Scheme_Name = StringField(max_length=100,required=False)
+        Scheme_Code=  StringField(max_length=100,required=True)
+        
+class mutualfund(Document):
+        Company_Name = StringField(max_length=100,required=False)
+        Scheme_Name = StringField(max_length=100,required=False)
+        Scheme_Code=  StringField(max_length=100,required=True)
+        NAV= DecimalField(max_length=100,required=False)
+        Date=  StringField(max_length=100,required=True)
+
+class scheme(Document):
+        Scheme_Name = StringField(max_length=100,required=False)
+        Scheme_Code=  StringField(max_length=100,required=True)
+
+class mutualfunddetail(Document):
+        Company_Name = StringField(max_length=100,required=False)
+        Scheme_Name = StringField(max_length=100,required=False)
+        Scheme_Code=  StringField(max_length=100,required=True)
+        NAV= DecimalField(max_length=100,required=False)
+        Day_50_Moving_Average= DecimalField(required=False)
+        Day_200_Moving_Average= DecimalField(required=False)
+        Buy=  StringField(max_length=100,required=True)
+        ImageUrl=  StringField(max_length=100,required=True)
